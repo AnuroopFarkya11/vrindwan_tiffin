@@ -1,6 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/rendering.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:triton_extensions/triton_extensions.dart';
+import 'package:vrindavantiffin/src/screen/auth/auth_screen.dart';
 import 'package:vrindavantiffin/src/screen/auth/provider/auth_provider.dart';
+import 'package:vrindavantiffin/src/screen/cart/cart_sheet.dart';
+import 'package:vrindavantiffin/src/screen/cart/provider/cart_provider.dart';
+import 'package:vrindavantiffin/src/screen/cart/state/cart_state.dart';
 import 'package:vrindavantiffin/src/screen/home/provider/home_provider.dart';
 import 'package:vrindavantiffin/src/screen/home/state/home_state.dart';
 import 'package:vrindavantiffin/src/screen/home/widget/item_card.dart';
@@ -15,9 +21,11 @@ class HomeScreen extends ConsumerStatefulWidget {
 class _HomeScreenState extends ConsumerState<HomeScreen> {
   @override
   Widget build(BuildContext context) {
+
     return Scaffold(
       appBar: _getAppBar(),
       body: _getBody(),
+      bottomSheet: _getSheet(),
     );
   }
 
@@ -50,6 +58,7 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
       case (HomeStatus.loaded):
         {
           return GridView.builder(
+              padding: 10.padding,
               gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                   crossAxisCount: 2, childAspectRatio: 0.8),
               shrinkWrap: true,
@@ -63,5 +72,25 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
       default:
         return SizedBox.shrink();
     }
+  }
+
+  _getSheet() {
+
+    final cart = ref.watch(cartProvider);
+
+    switch(cart.status)
+    {
+      case CartStatus.filled:{
+
+        return CartSheet();
+      }
+      default:{
+        return SizedBox.shrink();
+      }
+    }
+
+
+
+
   }
 }

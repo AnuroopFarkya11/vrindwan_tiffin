@@ -9,8 +9,11 @@ class CartState {
 
   CartState({required this.status, this.message, this.items});
 
-  CartState copyWith({CartStatus? status, String? message}) {
+  CartState copyWith(
+      {CartStatus? status, List<FoodItem>? items, String? message}) {
     return CartState(
-        status: status ?? this.status, message: message ?? this.message);
+        status: status ?? this.status,
+        items: items,
+        message: message ?? this.message);
   }
 }

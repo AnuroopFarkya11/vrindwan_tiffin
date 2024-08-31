@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:vrindavantiffin/src/core/navigation/app_router.dart';
+import 'package:vrindavantiffin/src/shared/theme/app_theme.dart';
 
 class App extends ConsumerStatefulWidget {
   final AppRouter router;
@@ -19,6 +20,9 @@ class _AppState extends ConsumerState<App> {
       routerDelegate: widget.router.router.routerDelegate,
       routeInformationProvider: widget.router.router.routeInformationProvider,
       debugShowCheckedModeBanner: false,
+      theme: AppThemes.themeLight,
+      darkTheme: AppThemes.themeDark,
+      themeMode: ThemeMode.system,
 
     );
   }

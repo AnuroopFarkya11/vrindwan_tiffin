@@ -4,10 +4,12 @@ import 'package:input_quantity/input_quantity.dart';
 import 'package:triton_extensions/triton_extensions.dart';
 import 'package:vrindavantiffin/src/core/models/item_model.dart';
 import 'package:vrindavantiffin/src/screen/auth/auth_screen.dart';
+import 'package:vrindavantiffin/src/screen/cart/provider/cart_provider.dart';
 
 class FoodItemCard extends ConsumerStatefulWidget {
   final FoodItem item;
-  const FoodItemCard({super.key,required this.item});
+
+  const FoodItemCard({super.key, required this.item});
 
   @override
   ConsumerState<FoodItemCard> createState() => _FoodItemCardState();
@@ -17,6 +19,7 @@ class _FoodItemCardState extends ConsumerState<FoodItemCard> {
   @override
   Widget build(BuildContext context) {
     return Card(
+
       elevation: 5,
       child: LayoutBuilder(
         builder: (context, constraints) {
@@ -49,9 +52,14 @@ class _FoodItemCardState extends ConsumerState<FoodItemCard> {
                     isIntrinsicWidth: true,
                     decoration: QtyDecorationProps(
                       width: (constraints.maxWidth * 0.3).toInt(),
-                      contentPadding: EdgeInsets.all(constraints.maxWidth * 0.02),
+                      contentPadding:
+                          EdgeInsets.all(constraints.maxWidth * 0.02),
                     ),
-                    onQtyChanged: (val) {},
+                    onQtyChanged: (val) {
+                      ref
+                          .read(cartProvider.notifier)
+                          .placeItemToCart(widget.item, val.toInt());
+                    },
                   ),
                 )
               ],
@@ -60,6 +68,5 @@ class _FoodItemCardState extends ConsumerState<FoodItemCard> {
         },
       ),
     );
-
   }
 }

@@ -1,13 +1,15 @@
+import 'package:vrindavantiffin/src/core/logger/logger.dart';
 import 'package:vrindavantiffin/src/core/models/item_model.dart';
 import 'package:vrindavantiffin/src/screen/cart/repository/cart_repository.dart';
 
+final _logger = Logger("CartService");
 class CartService extends CartRepository {
   final Map<String, _CartEntry> _items = {};
 
   @override
   Future<void> addItem(FoodItem item, {int quantity = 1}) async {
     if (_items.containsKey(item.id)) {
-      _items[item.id]!.quantity += quantity;
+      _items[item.id]!.quantity = quantity;
     } else {
       _items[item.id] = _CartEntry(item: item, quantity: quantity);
     }
@@ -25,6 +27,7 @@ class CartService extends CartRepository {
   }
   @override
   Future<List<FoodItem>> getItems() async {
+
     return _items.values.map((entry) => entry.item).toList();
   }
 
