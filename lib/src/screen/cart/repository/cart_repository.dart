@@ -1,4 +1,5 @@
 import 'package:vrindavantiffin/src/core/models/item_model.dart';
+import 'package:vrindavantiffin/src/screen/cart/model/cart_entry.dart';
 
 abstract class CartRepository {
   // Add an item to the cart
@@ -9,6 +10,9 @@ abstract class CartRepository {
 
   // Get the list of all items in the cart
   Future<List<FoodItem>> getItems();
+
+  // Get the list of all entries in the cart
+  Future<List<CartEntry>> getEntries();
 
   // Get the quantity of a specific item in the cart
   Future<int> getItemQuantity(FoodItem item);

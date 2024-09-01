@@ -1,17 +1,19 @@
 import 'package:vrindavantiffin/src/core/logger/logger.dart';
 import 'package:vrindavantiffin/src/core/models/item_model.dart';
+import 'package:vrindavantiffin/src/screen/cart/model/cart_entry.dart';
 import 'package:vrindavantiffin/src/screen/cart/repository/cart_repository.dart';
 
 final _logger = Logger("CartService");
+
 class CartService extends CartRepository {
-  final Map<String, _CartEntry> _items = {};
+  final Map<String, CartEntry> _items = {};
 
   @override
   Future<void> addItem(FoodItem item, {int quantity = 1}) async {
     if (_items.containsKey(item.id)) {
       _items[item.id]!.quantity = quantity;
     } else {
-      _items[item.id] = _CartEntry(item: item, quantity: quantity);
+      _items[item.id] = CartEntry(item: item, quantity: quantity);
     }
   }
 
@@ -25,10 +27,15 @@ class CartService extends CartRepository {
       }
     }
   }
+
   @override
   Future<List<FoodItem>> getItems() async {
-
     return _items.values.map((entry) => entry.item).toList();
+  }
+
+  @override
+  Future<List<CartEntry>> getEntries() async {
+    return _items.values.map((entry) => entry).toList();
   }
 
   @override
@@ -48,6 +55,7 @@ class CartService extends CartRepository {
   Future<bool> isInCart(FoodItem item) async {
     return _items.containsKey(item.id);
   }
+
   @override
   Future<void> clearCart() async {
     _items.clear();
@@ -108,11 +116,4 @@ class CartService extends CartRepository {
         _items.values.fold(0, (total, entry) => total + (10 * entry.quantity));
     return Duration(minutes: totalPreparationTime);
   }
-}
-
-class _CartEntry {
-  final FoodItem item;
-  int quantity;
-
-  _CartEntry({required this.item, required this.quantity});
 }

@@ -2,6 +2,7 @@ import 'package:go_router/go_router.dart';
 import 'package:vrindavantiffin/src/core/navigation/app_routes.dart';
 import 'package:vrindavantiffin/src/screen/auth/auth_controller.dart';
 import 'package:vrindavantiffin/src/screen/auth/otp_screen.dart';
+import 'package:vrindavantiffin/src/screen/cart/cart_screen.dart';
 import 'package:vrindavantiffin/src/screen/home/home_screen.dart';
 
 class AppRouter {
@@ -23,10 +24,13 @@ class AppRouter {
                 );
               }),
           GoRoute(
-            path: AppRoutes.home.path,
-            name: AppRoutes.home.name,
-            builder: (context,state)=>HomeScreen()
-          )
+              path: AppRoutes.home.path,
+              name: AppRoutes.home.name,
+              builder: (context, state) => HomeScreen()),
+          GoRoute(
+              path: AppRoutes.cart.name,
+              name: AppRoutes.cart.name,
+              builder: (context, state) => CartScreen())
         ])
   ]);
 }

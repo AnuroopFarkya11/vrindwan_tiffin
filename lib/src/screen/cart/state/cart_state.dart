@@ -1,19 +1,22 @@
 import 'package:vrindavantiffin/src/core/models/item_model.dart';
+import 'package:vrindavantiffin/src/screen/cart/model/cart_entry.dart';
 
 enum CartStatus { initial, empty, filled, loading }
 
 class CartState {
   CartStatus status;
-  List<FoodItem>? items;
+  List<CartEntry>? entries;
+  double? total;
   String? message;
 
-  CartState({required this.status, this.message, this.items});
+  CartState({required this.status, this.message, this.entries,this.total});
 
   CartState copyWith(
-      {CartStatus? status, List<FoodItem>? items, String? message}) {
+      {CartStatus? status, List<CartEntry>? entries, double? total, String? message}) {
     return CartState(
         status: status ?? this.status,
-        items: items,
+        entries: entries??this.entries,
+        total: total??this.total,
         message: message ?? this.message);
   }
 }

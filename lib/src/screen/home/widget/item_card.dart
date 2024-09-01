@@ -18,6 +18,7 @@ class FoodItemCard extends ConsumerStatefulWidget {
 class _FoodItemCardState extends ConsumerState<FoodItemCard> {
   @override
   Widget build(BuildContext context) {
+    int cnt = ref.watch(cartProvider.notifier).getItemQty(widget.item);
     return Card(
 
       elevation: 5,
@@ -48,7 +49,8 @@ class _FoodItemCardState extends ConsumerState<FoodItemCard> {
                 Spacer(),
                 Center(
                   child: InputQty(
-                    initVal: 0,
+                    initVal:cnt ,
+
                     isIntrinsicWidth: true,
                     decoration: QtyDecorationProps(
                       width: (constraints.maxWidth * 0.3).toInt(),

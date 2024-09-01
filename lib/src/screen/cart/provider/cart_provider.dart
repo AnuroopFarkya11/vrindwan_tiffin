@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:vrindavantiffin/src/core/logger/logger.dart';
 import 'package:vrindavantiffin/src/core/models/item_model.dart';
+import 'package:vrindavantiffin/src/screen/cart/model/cart_entry.dart';
 import 'package:vrindavantiffin/src/screen/cart/repository/cart_repository.dart';
 import 'package:vrindavantiffin/src/screen/cart/service/cart_service.dart';
 import 'package:vrindavantiffin/src/screen/cart/state/cart_state.dart';
@@ -21,11 +22,13 @@ class CartProvider extends StateNotifier<CartState> {
   }
 
   Future<void> getCartItems() async {
-    List<FoodItem> items = await service.getItems();
-    if (items.isEmpty)
+    List<CartEntry> entries = await service.getEntries();
+    double total = await service.sumTotal();
+    _logger.log("Cart total : ${total}");
+    if (entries.isEmpty)
       state = state.copyWith(status: CartStatus.empty);
     else {
-      state = state.copyWith(status: CartStatus.filled);
+      state = state.copyWith(status: CartStatus.filled, entries: entries,total: total);
     }
   }
 
@@ -35,12 +38,21 @@ class CartProvider extends StateNotifier<CartState> {
     } else {
       await service.removeItem(item);
     }
-    List<FoodItem> items = await service.getItems();
+    List<CartEntry> items = await service.getEntries();
 
     if (items.isNotEmpty) {
-      state = state.copyWith(status: CartStatus.filled, items: items);
+      double total = await service.sumTotal();
+      state = state.copyWith(status: CartStatus.filled,entries: items,total: total);
     } else {
-      state = state.copyWith(status: CartStatus.empty, items: items);
+      state = state.copyWith(status: CartStatus.empty,entries: items);
     }
+  }
+
+  int getItemQty(FoodItem item){
+    int cnt=0;
+    Future.microtask(()async{
+      cnt = await service.getItemQuantity(item);
+    });
+    return cnt;
   }
 }
