@@ -3,6 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:vrindavantiffin/src/core/navigation/app_router.dart';
 import 'package:vrindavantiffin/src/shared/theme/app_theme.dart';
 
+final GlobalKey<NavigatorState> navigatorKey = GlobalKey<NavigatorState>();
 class App extends ConsumerStatefulWidget {
   final AppRouter router;
 
@@ -15,7 +16,9 @@ class App extends ConsumerStatefulWidget {
 class _AppState extends ConsumerState<App> {
   @override
   Widget build(BuildContext context) {
+
     return MaterialApp.router(
+
       routeInformationParser: widget.router.router.routeInformationParser,
       routerDelegate: widget.router.router.routerDelegate,
       routeInformationProvider: widget.router.router.routeInformationProvider,
