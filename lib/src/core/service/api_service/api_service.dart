@@ -1,6 +1,12 @@
 import 'package:dio/dio.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:vrindavantiffin/src/core/logger/logger.dart';
 import 'package:vrindavantiffin/src/core/service/api_service/interceptors/log_interceptor.dart';
+
+final dioClientProvider = Provider((ref) {
+  final Dio dio = Dio();
+  return DioClient(dio: dio);
+});
 
 class DioClient {
   final Dio _dio;
@@ -93,6 +99,5 @@ class DioClient {
         _logger.log("Unexpected error: ${error.message}");
         break;
     }
-
   }
 }
