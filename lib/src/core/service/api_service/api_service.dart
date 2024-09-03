@@ -13,7 +13,7 @@ class DioClient {
   final _logger = Logger("DioClient");
 
   DioClient({required Dio dio}) : _dio = dio {
-    _dio.options.baseUrl = 'https:localhost:8080';
+    // _dio.options.baseUrl = 'localhost:8080';
     _dio.options.connectTimeout = const Duration(seconds: 30);
     _dio.options.receiveTimeout = const Duration(seconds: 30);
     _dio.options.headers = {'Content-Type': 'application/json'};
