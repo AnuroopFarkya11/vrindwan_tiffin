@@ -43,6 +43,19 @@ class AuthService extends AuthRepository {
     await auth.signInWithCredential(credential);
   }
 
+  Future<void> storeUserToDb() async {
+    String endPoint = "/user";
+    final response = await dioClient.post(endPoint, data: {
+      "uid": "010102",
+      "name": "Archi Palrecha",
+      "address": "3082, Sudama Nagar Sector E",
+      "number": 8305048867,
+      "role": "ADMIN"
+    });
+
+    _logger.log("User created successfully : ${response.data}");
+  }
+
   Future<void> logout() async {
     await auth.signOut();
   }

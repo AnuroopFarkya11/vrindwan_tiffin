@@ -64,10 +64,13 @@ class AuthProvider extends StateNotifier<AuthState> {
   Future<void> verifyOtpAndSignIn(String code) async {
     try {
       await service.verifyOtpAndSignIn(state.message ?? '', code);
+      await service.storeUserToDb();
     } catch (ex) {
       _logger.log('Ex: $ex');
     }
   }
+
+
 
   Future<void> logout() async {
     try {
