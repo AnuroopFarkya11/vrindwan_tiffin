@@ -4,6 +4,7 @@ import 'package:vrindavantiffin/src/screen/auth/auth_controller.dart';
 import 'package:vrindavantiffin/src/screen/auth/otp_screen.dart';
 import 'package:vrindavantiffin/src/screen/cart/cart_screen.dart';
 import 'package:vrindavantiffin/src/screen/home/home_screen.dart';
+import 'package:vrindavantiffin/src/screen/payment/payment_screen.dart';
 
 class AppRouter {
   GoRouter get router => _router;
@@ -30,7 +31,11 @@ class AppRouter {
           GoRoute(
               path: AppRoutes.cart.name,
               name: AppRoutes.cart.name,
-              builder: (context, state) => CartScreen())
+              builder: (context, state) => CartScreen()),
+          GoRoute(
+              path: AppRoutes.payment.path,
+              name: AppRoutes.payment.name,
+              builder: (context, state) => PaymentScreen())
         ])
   ]);
 }
