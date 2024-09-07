@@ -3,8 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:input_quantity/input_quantity.dart';
 import 'package:triton_extensions/triton_extensions.dart';
 import 'package:vrindavantiffin/src/core/models/item_model.dart';
-import 'package:vrindavantiffin/src/screen/auth/auth_screen.dart';
-import 'package:vrindavantiffin/src/screen/cart/provider/cart_provider.dart';
+import 'package:vrindavantiffin/src/screen/user/cart/provider/cart_provider.dart';
 
 class FoodItemCard extends ConsumerStatefulWidget {
   final FoodItem item;

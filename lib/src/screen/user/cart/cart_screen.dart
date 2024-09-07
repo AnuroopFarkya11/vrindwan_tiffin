@@ -3,9 +3,9 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:vrindavantiffin/src/core/navigation/app_routes.dart';
 import 'package:vrindavantiffin/src/core/navigation/app_routes.dart';
-import 'package:vrindavantiffin/src/screen/cart/provider/cart_provider.dart';
-import 'package:vrindavantiffin/src/screen/cart/state/cart_state.dart';
-import 'package:vrindavantiffin/src/screen/cart/widget/item_tile.dart';
+import 'package:vrindavantiffin/src/screen/user/cart/provider/cart_provider.dart';
+import 'package:vrindavantiffin/src/screen/user/cart/state/cart_state.dart';
+import 'package:vrindavantiffin/src/screen/user/cart/widget/item_tile.dart';
 import 'package:triton_extensions/triton_extensions.dart';
 
 class CartScreen extends ConsumerStatefulWidget {

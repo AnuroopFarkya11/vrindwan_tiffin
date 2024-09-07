@@ -1,5 +1,5 @@
 import 'package:vrindavantiffin/src/core/models/item_model.dart';
-import 'package:vrindavantiffin/src/screen/cart/model/cart_entry.dart';
+import 'package:vrindavantiffin/src/screen/user/cart/model/cart_entry.dart';
 
 enum CartStatus { initial, empty, filled, loading }
 

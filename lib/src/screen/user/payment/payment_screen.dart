@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:triton_extensions/triton_extensions.dart';
-import 'package:vrindavantiffin/src/screen/auth/auth_screen.dart';
-import 'package:vrindavantiffin/src/screen/payment/widget/payment_mode_tile.dart';
+import 'package:vrindavantiffin/src/screen/user/payment/widget/payment_mode_tile.dart';
 
 class PaymentScreen extends ConsumerStatefulWidget {
   const PaymentScreen({super.key});

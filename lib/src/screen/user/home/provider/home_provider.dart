@@ -3,8 +3,8 @@ import 'dart:io';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:vrindavantiffin/src/core/logger/logger.dart';
 import 'package:vrindavantiffin/src/core/models/item_model.dart';
-import 'package:vrindavantiffin/src/screen/home/repository/home_repository.dart';
-import 'package:vrindavantiffin/src/screen/home/state/home_state.dart';
+import 'package:vrindavantiffin/src/screen/user/home/repository/home_repository.dart';
+import 'package:vrindavantiffin/src/screen/user/home/state/home_state.dart';
 
 /// Logger
 final _logger = Logger("HomeProvider");

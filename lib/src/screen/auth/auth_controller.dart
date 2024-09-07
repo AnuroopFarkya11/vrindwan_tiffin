@@ -3,7 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:vrindavantiffin/src/screen/auth/auth_screen.dart';
 import 'package:vrindavantiffin/src/screen/auth/provider/auth_provider.dart';
 import 'package:vrindavantiffin/src/screen/auth/state/auth_state.dart';
-import 'package:vrindavantiffin/src/screen/home/home_screen.dart';
+import 'package:vrindavantiffin/src/screen/user/home/home_screen.dart';
 
 class AuthController extends ConsumerWidget {
   const AuthController({super.key});

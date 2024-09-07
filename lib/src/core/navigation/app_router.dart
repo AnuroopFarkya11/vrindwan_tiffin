@@ -1,10 +1,11 @@
 import 'package:go_router/go_router.dart';
 import 'package:vrindavantiffin/src/core/navigation/app_routes.dart';
+import 'package:vrindavantiffin/src/screen/admin/console/console_screen.dart';
 import 'package:vrindavantiffin/src/screen/auth/auth_controller.dart';
 import 'package:vrindavantiffin/src/screen/auth/otp_screen.dart';
-import 'package:vrindavantiffin/src/screen/cart/cart_screen.dart';
-import 'package:vrindavantiffin/src/screen/home/home_screen.dart';
-import 'package:vrindavantiffin/src/screen/payment/payment_screen.dart';
+import 'package:vrindavantiffin/src/screen/user/cart/cart_screen.dart';
+import 'package:vrindavantiffin/src/screen/user/home/home_screen.dart';
+import 'package:vrindavantiffin/src/screen/user/payment/payment_screen.dart';
 
 class AppRouter {
   GoRouter get router => _router;
@@ -15,6 +16,10 @@ class AppRouter {
         name: AppRoutes.auth.name,
         builder: (context, state) => const AuthController(),
         routes: [
+          GoRoute(
+              path: AppRoutes.console.path,
+              name: AppRoutes.console.name,
+              builder: (context, state) => ConsoleScreen()),
           GoRoute(
               path: AppRoutes.otp.path,
               name: AppRoutes.otp.name,
@@ -36,6 +41,7 @@ class AppRouter {
               path: AppRoutes.payment.path,
               name: AppRoutes.payment.name,
               builder: (context, state) => PaymentScreen())
-        ])
+        ]),
+
   ]);
 }

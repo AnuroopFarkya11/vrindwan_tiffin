@@ -2,14 +2,13 @@ import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:triton_extensions/triton_extensions.dart';
-import 'package:vrindavantiffin/src/screen/auth/auth_screen.dart';
 import 'package:vrindavantiffin/src/screen/auth/provider/auth_provider.dart';
-import 'package:vrindavantiffin/src/screen/cart/cart_sheet.dart';
-import 'package:vrindavantiffin/src/screen/cart/provider/cart_provider.dart';
-import 'package:vrindavantiffin/src/screen/cart/state/cart_state.dart';
-import 'package:vrindavantiffin/src/screen/home/provider/home_provider.dart';
-import 'package:vrindavantiffin/src/screen/home/state/home_state.dart';
-import 'package:vrindavantiffin/src/screen/home/widget/item_card.dart';
+import 'package:vrindavantiffin/src/screen/user/cart/cart_sheet.dart';
+import 'package:vrindavantiffin/src/screen/user/cart/provider/cart_provider.dart';
+import 'package:vrindavantiffin/src/screen/user/cart/state/cart_state.dart';
+import 'package:vrindavantiffin/src/screen/user/home/provider/home_provider.dart';
+import 'package:vrindavantiffin/src/screen/user/home/state/home_state.dart';
+import 'package:vrindavantiffin/src/screen/user/home/widget/item_card.dart';
 
 class HomeScreen extends ConsumerStatefulWidget {
   const HomeScreen({super.key});
