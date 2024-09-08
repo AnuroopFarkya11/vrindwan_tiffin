@@ -11,14 +11,16 @@ class ConsoleFormScreen extends ConsumerStatefulWidget {
 class _ConsoleFormScreenState extends ConsumerState<ConsoleFormScreen> {
   @override
   Widget build(BuildContext context) {
+
     return Scaffold(
       appBar: _getAppBar(),
-
 
     );
   }
 
   _getAppBar() {
-    return AppBar();
+    return AppBar(
+      title: Text(""),
+    );
   }
 }
