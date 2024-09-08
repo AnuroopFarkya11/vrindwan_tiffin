@@ -1,6 +1,8 @@
 import 'package:go_router/go_router.dart';
 import 'package:vrindavantiffin/src/core/navigation/app_routes.dart';
 import 'package:vrindavantiffin/src/screen/admin/console/console_screen.dart';
+import 'package:vrindavantiffin/src/screen/admin/form/form_screen.dart';
+import 'package:vrindavantiffin/src/screen/admin/form/route/form_route.dart';
 import 'package:vrindavantiffin/src/screen/auth/auth_controller.dart';
 import 'package:vrindavantiffin/src/screen/auth/otp_screen.dart';
 import 'package:vrindavantiffin/src/screen/user/cart/cart_screen.dart';
@@ -19,7 +21,16 @@ class AppRouter {
           GoRoute(
               path: AppRoutes.console.path,
               name: AppRoutes.console.name,
-              builder: (context, state) => ConsoleScreen()),
+              builder: (context, state) => ConsoleScreen(),
+              routes: [
+                GoRoute(
+                    path: AppRoutes.form.path,
+                    name: AppRoutes.form.name,
+                    builder: (context, state) {
+                      FormRoute route = state.extra as FormRoute;
+                      return ConsoleFormScreen(route: route);
+                    })
+              ]),
           GoRoute(
               path: AppRoutes.otp.path,
               name: AppRoutes.otp.name,
@@ -42,6 +53,5 @@ class AppRouter {
               name: AppRoutes.payment.name,
               builder: (context, state) => PaymentScreen())
         ]),
-
   ]);
 }
