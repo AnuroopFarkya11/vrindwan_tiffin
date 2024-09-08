@@ -14,7 +14,7 @@ class AppRouter {
     GoRoute(
         path: AppRoutes.auth.path,
         name: AppRoutes.auth.name,
-        builder: (context, state) => const AuthController(),
+        builder: (context, state) => const ConsoleScreen(),
         routes: [
           GoRoute(
               path: AppRoutes.console.path,
