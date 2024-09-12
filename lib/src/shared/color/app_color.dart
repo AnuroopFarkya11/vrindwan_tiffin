@@ -9,10 +9,10 @@ class AppColors{
 
 
   // Light Theme Colors
-  static const Color primaryLight = Color(0xFF4B8501);
+  static const Color primaryLight = Color(0xFFFF640D);
   static const Color secondaryLight = Color(0xFF0094DA);
   static const Color surfaceLight = Colors.white;
-  static final Color backgroundLight = Colors.grey.shade100;
+  static final Color backgroundLight = Color(0xffE5E5E5);
   static final Color dividerColorLight = Colors.grey.shade300;
 
   // Dark Theme Color

@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:triton_extensions/triton_extensions.dart';
+import 'package:vrindavantiffin/src/screen/admin/console/widget/feature_card.dart';
 import 'package:vrindavantiffin/src/shared/color/app_color.dart';
 
 class AppThemes {
@@ -8,12 +10,29 @@ class AppThemes {
     colorScheme: ColorScheme.light(
       primary: AppColors.primaryLight,
       secondary: AppColors.secondaryLight,
-      surface: AppColors.surfaceLight,
-      background: AppColors.backgroundLight,
+      surface: AppColors.backgroundLight,
     ),
     inputDecorationTheme: InputDecorationTheme(
-        border: OutlineInputBorder(borderRadius: BorderRadius.circular(12))),
+      filled: true,
+        fillColor: AppColors.surfaceLight,
+        hintStyle: TextStyle(color: AppColors.secondaryTextColor,fontWeight: FontWeight.w100),
+
+        border: OutlineInputBorder(
+          borderSide: BorderSide.none,
+          borderRadius: BorderRadius.circular(10)
+        )),
     dividerTheme: DividerThemeData(color: AppColors.dividerColorLight),
+
+    elevatedButtonTheme: ElevatedButtonThemeData(
+      style: ElevatedButton.styleFrom(
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
+        backgroundColor: AppColors.primaryLight,
+        foregroundColor: AppColors.surfaceLight,
+        textStyle: TextStyle(fontSize: 21,fontWeight: FontWeight.bold),
+        minimumSize: Size(160, 52)
+
+      )
+    ),
 
     /// Old theme
     /*textTheme: GoogleFonts.poppinsTextTheme(const TextTheme())*/
@@ -23,6 +42,7 @@ class AppThemes {
       displayLarge: TextStyle(fontFamily: 'TepenoSans'),
       displayMedium: TextStyle(fontFamily: 'TepenoSans'),
       displaySmall: TextStyle(fontFamily: 'TepenoSans'),
+
       headlineMedium: TextStyle(fontFamily: 'TepenoSans'),
       headlineSmall: TextStyle(fontFamily: 'TepenoSans'),
       titleLarge: TextStyle(fontFamily: 'TepenoSans'),

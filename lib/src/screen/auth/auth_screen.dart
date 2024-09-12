@@ -8,6 +8,7 @@ import 'package:vrindavantiffin/src/core/navigation/app_routes.dart';
 import 'package:vrindavantiffin/src/screen/auth/provider/auth_provider.dart';
 import 'package:vrindavantiffin/src/screen/auth/provider/user_state_provider.dart';
 import 'package:vrindavantiffin/src/screen/auth/state/user_state.dart';
+import 'package:vrindavantiffin/src/shared/color/app_color.dart';
 
 final _logger = Logger('AuthScreen');
 
@@ -33,9 +34,10 @@ class _AuthScreenState extends ConsumerState<AuthScreen> {
 
   _getAppBar() {
     return AppBar(
-      title: Text('Auth'),
     );
   }
+
+
 
   _getBody() {
     final userAuthState = ref.watch(userAuthStateProvider);
@@ -89,26 +91,50 @@ class _AuthScreenState extends ConsumerState<AuthScreen> {
 
   _getSignUpFragment() {
     return Padding(
-      padding: 10.padding,
+      padding: 35.paddingHorizontal,
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
+
+          Text("Let’s Get Started",style: context.textTheme.headlineLarge?.copyWith(fontWeight: FontWeight.w700),),
+          5.space,
+          Text("Create an new account",style: context.textTheme.titleMedium?.copyWith(fontWeight: FontWeight.w100),),
+          25.space,
           TextField(
             controller: phoneTextEditingController,
             keyboardType: TextInputType.number,
-            decoration: InputDecoration(hintText: "Mobile Number"),
+            decoration: InputDecoration(hintText: "Name"),
           ),
-          10.space,
+          15.space,
+          TextField(
+            controller: phoneTextEditingController,
+            keyboardType: TextInputType.number,
+            decoration: InputDecoration(hintText: "Phone no"),
+          ),
+
+          25.space,
           ElevatedButton(
               onPressed: () async {
                 ref.read(authProvider.notifier).verifyNumberAndSendOtp(phoneTextEditingController.text);
               },
-              child: Text('Sign up')),
+              child: Text('SIGN UP')),
+          25.space,
           Divider(),
-          ElevatedButton(
-              onPressed: () {
-                           },
-              child: Text('Sign in')),
+          25.space,
+
+          RichText(text: TextSpan(
+            children: [
+              TextSpan(
+                text: "Already have an account? ",
+                style: context.textTheme.labelMedium
+              ),
+              TextSpan(
+                  text: "Login here",
+                  style: context.textTheme.labelMedium?.copyWith(color: context.colorScheme.primary,fontWeight: FontWeight.w800)
+              ),
+            ]
+
+          ))
         ],
       ),
     );
