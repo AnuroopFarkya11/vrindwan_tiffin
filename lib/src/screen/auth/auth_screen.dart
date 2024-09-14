@@ -111,7 +111,7 @@ class _AuthScreenState extends ConsumerState<AuthScreen> {
             keyboardType: TextInputType.number,
             decoration: InputDecoration(hintText: "Phone no"),
           ),
-
+//regular check
           25.space,
           ElevatedButton(
               onPressed: () async {
