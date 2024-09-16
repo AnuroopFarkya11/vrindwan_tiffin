@@ -21,6 +21,7 @@ class AuthScreen extends ConsumerStatefulWidget {
 
 class _AuthScreenState extends ConsumerState<AuthScreen> {
   TextEditingController phoneTextEditingController = TextEditingController();
+  TextEditingController nameTextEditingController = TextEditingController();
   TextEditingController otpTextEditingController = TextEditingController();
 
 
@@ -101,7 +102,7 @@ class _AuthScreenState extends ConsumerState<AuthScreen> {
           Text("Create an new account",style: context.textTheme.titleMedium?.copyWith(fontWeight: FontWeight.w100),),
           25.space,
           TextField(
-            controller: phoneTextEditingController,
+            controller: nameTextEditingController,
             keyboardType: TextInputType.number,
             decoration: InputDecoration(hintText: "Name"),
           ),
@@ -141,21 +142,45 @@ class _AuthScreenState extends ConsumerState<AuthScreen> {
   }
 
   _getOtpFragment() {
-    return Column(
-      mainAxisAlignment: MainAxisAlignment.center,
-      children: [
-        TextField(
-          controller: otpTextEditingController,
-          keyboardType: TextInputType.number,
-          decoration: InputDecoration(hintText: "Enter Otp"),
-        ),
-        10.space,
-        ElevatedButton(
-            onPressed: (){
-              ref.read(authProvider.notifier).verifyOtpAndSignIn(otpTextEditingController.text.toString());
-            },
-            child: Text("Check"))
-      ],
+    return Padding(
+      padding: 35.paddingHorizontal,
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+
+          Text("OTP VERIFICATION",style: context.textTheme.headlineSmall?.copyWith(fontWeight: FontWeight.w700),),
+          5.space,
+          Text("Enter the OTP sent to +91XXXXXXXXX",style: context.textTheme.titleMedium?.copyWith(fontWeight: FontWeight.w100),),
+          25.space,
+          TextField(
+            controller: otpTextEditingController,
+            keyboardType: TextInputType.number,
+            decoration: InputDecoration(hintText: "Enter Otp"),
+          ),
+          10.space,
+
+          RichText(text: TextSpan(
+              children: [
+                TextSpan(
+                    text: "Don't receive the OTP? ",
+                    style: context.textTheme.labelMedium
+                ),
+                TextSpan(
+                    text: "RESEND OTP",
+                    style: context.textTheme.labelMedium?.copyWith(color: context.colorScheme.primary,fontWeight: FontWeight.w800)
+                ),
+              ]
+
+          )),
+
+          25.space,
+          ElevatedButton(
+              onPressed: (){
+                ref.read(authProvider.notifier).verifyOtpAndSignIn(otpTextEditingController.text.toString());
+              },
+              child: Text("VERIFY & PROCEED"))
+        ],
+      ),
     );
   }
 }

@@ -47,7 +47,7 @@ class AuthProvider extends StateNotifier<AuthState> {
         _logger.log("Verification ID received");
         ref.read(userAuthStateProvider.notifier).state = UserAuthStatus.otpSent;
         state = state.copyWith(
-            message: verificationId); // Update the state with verificationId
+            message: verificationId);
       } else {
         _logger.log("Failed to receive Verification ID");
         state = state.copyWith(
