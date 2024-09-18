@@ -23,6 +23,7 @@ class HomeScreen extends ConsumerStatefulWidget {
 
 class _HomeScreenState extends ConsumerState<HomeScreen> {
   final _searchController = SearchController();
+  final scrollController = ScrollController();
   final _debouncedSearchRx = BehaviorSubject<String>.seeded('');
 
   Future<List<String>> _search(String query) async {
@@ -92,6 +93,7 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
         {
           return SafeArea(
             child: SingleChildScrollView(
+              controller: scrollController,
               child: Container(
                 width: double.maxFinite,
                 padding: EdgeInsets.only(top: 32, right: 22, left: 22),
@@ -105,7 +107,9 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
                     25.space,
                     _getCategoryCards(),
                     25.space,
-                    _getTodaySpecial()
+                    _getTodaySpecial(),
+
+                    _getFoodItemGrid(home)
                   ],
                 ),
               ),
@@ -153,6 +157,7 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
 
   _getFoodItemGrid(var home) {
     return GridView.builder(
+        controller: scrollController,
         // padding: 10.padding,
         gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
             crossAxisCount: 2, childAspectRatio: 0.8),
@@ -277,19 +282,38 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
             )
           ],
         ),
+        15.space,
         SizedBox(
-          height: 190,
+          height: 200,
           child: ListView.separated(
-            shrinkWrap: true,
+              shrinkWrap: true,
               scrollDirection: Axis.horizontal,
               itemBuilder: (context, index) {
-                return Card(
-                  color: appTheme.orangeA700,
-                  child: Container(
-                    height: 100,
-                    child: Center(
-                      child: Text("try"),
-                    ),
+                return SizedBox(
+                  height: 190,
+                  width: 220,
+                  child: Stack(
+                    alignment: Alignment.center,
+                    children: [
+                      Image.asset(
+                        "assets/food.png",
+                        height: 190,
+                        width: double.infinity,
+                      ),
+                      Align(
+                        alignment: Alignment.bottomCenter,
+
+                        child: Container(
+                          width: double.maxFinite,
+                          padding: EdgeInsets.symmetric(
+                            vertical: 4,horizontal: 10
+                          ),
+
+                        ),
+                      )
+
+
+                    ],
                   ),
                 );
               },
