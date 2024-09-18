@@ -19,7 +19,6 @@ class _FoodItemCardState extends ConsumerState<FoodItemCard> {
   Widget build(BuildContext context) {
     int cnt = ref.watch(cartProvider.notifier).getItemQty(widget.item);
     return Card(
-
       elevation: 5,
       child: LayoutBuilder(
         builder: (context, constraints) {

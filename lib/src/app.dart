@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:sizer/sizer.dart';
 import 'package:vrindavantiffin/src/core/navigation/app_router.dart';
 import 'package:vrindavantiffin/src/shared/theme/app_theme.dart';
 
@@ -17,16 +18,20 @@ class _AppState extends ConsumerState<App> {
   @override
   Widget build(BuildContext context) {
 
-    return MaterialApp.router(
+    return ResponsiveSizer(
+      builder: (context,orientation,screenType) {
+        return MaterialApp.router(
 
-      routeInformationParser: widget.router.router.routeInformationParser,
-      routerDelegate: widget.router.router.routerDelegate,
-      routeInformationProvider: widget.router.router.routeInformationProvider,
-      debugShowCheckedModeBanner: false,
-      theme: AppThemes.themeLight,
-      darkTheme: AppThemes.themeDark,
-      themeMode: ThemeMode.system,
+          routeInformationParser: widget.router.router.routeInformationParser,
+          routerDelegate: widget.router.router.routerDelegate,
+          routeInformationProvider: widget.router.router.routeInformationProvider,
+          debugShowCheckedModeBanner: false,
+          theme: AppThemes.themeLight,
+          darkTheme: AppThemes.themeDark,
+          themeMode: ThemeMode.system,
 
+        );
+      }
     );
   }
 }
