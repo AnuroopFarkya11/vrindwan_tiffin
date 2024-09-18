@@ -4,6 +4,9 @@ import 'package:sizer/sizer.dart';
 import 'package:vrindavantiffin/src/core/navigation/app_router.dart';
 import 'package:vrindavantiffin/src/shared/theme/app_theme.dart';
 
+import 'core/utils/size_utils.dart';
+import 'shared/theme/theme_helper.dart';
+
 final GlobalKey<NavigatorState> navigatorKey = GlobalKey<NavigatorState>();
 class App extends ConsumerStatefulWidget {
   final AppRouter router;
@@ -26,7 +29,6 @@ class _AppState extends ConsumerState<App> {
           routerDelegate: widget.router.router.routerDelegate,
           routeInformationProvider: widget.router.router.routeInformationProvider,
           debugShowCheckedModeBanner: false,
-          theme: AppThemes.themeLight,
           darkTheme: AppThemes.themeDark,
           themeMode: ThemeMode.system,
 

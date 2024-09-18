@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
-import '../core/app_export.dart';
+import 'package:vrindavantiffin/src/core/utils/size_utils.dart';
+
 
 String _appTheme = "lightCode";
 
-LightCodeColors get appTheme => ThemeHelper().themeColor;
+LightCodeColors get appTheme => LightCodeColors();
 
 ThemeData get theme => ThemeHelper().themeData();
 
@@ -33,6 +34,7 @@ class ThemeHelper {
   /// Returns the current theme data.
   ThemeData _getThemeData() {
     var colorScheme = _supportedColorScheme[_appTheme] ?? ColorSchemes.lightCodeColorScheme;
+    var appTheme = LightCodeColors();
     return ThemeData(
       visualDensity: VisualDensity.standard,
       colorScheme: colorScheme,
@@ -104,73 +106,73 @@ class TextThemes {
   static TextTheme textTheme(ColorScheme colorScheme) => TextTheme(
     bodyLarge: TextStyle(
       color: colorScheme.primary.withOpacity(0.5),
-      fontSize: 17.fSize,
+      fontSize: 17.fsize,
       fontFamily: 'Proxima Nova',
       fontWeight: FontWeight.w400,
     ),
     bodyMedium: TextStyle(
       color: colorScheme.primary,
-      fontSize: 14.fSize,
+      fontSize: 14.fsize,
       fontFamily: 'Proxima Nova',
       fontWeight: FontWeight.w400,
     ),
     bodySmall: TextStyle(
       color: colorScheme.primary,
-      fontSize: 11.fSize,
+      fontSize: 11.fsize,
       fontFamily: 'Proxima Nova',
       fontWeight: FontWeight.w400,
     ),
     displaySmall: TextStyle(
       color: colorScheme.onPrimary,
-      fontSize: 36.fSize,
+      fontSize: 36.fsize,
       fontFamily: 'Roboto',
       fontWeight: FontWeight.w800,
     ),
     headlineLarge: TextStyle(
       color: colorScheme.primary.withOpacity(0.8),
-      fontSize: 32.fSize,
+      fontSize: 32.fsize,
       fontFamily: 'Proxima Nova',
       fontWeight: FontWeight.w800,
     ),
     headlineMedium: TextStyle(
-      color: appTheme.blueGray80002,
-      fontSize: 27.fSize,
+      // color: appTheme.blue,
+      fontSize: 27.fsize,
       fontFamily: 'Roboto',
       fontWeight: FontWeight.w800,
     ),
     headlineSmall: TextStyle(
       color: colorScheme.primary.withOpacity(0.8),
-      fontSize: 24.fSize,
+      fontSize: 24.fsize,
       fontFamily: 'Roboto',
       fontWeight: FontWeight.w800,
     ),
     labelLarge: TextStyle(
       color: colorScheme.onError,
-      fontSize: 12.fSize,
+      fontSize: 12.fsize,
       fontFamily: 'Roboto',
       fontWeight: FontWeight.w700,
     ),
     labelMedium: TextStyle(
       color: colorScheme.primary,
-      fontSize: 11.fSize,
+      fontSize: 11.fsize,
       fontFamily: 'Roboto',
       fontWeight: FontWeight.w700,
     ),
     titleLarge: TextStyle(
       color: colorScheme.onError,
-      fontSize: 21.fSize,
+      fontSize: 21.fsize,
       fontFamily: 'Proxima Nova',
       fontWeight: FontWeight.w700,
     ),
     titleMedium: TextStyle(
       color: colorScheme.primary.withOpacity(0.8),
-      fontSize: 17.fSize,
+      fontSize: 17.fsize,
       fontFamily: 'Proxima Nova',
       fontWeight: FontWeight.w700,
     ),
     titleSmall: TextStyle(
       color: colorScheme.primary.withOpacity(0.8),
-      fontSize: 14.fSize,
+      fontSize: 14.fsize,
       fontFamily: 'Roboto',
       fontWeight: FontWeight.w700,
     ),

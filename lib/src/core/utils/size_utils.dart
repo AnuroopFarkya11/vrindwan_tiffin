@@ -4,9 +4,9 @@ import 'package:sizer/sizer.dart';
 extension ResponsiveExtension on num {
   double get _width => SizeUtils.width;
 
-  double get h => (this * _width) / FIGMA_DESIGN_WIDTH;
+  double get h => (this * _width) / 100;
 
-  double get fsize => (this * _width) / FIGMA_DESIGN_WIDTH;
+  double get fsize => (this * _width) / 100;
 }
 
 extension FormatExtension on double {
@@ -72,11 +72,11 @@ class SizeUtils {
 
     if (orientation == Orientation.portrait) {
       width =
-          boxConstraints.maxWidth.isNonZero(defaultValue: FIGMA_DESIGN_WIDTH);
+          boxConstraints.maxWidth.isNonZero(defaultValue: 100);
       height = boxConstraints.maxHeight.isNonZero();
     } else {
       width =
-          boxConstraints.maxHeight.isNonZero(defaultValue: FIGMA_DESIGN_WIDTH);
+          boxConstraints.maxHeight.isNonZero(defaultValue: 100);
       height = boxConstraints.maxWidth.isNonZero();
     }
 
