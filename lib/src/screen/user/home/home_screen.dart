@@ -110,7 +110,6 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
                     25.space,
                     _getTodaySpecial(),
 
-                    _getFoodItemGrid(home)
                   ],
                 ),
               ),
@@ -253,7 +252,7 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
                   10.space,
                   Text(
                     "Dinner",
-                    style: context.textTheme.titleMedium,
+                    style: CustomTextStyle.bodyLargeRobotoPrimary,
                   )
                 ],
               ),
@@ -277,8 +276,8 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
             ),
             Text(
               "See all",
-              style: CustomTextStyle.titleMediumRobotoOrangeA700?.copyWith(
-                  textBaseline: TextBaseline.alphabetic),
+              style: CustomTextStyle.titleMediumRobotoOrangeA700
+                  ?.copyWith(textBaseline: TextBaseline.alphabetic),
             )
           ],
         ),
@@ -304,41 +303,66 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
                         alignment: Alignment.bottomCenter,
                         child: Container(
                           width: double.maxFinite,
-                          padding: EdgeInsets.symmetric(
-                            vertical: 4,horizontal: 10
-                          ),
+                          padding:
+                              EdgeInsets.symmetric(vertical: 4, horizontal: 10),
                           decoration: BoxDecoration(
-                            color: Colors.white,
-                            borderRadius: BorderRadius.circular(5)
-                          ),
+                              color: Colors.white,
+                              borderRadius: BorderRadius.circular(5)),
                           child: Column(
-
-
                             mainAxisSize: MainAxisSize.min,
                             crossAxisAlignment: CrossAxisAlignment.start,
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
-
                               2.space,
-
                               Text(
                                 "Normal Thali",
-                                style: context.textTheme.titleMedium,
-
-
+                                style: CustomTextStyle.titleMediumRoboto1,
                               ),
+                              4.space,
+                              Text(
+                                "Description",
+                                style: CustomTextStyle.bodySmallRoboto1,
+                              ),
+                              4.space,
+                              SizedBox(
+                                width: double.maxFinite,
+                                child: Row(
+                                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                  children: [
+                                    Align(
+                                      alignment: Alignment.bottomCenter,
+                                      child: Text(
+                                        "Rs. 150",
+                                        style: CustomTextStyle.bodyMediumRoboto1,
+                                      ),
 
+                                    ),
 
+                                    Container(
+                                      padding: EdgeInsets.symmetric(
+                                          horizontal: 8.h,
+                                          vertical: 2.h
+                                      ),
+                                      decoration: BoxDecoration(
+                                        color: appTheme.orangeA700,
+                                        borderRadius: BorderRadius.circular(5)
+                                      ),
 
+                                      child: Column(
+                                        mainAxisSize: MainAxisSize.min,
+                                        children: [
+                                          Text("5 left",style: theme.textTheme.labelLarge,),
+                                        ],
+                                      ),
+                                    ),
 
-
+                                  ],
+                                ),
+                              )
                             ],
                           ),
-
                         ),
                       )
-
-
                     ],
                   ),
                 );
