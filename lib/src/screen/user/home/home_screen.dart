@@ -341,7 +341,7 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
                 "Hello,\nAnuroop.",
                 maxLines: 2,
                 overflow: TextOverflow.ellipsis,
-                style: context.textTheme.displaySmall,
+                style: context.textTheme.displaySmall?.copyWith(fontWeight: FontWeight.w700),
               ),
             ),
             SizedBox(height: 2.h),
