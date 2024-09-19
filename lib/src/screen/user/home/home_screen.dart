@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:rxdart/rxdart.dart';
-import 'package:sizer/sizer.dart';
 import 'package:triton_extensions/triton_extensions.dart';
+import 'package:vrindavantiffin/src/core/utils/size_utils.dart';
 import 'package:vrindavantiffin/src/screen/auth/provider/auth_provider.dart';
 import 'package:vrindavantiffin/src/screen/user/cart/cart_sheet.dart';
 import 'package:vrindavantiffin/src/screen/user/cart/provider/cart_provider.dart';
@@ -12,6 +12,7 @@ import 'package:vrindavantiffin/src/screen/user/home/provider/home_provider.dart
 import 'package:vrindavantiffin/src/screen/user/home/state/home_state.dart';
 import 'package:vrindavantiffin/src/screen/user/home/widget/item_card.dart';
 import 'package:vrindavantiffin/src/shared/color/app_color.dart';
+import 'package:vrindavantiffin/src/shared/theme/custom_text_style.dart';
 import 'package:vrindavantiffin/src/shared/theme/theme_helper.dart';
 
 class HomeScreen extends ConsumerStatefulWidget {
@@ -271,13 +272,12 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
           children: [
             Text(
               "Today's special",
-              style: context.textTheme.headlineSmall
+              style: CustomTextStyle.headlineMediumPrimaryBold
                   ?.copyWith(textBaseline: TextBaseline.alphabetic),
             ),
             Text(
               "See all",
-              style: context.textTheme.labelLarge?.copyWith(
-                  color: AppColors.primaryLight,
+              style: CustomTextStyle.titleMediumRobotoOrangeA700?.copyWith(
                   textBaseline: TextBaseline.alphabetic),
             )
           ],
@@ -302,11 +302,37 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
                       ),
                       Align(
                         alignment: Alignment.bottomCenter,
-
                         child: Container(
                           width: double.maxFinite,
                           padding: EdgeInsets.symmetric(
                             vertical: 4,horizontal: 10
+                          ),
+                          decoration: BoxDecoration(
+                            color: Colors.white,
+                            borderRadius: BorderRadius.circular(5)
+                          ),
+                          child: Column(
+
+
+                            mainAxisSize: MainAxisSize.min,
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+
+                              2.space,
+
+                              Text(
+                                "Normal Thali",
+                                style: context.textTheme.titleMedium,
+
+
+                              ),
+
+
+
+
+
+                            ],
                           ),
 
                         ),
@@ -341,13 +367,13 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
                 "Hello,\nAnuroop.",
                 maxLines: 2,
                 overflow: TextOverflow.ellipsis,
-                style: context.textTheme.displaySmall?.copyWith(fontWeight: FontWeight.w700),
+                style: theme.textTheme.displaySmall,
               ),
             ),
             SizedBox(height: 2.h),
             Text(
               "What do you want to eat?",
-              style: context.textTheme.titleLarge,
+              style: CustomTextStyle.titleLargeRobotoPrimaryRegular,
             ),
           ],
         ),

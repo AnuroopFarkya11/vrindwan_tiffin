@@ -1,12 +1,18 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:sizer/sizer.dart';
+
+const num FIGMA_DESIGN_HEIGHT = 768;
+const num FIGMA_DESIGN_WIDTH = 375;
+const num FIGMA_DESIGN_STATUS_BAR = 0;
 
 extension ResponsiveExtension on num {
   double get _width => SizeUtils.width;
 
-  double get h => (this * _width) / 100;
+  double get h => (this * _width) / FIGMA_DESIGN_WIDTH;
 
-  double get fsize => (this * _width) / 100;
+  double get fsize => (this * _width) / FIGMA_DESIGN_WIDTH;
 }
 
 extension FormatExtension on double {
@@ -36,6 +42,7 @@ class Sizer extends StatelessWidget {
       builder: (context, constraints) {
         return OrientationBuilder(
           builder: (context, orientation) {
+            log("Sizer invoked");
             SizeUtils.setScreenSize(constraints, orientation);
             return builder(context, orientation, SizeUtils.deviceType);
           },
@@ -58,7 +65,7 @@ class SizeUtils {
   static late DeviceType deviceType;
 
   // Device's Height
-  static late double height;
+  static late  double height;
 
   // Device's Width
   static late double width;
@@ -67,19 +74,20 @@ class SizeUtils {
     BoxConstraints constraints,
     Orientation currentOrientation,
   ) {
+    log("setScreenSize INVOKED");
     boxConstraints = constraints;
     orientation = currentOrientation;
 
     if (orientation == Orientation.portrait) {
       width =
-          boxConstraints.maxWidth.isNonZero(defaultValue: 100);
+          boxConstraints.maxWidth.isNonZero(defaultValue: FIGMA_DESIGN_WIDTH);
       height = boxConstraints.maxHeight.isNonZero();
     } else {
       width =
-          boxConstraints.maxHeight.isNonZero(defaultValue: 100);
+          boxConstraints.maxHeight.isNonZero(defaultValue: FIGMA_DESIGN_WIDTH);
       height = boxConstraints.maxWidth.isNonZero();
     }
-
+    log("Width and height : w : $width and $height");
     deviceType = DeviceType.mobile;
   }
 }

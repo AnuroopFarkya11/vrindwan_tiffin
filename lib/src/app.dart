@@ -21,7 +21,7 @@ class _AppState extends ConsumerState<App> {
   @override
   Widget build(BuildContext context) {
 
-    return ResponsiveSizer(
+    return Sizer(
       builder: (context,orientation,screenType) {
         return MaterialApp.router(
 
@@ -29,6 +29,7 @@ class _AppState extends ConsumerState<App> {
           routerDelegate: widget.router.router.routerDelegate,
           routeInformationProvider: widget.router.router.routeInformationProvider,
           debugShowCheckedModeBanner: false,
+          theme: theme,
           darkTheme: AppThemes.themeDark,
           themeMode: ThemeMode.system,
 
