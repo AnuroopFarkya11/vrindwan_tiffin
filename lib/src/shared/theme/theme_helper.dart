@@ -38,6 +38,7 @@ class ThemeHelper {
     var colorScheme = _supportedColorScheme[_appTheme] ?? ColorSchemes.lightCodeColorScheme;
     var appTheme = LightCodeColors();
     return ThemeData(
+
       visualDensity: VisualDensity.standard,
       colorScheme: colorScheme,
       textTheme: TextThemes.textTheme(colorScheme),
