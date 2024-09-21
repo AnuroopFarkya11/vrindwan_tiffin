@@ -111,7 +111,8 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
                     25.space,
                     _getTodaySpecial(),
                     25.space,
-                    _getPopularDish()
+                    _getPopularDish(),
+                    25.space
                   ],
                 ),
               ),
