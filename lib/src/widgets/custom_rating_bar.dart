@@ -1,12 +1,9 @@
-import 'dart:nativewrappers/_internal/vm/lib/ffi_allocation_patch.dart';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
-import 'package:vrindavantiffin/src/app.dart';
 import 'package:vrindavantiffin/src/core/utils/size_utils.dart';
 import 'package:vrindavantiffin/src/shared/theme/theme_helper.dart';
 
-class CustomRatingBar extends StatelessWidget {
+class CustomRatingBar extends StatefulWidget {
   CustomRatingBar({
     super.key,
     this.alignment,
@@ -15,7 +12,8 @@ class CustomRatingBar extends StatelessWidget {
     this.itemSize,
     this.itemCount,
     this.color,
-    this.unselectedColor, this.onRatingUpdate,
+    this.unselectedColor,
+    this.onRatingUpdate,
   });
 
   final Alignment? alignment;
@@ -28,32 +26,36 @@ class CustomRatingBar extends StatelessWidget {
   final Function(double)? onRatingUpdate;
 
   @override
+  State<CustomRatingBar> createState() => _CustomRatingBarState();
+}
+
+class _CustomRatingBarState extends State<CustomRatingBar> {
+  @override
   Widget build(BuildContext context) {
-    return alignment != null ? Align(
-      alignment: alignment ?? Alignment.center, child:,) :
+    return widget.alignment != null
+        ? Align(
+            alignment: widget.alignment ?? Alignment.center,
+            child: ratingBarWidget,
+          )
+        : ratingBarWidget;
   }
 
-  Widget get ratingBarWidget =>
-      RatingBar.builder(
+  Widget get ratingBarWidget => RatingBar.builder(
         itemBuilder: (context, int) {
           return Icon(
             Icons.star,
-            color: color ?? appTheme.gray400,
+            color: widget.color ?? appTheme.gray400,
           );
         },
-        onRatingUpdate: (rating) {
-          onRatingUpdate!.call(rating);
-        },
-        ignoreGestures: ignoreGestures ?? false,
-        initialRating: initialRating ?? 0,
+        onRatingUpdate: (rating) {},
+        ignoreGestures: widget.ignoreGestures ?? false,
+        initialRating: widget.initialRating ?? 0,
         minRating: 0,
         direction: Axis.horizontal,
         allowHalfRating: false,
-        itemSize: itemSize ?? 20.h,
-        unratedColor: unselectedColor,
-        itemCount: itemCount ?? 4,
+        itemSize: widget.itemSize ?? 20.h,
+        unratedColor: widget.unselectedColor,
+        itemCount: widget.itemCount ?? 4,
         updateOnDrag: true,
-
-
       );
 }
