@@ -79,6 +79,26 @@ class CustomTextStyle {
 
   static get bodyMedium1 => theme.textTheme.bodyMedium!;
 
+  static get bodyMediumRobotoPrimary_1 => theme.textTheme.bodyMedium!.copyWith(
+        color: theme.colorScheme.primary.withOpacity(0.5),
+      );
+
+  static get bodyMediumRobotoPrimary_2 => theme.textTheme.bodyMedium!.copyWith(
+        color: theme.colorScheme.primary.withOpacity(0.5),
+      );
+
+  static get bodyMediumRobotoPrimary_3 => theme.textTheme.bodyMedium!.copyWith(
+        color: theme.colorScheme.primary.withOpacity(0.8),
+      );
+
+  static get bodyMediumRobotoPrimary_4 => theme.textTheme.bodyMedium!.copyWith(
+        color: theme.colorScheme.primary.withOpacity(0.8),
+      );
+
+  static get bodyMediumRobotoPrimary_5 => theme.textTheme.bodyMedium!.copyWith(
+        color: theme.colorScheme.primary.withOpacity(0.8),
+      );
+
   static get bodySmallBluegray80002 => theme.textTheme.bodySmall!.copyWith(
         color: appTheme.blueGray80002,
       );
@@ -237,12 +257,6 @@ class CustomTextStyle {
       theme.textTheme.titleLarge!.copyWith(
         color: theme.colorScheme.primary.withOpacity(0.8),
         fontWeight: FontWeight.w800,
-      );
-
-  static get titleLargeRobotoPrimaryRegular =>
-      theme.textTheme.titleLarge!.copyWith(
-        color: theme.colorScheme.primary.withOpacity(0.8),
-        fontWeight: FontWeight.w400,
       );
 
   static get titleLargeRobotoPrimaryRegular_1 =>

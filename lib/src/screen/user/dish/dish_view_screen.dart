@@ -37,6 +37,9 @@ class _HomeScreenState extends ConsumerState<DishScreen> {
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
+        appBar: AppBar(
+          backgroundColor: Colors.transparent,
+        ),
         body: _getBody(),
       ),
     );
@@ -69,8 +72,10 @@ class _HomeScreenState extends ConsumerState<DishScreen> {
                   _buildRatingBar(context),
                   14.space,
                   _buildBuyNow(context),
+                  20.space,
+                  Text("Product Description",style: CustomTextStyle.titleLargeRobotoPrimary_2,),
                   8.space,
-                  Text("Product Description",style: CustomTextStyle.titleLargeRobotoPrimaryRegular,)
+                  Text("Description jdnvjnadslnvionaiosnvdio;nasio;nvonao;snc anvinfjvijeipvn[pam ]pojaop qj jpwvjp[oaj 9jfg[jwoe' jopjwiefhn q0wj9kjaopjdfionasiofvniosnvjn uaibwufbu anb ",maxLines: 4,overflow: TextOverflow.ellipsis,style: CustomTextStyle.bodyMediumRoboto2,)
                 ],
               ),
             ),
