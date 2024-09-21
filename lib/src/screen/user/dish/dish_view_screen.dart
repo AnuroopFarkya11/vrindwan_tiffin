@@ -8,6 +8,7 @@ import 'package:vrindavantiffin/src/app.dart';
 import 'package:vrindavantiffin/src/core/utils/size_utils.dart';
 import 'package:vrindavantiffin/src/shared/theme/custom_text_style.dart';
 import 'package:vrindavantiffin/src/shared/theme/theme_helper.dart';
+import 'package:vrindavantiffin/src/widgets/custom_elevated_button.dart';
 import 'package:vrindavantiffin/src/widgets/custom_image_view.dart';
 import 'package:vrindavantiffin/src/widgets/custom_rating_bar.dart';
 
@@ -163,7 +164,7 @@ class _HomeScreenState extends ConsumerState<DishScreen> {
 
           ),
 
-          ElevatedButton(onPressed: (){}, child: Text("Buy Now"))
+          CustomElevatedButton(onPressed: (){}, text: "Buy Now",height: 36.h,width: 82.h,)
 
         ],
       ),
