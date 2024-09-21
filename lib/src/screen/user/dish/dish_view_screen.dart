@@ -7,6 +7,7 @@ import 'package:triton_extensions/triton_extensions.dart';
 import 'package:vrindavantiffin/src/app.dart';
 import 'package:vrindavantiffin/src/core/utils/size_utils.dart';
 import 'package:vrindavantiffin/src/shared/theme/custom_text_style.dart';
+import 'package:vrindavantiffin/src/shared/theme/cutom_button_style.dart';
 import 'package:vrindavantiffin/src/shared/theme/theme_helper.dart';
 import 'package:vrindavantiffin/src/widgets/custom_elevated_button.dart';
 import 'package:vrindavantiffin/src/widgets/custom_image_view.dart';
@@ -130,42 +131,44 @@ class _HomeScreenState extends ConsumerState<DishScreen> {
         children: [
           InputQty(
             decoration: QtyDecorationProps(
-                enabledBorder: InputBorder.none,
-                plusBtn: Container(
-                  height: 34.h,
-                  width: 34.h,
-                  decoration: BoxDecoration(
-                      color: appTheme.orangeA700,
-                      borderRadius: BorderRadius.circular(5)),
-                  child: Icon(
-                    Icons.add,
-                    size: 27.h,
-                    color: Colors.white,
-                  ),
+              enabledBorder: InputBorder.none,
+              plusBtn: Container(
+                height: 34.h,
+                width: 34.h,
+                decoration: BoxDecoration(
+                    color: appTheme.orangeA700,
+                    borderRadius: BorderRadius.circular(5)),
+                child: Icon(
+                  Icons.add,
+                  size: 27.h,
+                  color: Colors.white,
                 ),
+              ),
               minusBtn: Container(
-                  height: 34.h,
-                  width: 34.h,
-                  decoration: BoxDecoration(
-                      color: appTheme.orangeA700,
-                      borderRadius: BorderRadius.circular(5)),
-                  child: Icon(
-                    Icons.remove,
-                    size: 27.h,
-                    color: Colors.white,
-                  ),
+                height: 34.h,
+                width: 34.h,
+                decoration: BoxDecoration(
+                    color: appTheme.orangeA700,
+                    borderRadius: BorderRadius.circular(5)),
+                child: Icon(
+                  Icons.remove,
+                  size: 27.h,
+                  color: Colors.white,
                 ),
-
+              ),
             ),
             qtyFormProps: QtyFormProps(
-              style: CustomTextStyle.titleLargeRobotoPrimaryRegular
-            ),
+                style: CustomTextStyle.titleLargeRobotoPrimaryRegular),
             isIntrinsicWidth: true,
-
           ),
-
-          CustomElevatedButton(onPressed: (){}, text: "Buy Now",height: 36.h,width: 82.h,)
-
+          CustomElevatedButton(
+            onPressed: () {},
+            text: "Buy Now",
+            height: 36.h,
+            width: 82.h,
+            buttonStyle: CustomButtonStyles.fillOrangeATL51,
+            buttonTextStyle: CustomTextStyle.titleMediumRoboto1,
+          )
         ],
       ),
     );

@@ -254,6 +254,34 @@ class CustomTextStyle {
 
   static get titleMedium1 => theme.textTheme.titleMedium!;
 
+  static get titleMediumRoboto => theme.textTheme.titleMedium!.copyWith(
+        fontWeight: FontWeight.w800,
+      );
+
+  static get titleMediumRobotoBluegray80002 =>
+      theme.textTheme.titleMedium!.copyWith(
+        color: appTheme.blueGray80002.withOpacity(0.6),
+      );
+
+  static get titleMediumRobotoBluegray80002_1 =>
+      theme.textTheme.titleMedium!.copyWith(
+        color: appTheme.blueGray80002,
+      );
+
+  static get titleMediumRobotoBluegray80002_2 =>
+      theme.textTheme.titleMedium!.copyWith(
+        color: appTheme.blueGray80002.withOpacity(0.8),
+      );
+
+  static get titleMediumRobotoExtraBold =>
+      theme.textTheme.titleMedium!.copyWith(
+        fontWeight: FontWeight.w800,
+      );
+
+  static get titleMediumRobotoOnError => theme.textTheme.titleMedium!.copyWith(
+        color: theme.colorScheme.onError,
+      );
+
   static get titleSmallBluegray80002 => theme.textTheme.titleSmall!.copyWith(
         color: appTheme.blueGray80002.withOpacity(0.8),
       );
