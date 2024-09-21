@@ -6,6 +6,7 @@ enum AppRoutes{
   cart('cart','cart'),
   console('console','console'),
   form('form','form'),
+  dish('dish','dish')
 
 
   ;

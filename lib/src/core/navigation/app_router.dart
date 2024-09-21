@@ -52,7 +52,13 @@ class AppRouter {
           GoRoute(
               path: AppRoutes.payment.path,
               name: AppRoutes.payment.name,
-              builder: (context, state) => PaymentScreen())
+              builder: (context, state) => PaymentScreen()),
+          GoRoute(
+              path: AppRoutes.dish.path,
+              name: AppRoutes.dish.name,
+              builder: (context, state) => DishScreen()),
+
+
         ]),
   ]);
 }

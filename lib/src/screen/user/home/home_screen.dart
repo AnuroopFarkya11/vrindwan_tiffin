@@ -10,6 +10,9 @@ import 'package:vrindavantiffin/src/screen/user/cart/provider/cart_provider.dart
 import 'package:vrindavantiffin/src/screen/user/cart/state/cart_state.dart';
 import 'package:vrindavantiffin/src/screen/user/home/provider/home_provider.dart';
 import 'package:vrindavantiffin/src/screen/user/home/state/home_state.dart';
+import 'package:vrindavantiffin/src/screen/user/home/widget/category_card.dart';
+import 'package:vrindavantiffin/src/screen/user/home/widget/food_card_one.dart';
+import 'package:vrindavantiffin/src/screen/user/home/widget/food_card_two.dart';
 import 'package:vrindavantiffin/src/screen/user/home/widget/item_card.dart';
 import 'package:vrindavantiffin/src/shared/color/app_color.dart';
 import 'package:vrindavantiffin/src/shared/theme/custom_text_style.dart';
@@ -236,33 +239,7 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
           itemCount: 10,
           padding: EdgeInsets.zero,
           itemBuilder: (context, index) {
-            return SizedBox(
-              width: 76,
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: [
-                  Container(
-                    height: 76,
-                    width: double.maxFinite,
-                    decoration: ShapeDecoration(
-                        color: appTheme.orangeA700,
-                        shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(10))),
-                    child: Icon(
-                      Icons.emoji_food_beverage_outlined,
-                      size: 55,
-                      color: context.colorScheme.surface,
-                    ),
-                  ),
-                  10.space,
-                  Text(
-                    "Dinner",
-                    style: CustomTextStyle.bodyLargeRobotoPrimary,
-                  )
-                ],
-              ),
-            );
+            return CategoryCard();
           }),
     );
   }
@@ -291,95 +268,7 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
           ),
         ),
         15.space,
-        SizedBox(
-          height: 200,
-          child: ListView.separated(
-              shrinkWrap: true,
-              scrollDirection: Axis.horizontal,
-              itemBuilder: (context, index) {
-                return SizedBox(
-                  height: 190,
-                  width: 220,
-                  child: Stack(
-                    alignment: Alignment.center,
-                    children: [
-                      Image.asset(
-                        "assets/food.png",
-                        height: 190,
-                        width: double.infinity,
-                      ),
-                      Align(
-                        alignment: Alignment.bottomCenter,
-                        child: Container(
-                          width: double.maxFinite,
-                          padding:
-                              EdgeInsets.symmetric(vertical: 4, horizontal: 10),
-                          decoration: BoxDecoration(
-                              color: Colors.white,
-                              borderRadius: BorderRadius.circular(5)),
-                          child: Column(
-                            mainAxisSize: MainAxisSize.min,
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              2.space,
-                              Text(
-                                "Normal Thali",
-                                style: CustomTextStyle.titleMediumRoboto1,
-                              ),
-                              4.space,
-                              Text(
-                                "Description",
-                                style: CustomTextStyle.bodySmallRoboto1,
-                              ),
-                              4.space,
-                              SizedBox(
-                                width: double.maxFinite,
-                                child: Row(
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceBetween,
-                                  children: [
-                                    Align(
-                                      alignment: Alignment.bottomCenter,
-                                      child: Text(
-                                        "Rs. 150",
-                                        style:
-                                            CustomTextStyle.bodyMediumRoboto1,
-                                      ),
-                                    ),
-                                    Container(
-                                      padding: EdgeInsets.symmetric(
-                                          horizontal: 8.h, vertical: 2.h),
-                                      decoration: BoxDecoration(
-                                          color: appTheme.orangeA700,
-                                          borderRadius:
-                                              BorderRadius.circular(5)),
-                                      child: Column(
-                                        mainAxisSize: MainAxisSize.min,
-                                        children: [
-                                          Text(
-                                            "5 left",
-                                            style: theme.textTheme.labelLarge,
-                                          ),
-                                        ],
-                                      ),
-                                    ),
-                                  ],
-                                ),
-                              )
-                            ],
-                          ),
-                        ),
-                      )
-                    ],
-                  ),
-                );
-              },
-              separatorBuilder: (context, index) {
-                return 20.space;
-              },
-              itemCount: 4),
-        )
+       FoodCardOne()
       ],
     );
   }
@@ -411,85 +300,7 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
             controller: scrollController,
             shrinkWrap: true,
               itemBuilder: (context, index) {
-                return Container(
-                  padding: EdgeInsets.symmetric(horizontal: 14.h, vertical: 10.h),
-                  decoration: BoxDecoration(
-                      color: theme.colorScheme.onError,
-                      borderRadius: BorderRadius.circular(5)),
-
-                  child: Row(
-                    children: [
-                      CustomImageView(
-                        imagePath: "assets/food.png",
-                        height: 78.h,
-                        width: 78.h,
-                        radius: BorderRadius.circular(5.h),
-                      ),
-
-                      SizedBox(
-                        width: 12.h,
-                      ),
-
-                      Expanded(
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-
-                            Text(
-                              "Normal Thali",
-                              style: CustomTextStyle.titleMediumRoboto1,
-                            ),
-                            4.space,
-                            Text(
-                              "Description",
-                              style: CustomTextStyle.bodySmallRoboto1,
-                            ),
-                            4.space,
-                            SizedBox(
-                              width: double.maxFinite,
-                              child: Row(
-                                mainAxisAlignment:
-                                MainAxisAlignment.spaceBetween,
-                                children: [
-                                  Align(
-                                    alignment: Alignment.bottomCenter,
-                                    child: Text(
-                                      "Rs. 150",
-                                      style:
-                                      CustomTextStyle.bodyMediumRoboto1,
-                                    ),
-                                  ),
-                                  Container(
-                                    padding: EdgeInsets.symmetric(
-                                        horizontal: 8.h, vertical: 2.h),
-                                    decoration: BoxDecoration(
-                                        color: appTheme.orangeA700,
-                                        borderRadius:
-                                        BorderRadius.circular(5)),
-                                    child: Column(
-                                      mainAxisSize: MainAxisSize.min,
-                                      children: [
-                                        Text(
-                                          "5 left",
-                                          style: theme.textTheme.labelLarge,
-                                        ),
-                                      ],
-                                    ),
-                                  ),
-                                ],
-                              ),
-                            )
-
-
-                          ],
-                        ),
-                      )
-
-
-
-                    ],
-                  ),
-                );
+                return FoodCardTwo();
               },
               separatorBuilder: (context, index) {
                 return 20.space;
