@@ -68,7 +68,9 @@ class _HomeScreenState extends ConsumerState<DishScreen> {
                   10.space,
                   _buildRatingBar(context),
                   14.space,
-                  _buildBuyNow(context)
+                  _buildBuyNow(context),
+                  8.space,
+                  Text("Product Description",style: CustomTextStyle.titleLargeRobotoPrimaryRegular,)
                 ],
               ),
             ),
@@ -167,7 +169,7 @@ class _HomeScreenState extends ConsumerState<DishScreen> {
             height: 36.h,
             width: 82.h,
             buttonStyle: CustomButtonStyles.fillOrangeATL51,
-            buttonTextStyle: CustomTextStyle.titleMediumRoboto1,
+            buttonTextStyle: CustomTextStyle.titleMediumRobotoOnError,
           )
         ],
       ),

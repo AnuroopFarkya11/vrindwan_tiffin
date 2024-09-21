@@ -227,6 +227,40 @@ class CustomTextStyle {
         color: appTheme.orangeA70001,
       );
 
+  static get titleLargeRobotoPrimaryExtraBold =>
+      theme.textTheme.titleLarge!.copyWith(
+        color: theme.colorScheme.primary,
+        fontWeight: FontWeight.w800,
+      );
+
+  static get titleLargeRobotoPrimaryExtraBold_1 =>
+      theme.textTheme.titleLarge!.copyWith(
+        color: theme.colorScheme.primary.withOpacity(0.8),
+        fontWeight: FontWeight.w800,
+      );
+
+  static get titleLargeRobotoPrimaryRegular =>
+      theme.textTheme.titleLarge!.copyWith(
+        color: theme.colorScheme.primary.withOpacity(0.8),
+        fontWeight: FontWeight.w400,
+      );
+
+  static get titleLargeRobotoPrimaryRegular_1 =>
+      theme.textTheme.titleLarge!.copyWith(
+        color: theme.colorScheme.primary.withOpacity(0.8),
+        fontWeight: FontWeight.w400,
+      );
+
+  static get titleLargeRobotoPrimary_1 => theme.textTheme.titleLarge!.copyWith(
+        color: theme.colorScheme.primary.withOpacity(0.8),
+      );
+
+  static get titleLargeRobotoPrimary_2 => theme.textTheme.titleLarge!.copyWith(
+        color: theme.colorScheme.primary.withOpacity(0.8),
+      );
+
+  static get titleLargeRoboto_1 => theme.textTheme.titleLarge!;
+
   static get titleMediumRobotoOrangeA700 =>
       theme.textTheme.titleMedium!.roboto.copyWith(
         color: appTheme.orangeA700,
