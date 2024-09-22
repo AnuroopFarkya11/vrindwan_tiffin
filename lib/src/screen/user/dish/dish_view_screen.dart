@@ -75,7 +75,15 @@ class _HomeScreenState extends ConsumerState<DishScreen> {
                   20.space,
                   Text("Product Description",style: CustomTextStyle.titleLargeRobotoPrimary_2,),
                   8.space,
-                  Text("Description jdnvjnadslnvionaiosnvdio;nasio;nvonao;snc anvinfjvijeipvn[pam ]pojaop qj jpwvjp[oaj 9jfg[jwoe' jopjwiefhn q0wj9kjaopjdfionasiofvniosnvjn uaibwufbu anb ",maxLines: 4,overflow: TextOverflow.ellipsis,style: CustomTextStyle.bodyMediumRoboto2,)
+                  Padding(
+                    padding: EdgeInsets.only(left: 2.h),
+                    child: Text("Description jdnvjnadslnvionaiosnvdio;nasio;nvonao;snc anvinfjvijeipvn[pam ]pojaop qj jpwvjp[oaj 9jfg[jwoe' jopjwiefhn q0wj9kjaopjdfionasiofvniosnvjn uaibwufbu anb ",maxLines: 4,overflow: TextOverflow.ellipsis,style: CustomTextStyle.bodyMediumRobotoPrimary_5,),
+                  ),
+                  20.space,
+
+
+                  Text("Suggestion dish",style: CustomTextStyle.headlineMediumPrimaryBold,)
+
                 ],
               ),
             ),
