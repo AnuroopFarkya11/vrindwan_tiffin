@@ -358,6 +358,86 @@ class CustomTextStyle {
         color: appTheme.orangeA70001,
       );
 
+  static TextStyle get titleSmallPrimary =>
+      theme.textTheme.titleSmall!.copyWith(
+        color: theme.colorScheme.primary.withOpacity(0.9),
+      );
+
+  static TextStyle get titleSmallPrimary1 =>
+      theme.textTheme.titleSmall!.copyWith(
+        color: theme.colorScheme.primary.withOpacity(0.5),
+      );
+
+  static TextStyle get titleSmallPrimary2 =>
+      theme.textTheme.titleSmall!.copyWith(
+        color: theme.colorScheme.primary.withOpacity(0.6),
+      );
+
+  static TextStyle get titleSmallProximaNova =>
+      theme.textTheme.titleSmall!.copyWith(
+        fontFamily: 'ProximaNova',
+      );
+
+  static TextStyle get titleSmallProximaNovaBlueGray80002 =>
+      theme.textTheme.titleSmall!.copyWith(
+        fontFamily: 'ProximaNova',
+        color: appTheme.blueGray80002.withOpacity(0.8),
+      );
+
+  static TextStyle get titleSmallProximaNovaGray100 =>
+      theme.textTheme.titleSmall!.copyWith(
+        fontFamily: 'ProximaNova',
+        color: appTheme.gray100,
+      );
+
+  static TextStyle get titleSmallProximaNovaOnError =>
+      theme.textTheme.titleSmall!.copyWith(
+        fontFamily: 'ProximaNova',
+        color: theme.colorScheme.onError,
+      );
+
+  static TextStyle get titleSmallProximaNovaPrimary =>
+      theme.textTheme.titleSmall!.copyWith(
+        fontFamily: 'ProximaNova',
+        color: theme.colorScheme.primary,
+      );
+
+  static TextStyle get titleSmallProximaNovaPrimary1 =>
+      theme.textTheme.titleSmall!.copyWith(
+        fontFamily: 'ProximaNova',
+        color: theme.colorScheme.primary.withOpacity(0.6),
+      );
+
+  static TextStyle get titleSmallProximaNovaPrimary2 =>
+      theme.textTheme.titleSmall!.copyWith(
+        fontFamily: 'ProximaNova',
+        color: theme.colorScheme.primary.withOpacity(0.5),
+      );
+
+  static TextStyle get titleSmallProximaNovaPrimary3 =>
+      theme.textTheme.titleSmall!.copyWith(
+        fontFamily: 'ProximaNova',
+        color: theme.colorScheme.primary,
+      );
+
+  static TextStyle get titleSmallProximaNovaPrimary4 =>
+      theme.textTheme.titleSmall!.copyWith(
+        fontFamily: 'ProximaNova',
+        color: theme.colorScheme.primary.withOpacity(0.9),
+      );
+
+  static TextStyle get titleSmallProximaNova1 =>
+      theme.textTheme.titleSmall!.copyWith(
+        fontFamily: 'ProximaNova',
+      );
+
+  static TextStyle get titleSmallProximaNova2 =>
+      theme.textTheme.titleSmall!.copyWith(
+        fontFamily: 'ProximaNova',
+      );
+
+  static TextStyle get titleSmall1 => theme.textTheme.titleSmall!;
+
   /// Headline Styles
   static get headlineMediumPrimary => theme.textTheme.headlineMedium!.copyWith(
         color: theme.colorScheme.primary,
