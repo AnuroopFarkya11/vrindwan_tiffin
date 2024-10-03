@@ -184,6 +184,7 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
         return Padding(
           padding: EdgeInsets.only(right: 22),
           child: SearchBar(
+
             hintText: "Search",
             onTap: () {
               controller.openView();

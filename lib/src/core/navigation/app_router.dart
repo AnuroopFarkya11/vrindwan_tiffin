@@ -18,7 +18,7 @@ class AppRouter {
         path: AppRoutes.auth.path,
         name: AppRoutes.auth.name,
         builder: (context, state) => const HomeScreen(),
-        routes: [g
+        routes: [
           GoRoute(
               path: AppRoutes.console.path,
               name: AppRoutes.console.name,

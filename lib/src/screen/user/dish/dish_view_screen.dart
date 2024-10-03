@@ -6,6 +6,7 @@ import 'package:input_quantity/input_quantity.dart';
 import 'package:triton_extensions/triton_extensions.dart';
 import 'package:vrindavantiffin/src/app.dart';
 import 'package:vrindavantiffin/src/core/utils/size_utils.dart';
+import 'package:vrindavantiffin/src/screen/user/home/widget/food_card_two.dart';
 import 'package:vrindavantiffin/src/shared/theme/custom_text_style.dart';
 import 'package:vrindavantiffin/src/shared/theme/cutom_button_style.dart';
 import 'package:vrindavantiffin/src/shared/theme/theme_helper.dart';
@@ -58,31 +59,30 @@ class _HomeScreenState extends ConsumerState<DishScreen> {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  20.space,
                   _buildStackFavorite(context),
                   24.space,
-                  Padding(
-                    padding: EdgeInsets.only(left: 4.h),
-                    child: Text(
-                      "Name",
-                      style: CustomTextStyle.headlineMediumPrimary1,
-                    ),
-                  ),
+                  _buildDishName(),
                   10.space,
                   _buildRatingBar(context),
                   14.space,
                   _buildBuyNow(context),
                   20.space,
-                  Text("Product Description",style: CustomTextStyle.titleLargeRobotoPrimary_2,),
+                  Text(
+                    "Product Description",
+                    style: CustomTextStyle.titleLargeRobotoPrimary_2,
+                  ),
                   8.space,
                   Padding(
                     padding: EdgeInsets.only(left: 2.h),
-                    child: Text("Description jdnvjnadslnvionaiosnvdio;nasio;nvonao;snc anvinfjvijeipvn[pam ]pojaop qj jpwvjp[oaj 9jfg[jwoe' jopjwiefhn q0wj9kjaopjdfionasiofvniosnvjn uaibwufbu anb ",maxLines: 4,overflow: TextOverflow.ellipsis,style: CustomTextStyle.bodyMediumRobotoPrimary_5,),
+                    child: Text(
+                      "Description jdnvjnadslnvionaiosnvdio;nasio;nvonao;snc anvinfjvijeipvn[pam ]pojaop qj jpwvjp[oaj 9jfg[jwoe' jopjwiefhn q0wj9kjaopjdfionasiofvniosnvjn uaibwufbu anb ",
+                      maxLines: 4,
+                      overflow: TextOverflow.ellipsis,
+                      style: CustomTextStyle.bodyMediumRobotoPrimary_5,
+                    ),
                   ),
                   20.space,
-
-
-                  Text("Suggestion dish",style: CustomTextStyle.headlineMediumPrimaryBold,)
+                  _getSuggestedDish(),
 
                 ],
               ),
@@ -186,6 +186,40 @@ class _HomeScreenState extends ConsumerState<DishScreen> {
           )
         ],
       ),
+    );
+  }
+
+  _buildDishName() {
+    return Padding(
+      padding: EdgeInsets.only(left: 4.h),
+      child: Text(
+        "Name",
+        style: CustomTextStyle.headlineMediumPrimary1,
+      ),
+    );
+  }
+
+  _getSuggestedDish() {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Text(
+          "Suggestion dish",
+          style: CustomTextStyle.headlineMediumPrimaryBold,
+
+        ),
+        15.space,
+        ListView.separated(
+            controller: scrollController,
+            shrinkWrap: true,
+            itemBuilder: (context, index) {
+              return FoodCardTwo();
+            },
+            separatorBuilder: (context, index) {
+              return 20.space;
+            },
+            itemCount: 3)
+      ],
     );
   }
 }
