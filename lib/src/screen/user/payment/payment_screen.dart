@@ -5,6 +5,7 @@ import 'package:flutter_svg/svg.dart';
 import 'package:triton_extensions/triton_extensions.dart';
 import 'package:vrindavantiffin/src/core/utils/size_utils.dart';
 import 'package:vrindavantiffin/src/screen/admin/console/console_screen.dart';
+import 'package:vrindavantiffin/src/screen/user/payment/widget/payment_mode_tile.dart';
 import 'package:vrindavantiffin/src/shared/color/app_color.dart';
 import 'package:vrindavantiffin/src/shared/theme/custom_text_style.dart';
 import 'package:vrindavantiffin/src/shared/theme/cutom_button_style.dart';
@@ -21,6 +22,8 @@ class PaymentScreen extends StatefulWidget {
 }
 
 class _PaymentScreenState extends State<PaymentScreen> {
+  String? selectedMethod="PayPal";
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -49,14 +52,14 @@ class _PaymentScreenState extends State<PaymentScreen> {
           _buildStepper(),
           Expanded(
               child: SingleChildScrollView(
-                child: Container(
-                  width: double.maxFinite,
-                  padding: EdgeInsets.only(top: 24.h),
-                  child: Column(
-                    children: [],
-                  ),
-                ),
-              ))
+            child: Container(
+              width: double.maxFinite,
+              padding: EdgeInsets.only(top: 24.h),
+              child: Column(
+                children: [_buildPaymentOptions()],
+              ),
+            ),
+          ))
         ],
       ),
     );
@@ -119,13 +122,36 @@ class _PaymentScreenState extends State<PaymentScreen> {
             stepperDirection: Axis.horizontal));
   }
 
-  _buildPaymentOptions(){
+  _buildPaymentOptions() {
+    return Container(
+      width: double.maxFinite,
+      padding: EdgeInsets.symmetric(vertical: 14.h),
+      decoration: BoxDecoration(color: theme.colorScheme.onError, boxShadow: [
+        BoxShadow(
+            color: theme.colorScheme.primary.withOpacity(0.05),
+            spreadRadius: 2.h,
+            blurRadius: 2.h,
+            offset: Offset(0, 1))
+      ]),
+      child: Column(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          8.space,
+          Container(
+            padding: 22.paddingHorizontal,
+            width: double.maxFinite,
+            child: Text(
+              "Payment Options",
+              style: CustomTextStyle.titleMediumRobotoPrimary3,
+            ),
+          ),
+          16.space,
+          _buildPaymentOptionsTile()
 
-    return
-
+        ],
+      ),
+    );
   }
-
-
 
   _buildRowContinue() {
     return Container(
@@ -149,5 +175,35 @@ class _PaymentScreenState extends State<PaymentScreen> {
     );
   }
 
+  _buildPaymentOptionsTile(){
+    final List<String> paymentMethods = ['Credit Card', 'Debit Card', 'PayPal', 'Net Banking', 'UPI'];
+    return  Padding(
+      padding:EdgeInsets.only(left: 10.h,right: 20.h),
+      child: ListView.separated(
+        shrinkWrap: true,
+          separatorBuilder: (context, index) {
+            return Divider(
+              height: 1.h,
+              thickness: 1.h,
+              color: theme.colorScheme.primary.withOpacity(0.2),
 
+            );
+          },
+        itemCount: paymentMethods.length,
+        itemBuilder: (context,index){
+          return RadioListTile<String>(
+            fillColor: WidgetStateProperty.all(Colors.black),
+            title: Text(paymentMethods[index]),
+            value: paymentMethods[index],
+            groupValue: selectedMethod,
+            onChanged: (String? value) {
+              setState(() {
+                selectedMethod = value;
+              });
+            },
+          );
+        },
+      ),
+    );
+  }
 }

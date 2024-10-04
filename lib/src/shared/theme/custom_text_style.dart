@@ -330,16 +330,54 @@ class CustomTextStyle {
         color: theme.colorScheme.onError,
       );
 
+  static TextStyle get titleMediumRobotoPrimary =>
+      theme.textTheme.titleMedium!.copyWith(
+        color: theme.colorScheme.primary.withOpacity(0.6),
+        fontSize: 18.0,
+      );
+
+  static TextStyle get titleMediumRobotoPrimary1 =>
+      theme.textTheme.titleMedium!.copyWith(
+        color: theme.colorScheme.primary.withOpacity(0.7),
+      );
+
+  static TextStyle get titleMediumRobotoPrimary2 =>
+      theme.textTheme.titleMedium!.copyWith(
+        color: theme.colorScheme.primary.withOpacity(0.5),
+      );
+
+  static TextStyle get titleMediumRobotoPrimary3 =>
+      theme.textTheme.titleMedium!.copyWith(
+        color: theme.colorScheme.primary,
+      );
+
+  static TextStyle get titleMediumRobotoPrimary4 =>
+      theme.textTheme.titleMedium!.copyWith(
+        color: theme.colorScheme.primary,
+      );
+
+
+  static TextStyle get titleSmallBlueGray80002 =>
+      theme.textTheme.titleSmall!.copyWith(
+        color: appTheme.blueGray80002.withOpacity(0.8),
+      );
+
+  static TextStyle get titleSmallBlueGray90003 =>
+      theme.textTheme.titleSmall!.copyWith(
+        color: appTheme.blueGray90003,
+      );
+
+  static TextStyle get titleSmallGray100 =>
+      theme.textTheme.titleSmall!.copyWith(
+        color: appTheme.gray100,
+      );
+
   static get titleSmallBluegray80002 => theme.textTheme.titleSmall!.copyWith(
         color: appTheme.blueGray80002.withOpacity(0.8),
       );
 
   static get titleSmallBluegray90003 => theme.textTheme.titleSmall!.copyWith(
         color: appTheme.blueGray90003,
-      );
-
-  static get titleSmallGray100 => theme.textTheme.titleSmall!.copyWith(
-        color: appTheme.gray100,
       );
 
   static get titleSmallOnError => theme.textTheme.titleSmall!.copyWith(
