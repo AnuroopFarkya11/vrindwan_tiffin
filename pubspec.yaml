@@ -54,6 +54,7 @@ dependencies:
   another_stepper: ^1.2.2
   connectivity_plus: ^5.0.2
   sizer: ^3.0.3
+  persistent_bottom_nav_bar: ^6.2.1
 
 
 dev_dependencies:

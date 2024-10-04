@@ -23,6 +23,7 @@ class DishScreen extends ConsumerStatefulWidget {
 
 class _HomeScreenState extends ConsumerState<DishScreen> {
   final scrollController = ScrollController();
+  bool cart = false;
 
   @override
   void initState() {
@@ -64,8 +65,8 @@ class _HomeScreenState extends ConsumerState<DishScreen> {
                   _buildDishName(),
                   10.space,
                   _buildRatingBar(context),
-                  14.space,
-                  _buildBuyNow(context),
+                  // 14.space,
+                  // _buildBuyNow(context),
                   20.space,
                   Text(
                     "Product Description",
@@ -83,7 +84,6 @@ class _HomeScreenState extends ConsumerState<DishScreen> {
                   ),
                   20.space,
                   _getSuggestedDish(),
-
                 ],
               ),
             ),
@@ -192,9 +192,15 @@ class _HomeScreenState extends ConsumerState<DishScreen> {
   _buildDishName() {
     return Padding(
       padding: EdgeInsets.only(left: 4.h),
-      child: Text(
-        "Name",
-        style: CustomTextStyle.headlineMediumPrimary1,
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          Text(
+            "Name",
+            style: CustomTextStyle.headlineMediumPrimary1,
+          ),
+          _buildAddToCartOrCounter()
+        ],
       ),
     );
   }
@@ -206,7 +212,6 @@ class _HomeScreenState extends ConsumerState<DishScreen> {
         Text(
           "Suggestion dish",
           style: CustomTextStyle.headlineMediumPrimaryBold,
-
         ),
         15.space,
         ListView.separated(
@@ -221,5 +226,64 @@ class _HomeScreenState extends ConsumerState<DishScreen> {
             itemCount: 3)
       ],
     );
+  }
+
+  _buildAddToCartOrCounter() {
+    switch (cart) {
+      case true:
+        return InputQty(
+          decoration: QtyDecorationProps(
+            enabledBorder: InputBorder.none,
+            plusBtn: Container(
+              height: 34.h,
+              width: 34.h,
+              decoration: BoxDecoration(
+                  color: appTheme.orangeA700,
+                  borderRadius: BorderRadius.circular(5)),
+              child: Icon(
+                Icons.add,
+                size: 27.h,
+                color: Colors.white,
+              ),
+            ),
+            minusBtn: Container(
+              height: 34.h,
+              width: 34.h,
+              decoration: BoxDecoration(
+                  color: appTheme.orangeA700,
+                  borderRadius: BorderRadius.circular(5)),
+              child: Icon(
+                Icons.remove,
+                size: 27.h,
+                color: Colors.white,
+              ),
+            ),
+          ),
+          qtyFormProps: QtyFormProps(
+              style: CustomTextStyle.titleLargeRobotoPrimaryRegular),
+          isIntrinsicWidth: true,
+          onQtyChanged: (value) {
+            if (value == 0) {
+              setState(() {
+                cart = false;
+              });
+            }
+          },
+        );
+
+      case false:
+        return CustomElevatedButton(
+          onPressed: () {
+            setState(() {
+              cart = true;
+            });
+          },
+          text: "Add to cart",
+          height: 36.h,
+          width: 110.h,
+          buttonStyle: CustomButtonStyles.fillOrangeATL51,
+          buttonTextStyle: CustomTextStyle.titleMediumRobotoOnError,
+        );
+    }
   }
 }

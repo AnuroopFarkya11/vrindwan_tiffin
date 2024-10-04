@@ -12,6 +12,7 @@ import 'package:vrindavantiffin/src/screen/user/dish/dish_view_screen.dart';
 import 'package:vrindavantiffin/src/screen/user/home/home_screen.dart';
 import 'package:vrindavantiffin/src/screen/user/order/order_summary_screen.dart';
 import 'package:vrindavantiffin/src/screen/user/payment/payment_screen.dart';
+import 'package:vrindavantiffin/src/screen/user/user_main_screen.dart';
 
 class AppRouter {
   GoRouter get router => _router;
@@ -20,7 +21,7 @@ class AppRouter {
     GoRoute(
         path: AppRoutes.auth.path,
         name: AppRoutes.auth.name,
-        builder: (context, state) => const CartNewScreen(),
+        builder: (context, state) => const UserMainScreen(),
         routes: [
           GoRoute(
               path: AppRoutes.console.path,
@@ -52,7 +53,7 @@ class AppRouter {
           GoRoute(
               path: AppRoutes.cart.name,
               name: AppRoutes.cart.name,
-              builder: (context, state) => CartScreen()),
+              builder: (context, state) => CartNewScreen()),
           GoRoute(
               path: AppRoutes.payment.path,
               name: AppRoutes.payment.name,
