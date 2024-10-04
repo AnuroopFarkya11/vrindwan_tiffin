@@ -5,6 +5,7 @@ import 'package:vrindavantiffin/src/screen/admin/form/form_screen.dart';
 import 'package:vrindavantiffin/src/screen/admin/form/route/form_route.dart';
 import 'package:vrindavantiffin/src/screen/auth/auth_controller.dart';
 import 'package:vrindavantiffin/src/screen/auth/otp_screen.dart';
+import 'package:vrindavantiffin/src/screen/user/cart/cart_new_screen.dart';
 import 'package:vrindavantiffin/src/screen/user/cart/cart_screen.dart';
 import 'package:vrindavantiffin/src/screen/user/delivery/delivery_address.dart';
 import 'package:vrindavantiffin/src/screen/user/dish/dish_view_screen.dart';
@@ -19,7 +20,7 @@ class AppRouter {
     GoRoute(
         path: AppRoutes.auth.path,
         name: AppRoutes.auth.name,
-        builder: (context, state) => const DeliveryAddressScreen(),
+        builder: (context, state) => const CartNewScreen(),
         routes: [
           GoRoute(
               path: AppRoutes.console.path,
