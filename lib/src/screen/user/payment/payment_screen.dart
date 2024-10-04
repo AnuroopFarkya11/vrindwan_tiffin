@@ -22,7 +22,7 @@ class PaymentScreen extends StatefulWidget {
 }
 
 class _PaymentScreenState extends State<PaymentScreen> {
-  String? selectedMethod="PayPal";
+  String? selectedMethod;
 
   @override
   Widget build(BuildContext context) {

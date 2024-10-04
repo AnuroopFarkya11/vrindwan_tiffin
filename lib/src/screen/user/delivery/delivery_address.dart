@@ -2,7 +2,10 @@ import 'package:another_stepper/another_stepper.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:go_router/go_router.dart';
 import 'package:triton_extensions/triton_extensions.dart';
+import 'package:vrindavantiffin/src/core/navigation/app_router.dart';
+import 'package:vrindavantiffin/src/core/navigation/app_routes.dart';
 import 'package:vrindavantiffin/src/core/utils/size_utils.dart';
 import 'package:vrindavantiffin/src/screen/admin/console/console_screen.dart';
 import 'package:vrindavantiffin/src/shared/color/app_color.dart';
@@ -13,15 +16,14 @@ import 'package:vrindavantiffin/src/widgets/custom_elevated_button.dart';
 import 'package:vrindavantiffin/src/widgets/custom_image_view.dart';
 import 'package:vrindavantiffin/src/widgets/custom_text_form_feild.dart';
 
-class AddDeliveryAddressScreen extends StatefulWidget {
-  const AddDeliveryAddressScreen({super.key});
+class DeliveryAddressScreen extends StatefulWidget {
+  const DeliveryAddressScreen({super.key});
 
   @override
-  State<AddDeliveryAddressScreen> createState() =>
-      _AddDeliveryAddressScreenState();
+  State<DeliveryAddressScreen> createState() => _DeliveryAddressScreenState();
 }
 
-class _AddDeliveryAddressScreenState extends State<AddDeliveryAddressScreen> {
+class _DeliveryAddressScreenState extends State<DeliveryAddressScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -273,7 +275,9 @@ class _AddDeliveryAddressScreenState extends State<AddDeliveryAddressScreen> {
             height: 50.h,
             width: 146.h,
             text: "CONTINUE".toUpperCase(),
-            onPressed: (){},
+            onPressed: () {
+              context.pushNamed(AppRoutes.orderSummary.name);
+            },
             buttonStyle: CustomButtonStyles.fillOrangeATL51,
             buttonTextStyle: CustomTextStyle.titleSmallOnError,
           )

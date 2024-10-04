@@ -2,7 +2,10 @@ import 'package:another_stepper/another_stepper.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:go_router/go_router.dart';
 import 'package:triton_extensions/triton_extensions.dart';
+import 'package:vrindavantiffin/src/core/navigation/app_router.dart';
+import 'package:vrindavantiffin/src/core/navigation/app_routes.dart';
 import 'package:vrindavantiffin/src/core/utils/size_utils.dart';
 import 'package:vrindavantiffin/src/screen/admin/console/console_screen.dart';
 import 'package:vrindavantiffin/src/shared/color/app_color.dart';
@@ -132,7 +135,9 @@ class _OrderSummaryScreenState extends State<OrderSummaryScreen> {
             height: 50.h,
             width: 146.h,
             text: "CONTINUE".toUpperCase(),
-            onPressed: () {},
+            onPressed: () {
+              context.pushNamed(AppRoutes.payment.name);
+            },
             buttonStyle: CustomButtonStyles.fillOrangeATL51,
             buttonTextStyle: CustomTextStyle.titleSmallOnError,
           )

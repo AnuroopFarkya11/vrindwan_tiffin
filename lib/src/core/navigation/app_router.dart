@@ -6,7 +6,7 @@ import 'package:vrindavantiffin/src/screen/admin/form/route/form_route.dart';
 import 'package:vrindavantiffin/src/screen/auth/auth_controller.dart';
 import 'package:vrindavantiffin/src/screen/auth/otp_screen.dart';
 import 'package:vrindavantiffin/src/screen/user/cart/cart_screen.dart';
-import 'package:vrindavantiffin/src/screen/user/delivery/add_delivery.dart';
+import 'package:vrindavantiffin/src/screen/user/delivery/delivery_address.dart';
 import 'package:vrindavantiffin/src/screen/user/dish/dish_view_screen.dart';
 import 'package:vrindavantiffin/src/screen/user/home/home_screen.dart';
 import 'package:vrindavantiffin/src/screen/user/order/order_summary_screen.dart';
@@ -19,7 +19,7 @@ class AppRouter {
     GoRoute(
         path: AppRoutes.auth.path,
         name: AppRoutes.auth.name,
-        builder: (context, state) => const PaymentScreen(),
+        builder: (context, state) => const DeliveryAddressScreen(),
         routes: [
           GoRoute(
               path: AppRoutes.console.path,
@@ -46,7 +46,8 @@ class AppRouter {
           GoRoute(
               path: AppRoutes.home.path,
               name: AppRoutes.home.name,
-              builder: (context, state) => HomeScreen()),
+              builder: (context, state) => HomeScreen(),
+          ),
           GoRoute(
               path: AppRoutes.cart.name,
               name: AppRoutes.cart.name,
@@ -59,6 +60,16 @@ class AppRouter {
               path: AppRoutes.dish.path,
               name: AppRoutes.dish.name,
               builder: (context, state) => DishScreen()),
+          GoRoute(
+              path: AppRoutes.delivery.path,
+              name: AppRoutes.delivery.name,
+              builder: (context, state) => DeliveryAddressScreen()),
+          GoRoute(
+              path: AppRoutes.orderSummary.path,
+              name: AppRoutes.orderSummary.name,
+              builder: (context, state) => OrderSummaryScreen()),
+
+
 
 
         ]),
