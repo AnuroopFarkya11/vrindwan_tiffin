@@ -8,6 +8,7 @@ import 'package:vrindavantiffin/src/shared/theme/custom_text_style.dart';
 import 'package:vrindavantiffin/src/shared/theme/cutom_button_style.dart';
 import 'package:vrindavantiffin/src/shared/theme/theme_helper.dart';
 import 'package:vrindavantiffin/src/widgets/custom_elevated_button.dart';
+import 'package:vrindavantiffin/src/widgets/custom_text_form_feild.dart';
 
 class CartNewScreen extends StatefulWidget {
   const CartNewScreen({super.key});
@@ -51,33 +52,74 @@ class _CartNewScreenState extends State<CartNewScreen> {
       width: double.maxFinite,
       child: ListView.separated(
         shrinkWrap: true,
-          itemCount: 2,
-          itemBuilder: (context, index) {
-            return ItemTileNew();
-          },
-        separatorBuilder: (context,index){
+        itemCount: 2,
+        itemBuilder: (context, index) {
+          return ItemTileNew();
+        },
+        separatorBuilder: (context, index) {
           return 15.space;
         },
-
-          ),
+      ),
     );
   }
 
   _buildRowContinue() {
     return Container(
-      height: 70.h,
+      height: 250.h,
       width: double.maxFinite,
       padding: EdgeInsets.symmetric(horizontal: 24.h, vertical: 10.h),
-      decoration: BoxDecoration(color: theme.colorScheme.onError),
-      child: CustomElevatedButton(
-        height: 50.h,
-        width: double.maxFinite,
-        text: "Order NOw".toUpperCase(),
-        onPressed: () {
-          context.pushNamed(AppRoutes.delivery.name);
-        },
-        buttonStyle: CustomButtonStyles.fillOrangeATL51,
-        buttonTextStyle: CustomTextStyle.titleSmallOnError,
+      decoration: BoxDecoration(
+          color: theme.colorScheme.onError,
+          borderRadius: BorderRadius.circular(20),
+          boxShadow: [
+            BoxShadow(
+                color: theme.colorScheme.primary.withOpacity(0.05),
+                spreadRadius: 2.h,
+                blurRadius: 2.h,
+                offset: Offset(0, 0))
+          ]),
+      child: Column(
+        children: [
+          24.space,
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Text("Subtotal:",style: CustomTextStyle.titleMediumRobotoPrimary,),
+              Text("Rs. 123",style: CustomTextStyle.titleMediumRobotoPrimary3,)
+            ],
+          ),
+          12.space,
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Text("Discount:",style: CustomTextStyle.titleMediumRobotoPrimary,),
+              Text("- Rs. 10",style: CustomTextStyle.titleMediumRobotoPrimary3,)
+            ],
+          ),
+
+          12.space,
+          Divider(),
+          12.space,
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Text("Total:",style: CustomTextStyle.headlineMediumPrimaryBold,),
+              Text("Rs. 113",style: CustomTextStyle.headlineMediumPrimary,)
+            ],
+          ),
+
+          Spacer(),
+          CustomElevatedButton(
+            height: 50.h,
+            width: double.maxFinite,
+            text: "Order Now".toUpperCase(),
+            onPressed: () {
+              context.pushNamed(AppRoutes.delivery.name);
+            },
+            buttonStyle: CustomButtonStyles.fillOrangeATL51,
+            buttonTextStyle: CustomTextStyle.titleSmallOnError,
+          ),
+        ],
       ),
     );
   }
