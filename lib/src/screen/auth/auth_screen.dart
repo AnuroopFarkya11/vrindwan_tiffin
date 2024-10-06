@@ -29,7 +29,6 @@ class _AuthScreenState extends ConsumerState<AuthScreen> {
   TextEditingController nameTextEditingController = TextEditingController();
   TextEditingController otpTextEditingController = TextEditingController();
 
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -39,11 +38,8 @@ class _AuthScreenState extends ConsumerState<AuthScreen> {
   }
 
   _getAppBar() {
-    return AppBar(
-    );
+    return AppBar();
   }
-
-
 
   _getBody() {
     final userAuthState = ref.watch(userAuthStateProvider);
@@ -66,30 +62,109 @@ class _AuthScreenState extends ConsumerState<AuthScreen> {
   }
 
   _getSignInFragment() {
-    return Padding(
-      padding: 10.padding,
+    return Container(
+      width: double.maxFinite,
+      padding: 22.padding,
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          TextField(
-            decoration: InputDecoration(hintText: "Mobile Number"),
+          Container(
+            padding: 14.paddingHorizontal,
+            width: double.maxFinite,
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+
+              children: [
+                Text(
+                  "Welcome Back!",
+                  style: CustomTextStyle.headlineMediumPrimary,
+                ),
+                6.space,
+                Text(
+                  "Log in to your existant account",
+                  style: CustomTextStyle.bodyLargeRobotoPrimary1,
+                ),
+              ],
+            ),
           ),
-          10.space,
-          TextField(
-            decoration: InputDecoration(hintText: "Password"),
+          24.space,
+          CustomTextFormField(
+            hintText: "Mobile Number",
+            contentPadding: EdgeInsets.fromLTRB(18.h, 18.h, 18.h, 14.h),
           ),
-          10.space,
-          ElevatedButton(
-              onPressed: () {
-                
-              },
-              child: Text('Sign in')),
-          Divider(),
-          ElevatedButton(
-              onPressed: () {
-               ref.read(userAuthStateProvider.notifier).state = UserAuthStatus.signUp;
-              },
-              child: Text('Sign up')),
+          24.space,
+          CustomTextFormField(
+            hintText: "Password",
+            textInputAction: TextInputAction.done,
+            textInputType: TextInputType.visiblePassword,
+            obscureText: true,
+            contentPadding: EdgeInsets.symmetric(
+              horizontal: 18.h,
+              vertical: 18.h,
+            ),
+          ),
+          12.space,
+          Align(
+            alignment: Alignment.centerRight,
+            child: Text(
+              "Forget Password?",
+              style: CustomTextStyle.titleSmallOrangeA70001_1,
+            ),
+          ),
+          20.space,
+          CustomElevatedButton(
+            onPressed: () {},
+            text: 'SIGN IN',
+            buttonStyle: CustomButtonStyles.fillOrangeATL51,
+            margin: EdgeInsets.symmetric(horizontal: 66.h),
+          ),
+          24.space,
+          Text(
+            'Or connect using',
+            style: CustomTextStyle.bodyMediumRoboto1,
+          ),
+          14.space,
+          Container(
+            width: double.maxFinite,
+            margin: EdgeInsets.only(left: 14.h, right: 6.h),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                CustomElevatedButton(
+                  height: 36.h,
+                  width: 114.h,
+                  text: 'Google',
+                  buttonStyle: CustomButtonStyles.fillOrangeATL51,
+                  buttonTextStyle: CustomTextStyle.titleSmallGray100,
+                  onPressed: () {},
+                ),
+                CustomElevatedButton(
+                  height: 36.h,
+                  width: 114.h,
+                  text: 'Facebook',
+                  buttonStyle: CustomButtonStyles.fillOrangeATL51,
+                  buttonTextStyle: CustomTextStyle.titleSmallGray100,
+                  onPressed: () {},
+                )
+              ],
+            ),
+          ),
+          22.space,
+          GestureDetector(
+            onTap: () {
+              ref.read(userAuthStateProvider.notifier).state =
+                  UserAuthStatus.signUp;
+            },
+            child: RichText(
+                text: TextSpan(children: [
+              TextSpan(
+                  text: "Don't have an account? ",
+                  style: CustomTextStyle.bodyMediumRoboto2),
+              TextSpan(
+                  text: "Sign up", style: CustomTextStyle.titleSmallOrangeA70001),
+            ])),
+          ),
+
         ],
       ),
     );
@@ -101,10 +176,13 @@ class _AuthScreenState extends ConsumerState<AuthScreen> {
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-
-          Text("Let’s Get Started",style: CustomTextStyle.headlineMediumPrimaryBold),
+          Text("Let’s Get Started",
+              style: CustomTextStyle.headlineMediumPrimaryBold),
           5.space,
-          Text("Create an new account",style: CustomTextStyle.bodyLargeRobotoPrimary1,),
+          Text(
+            "Create an new account",
+            style: CustomTextStyle.bodyLargeRobotoPrimary1,
+          ),
           30.space,
           CustomTextFormField(
             controller: nameTextEditingController,
@@ -117,37 +195,29 @@ class _AuthScreenState extends ConsumerState<AuthScreen> {
             textInputType: TextInputType.number,
             hintText: "Phone Number",
             contentPadding: EdgeInsets.fromLTRB(18.h, 18.h, 18.h, 14.h),
-
-
           ),
 //regular check 2
           34.space,
           CustomElevatedButton(
-              onPressed: () async {
-                ref.read(authProvider.notifier).verifyNumberAndSendOtp(phoneTextEditingController.text);
-              },
-              text: 'SIGN UP',
-            margin: EdgeInsets.only(
-              left: 66.h,
-              right: 70.h
-            ),
+            onPressed: () async {
+              ref
+                  .read(authProvider.notifier)
+                  .verifyNumberAndSendOtp(phoneTextEditingController.text);
+            },
+            text: 'SIGN UP',
+            margin: EdgeInsets.only(left: 66.h, right: 70.h),
             buttonStyle: CustomButtonStyles.fillOrangeATL51,
-
           ),
           32.space,
-          RichText(text: TextSpan(
-            children: [
-              TextSpan(
+          RichText(
+              text: TextSpan(children: [
+            TextSpan(
                 text: "Already have an account? ",
-                style: CustomTextStyle.bodyMediumRobotoPrimary_1
-              ),
-              TextSpan(
-                  text: "Login here",
-                  style: CustomTextStyle.titleSmallOrangeA70001
-              ),
-            ]
-
-          ))
+                style: CustomTextStyle.bodyMediumRobotoPrimary_1),
+            TextSpan(
+                text: "Login here",
+                style: CustomTextStyle.titleSmallOrangeA70001),
+          ]))
         ],
       ),
     );
@@ -159,10 +229,17 @@ class _AuthScreenState extends ConsumerState<AuthScreen> {
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-
-          Text("OTP VERIFICATION",style: context.textTheme.headlineSmall?.copyWith(fontWeight: FontWeight.w700),),
+          Text(
+            "OTP VERIFICATION",
+            style: context.textTheme.headlineSmall
+                ?.copyWith(fontWeight: FontWeight.w700),
+          ),
           5.space,
-          Text("Enter the OTP sent to +91XXXXXXXXX",style: context.textTheme.titleMedium?.copyWith(fontWeight: FontWeight.w100),),
+          Text(
+            "Enter the OTP sent to +91XXXXXXXXX",
+            style: context.textTheme.titleMedium
+                ?.copyWith(fontWeight: FontWeight.w100),
+          ),
           25.space,
           TextField(
             controller: otpTextEditingController,
@@ -170,25 +247,22 @@ class _AuthScreenState extends ConsumerState<AuthScreen> {
             decoration: InputDecoration(hintText: "Enter Otp"),
           ),
           10.space,
-
-          RichText(text: TextSpan(
-              children: [
-                TextSpan(
-                    text: "Don't receive the OTP? ",
-                    style: context.textTheme.labelMedium
-                ),
-                TextSpan(
-                    text: "RESEND OTP",
-                    style: context.textTheme.labelMedium?.copyWith(color: context.colorScheme.primary,fontWeight: FontWeight.w800)
-                ),
-              ]
-
-          )),
-
+          RichText(
+              text: TextSpan(children: [
+            TextSpan(
+                text: "Don't receive the OTP? ",
+                style: context.textTheme.labelMedium),
+            TextSpan(
+                text: "RESEND OTP",
+                style: context.textTheme.labelMedium?.copyWith(
+                    color: context.colorScheme.primary,
+                    fontWeight: FontWeight.w800)),
+          ])),
           25.space,
           ElevatedButton(
-              onPressed: (){
-                ref.read(authProvider.notifier).verifyOtpAndSignIn(otpTextEditingController.text.toString());
+              onPressed: () {
+                ref.read(authProvider.notifier).verifyOtpAndSignIn(
+                    otpTextEditingController.text.toString());
               },
               child: Text("VERIFY & PROCEED"))
         ],
