@@ -76,8 +76,9 @@ class _OtpScreenNewState extends State<OtpScreenNew> {
 
                     CustomTextFormField(
                       // controller: groupfiveoneController,
-                      hintText: "+91 123 456 789",
+                      hintText: "830 XXX XXX",
                       textInputAction: TextInputAction.done,
+                      textInputType: TextInputType.numberWithOptions(),
                       contentPadding: EdgeInsets.fromLTRB(18.h, 18.h, 18.h, 14.h),
                     ),
 
@@ -92,7 +93,8 @@ class _OtpScreenNewState extends State<OtpScreenNew> {
 
                   ],
                 ),
-              )
+              ),
+              4.space
             ],
           ),
         ),

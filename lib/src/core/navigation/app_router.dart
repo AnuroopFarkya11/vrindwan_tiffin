@@ -7,6 +7,7 @@ import 'package:vrindavantiffin/src/screen/auth/auth_controller.dart';
 import 'package:vrindavantiffin/src/screen/auth/auth_screen.dart';
 import 'package:vrindavantiffin/src/screen/auth/screen/otp/otp_screen.dart';
 import 'package:vrindavantiffin/src/screen/auth/screen/otp_screen.dart';
+import 'package:vrindavantiffin/src/screen/auth/screen/reset_password/create_new_password.dart';
 import 'package:vrindavantiffin/src/screen/user/cart/cart_new_screen.dart';
 import 'package:vrindavantiffin/src/screen/user/cart/cart_screen.dart';
 import 'package:vrindavantiffin/src/screen/user/delivery/delivery_address.dart';
@@ -23,7 +24,7 @@ class AppRouter {
     GoRoute(
         path: AppRoutes.auth.path,
         name: AppRoutes.auth.name,
-        builder: (context, state) => const OtpScreenNew(),
+        builder: (context, state) => const UserMainScreen(),
         routes: [
           GoRoute(
               path: AppRoutes.console.path,

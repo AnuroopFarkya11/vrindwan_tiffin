@@ -224,9 +224,9 @@ class LightCodeColors {
   Color get gray60001 => Color(0xFF6F6F6F);
   Color get gray700 => Color(0xFF5A5A5A);
   Color get lightGreen500 => Color(0xFF8CCF4D);
-  Color get orange500 => Color(0xFF851308);
-  Color get orangeA700 => Color(0xFF6A0B00);
-  Color get orangeA70001 =>  Color(0xFF9E3D23);
+  Color get orange500 => Color(0xFF041D24);
+  Color get orangeA700 => Color(0xFF083543);
+  Color get orangeA70001 =>  Color(0xFF06252E);
 
 
 

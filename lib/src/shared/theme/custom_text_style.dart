@@ -356,6 +356,31 @@ class CustomTextStyle {
         color: theme.colorScheme.primary,
       );
 
+  static TextStyle get titleMediumPrimary1 =>
+      theme.textTheme.titleMedium!.copyWith(
+        color: theme.colorScheme.primary.withOpacity(0.5),
+      );
+
+  static TextStyle get titleMediumPrimary2 =>
+      theme.textTheme.titleMedium!.copyWith(
+        color: theme.colorScheme.primary,
+      );
+
+  static TextStyle get titleMediumPrimary3 =>
+      theme.textTheme.titleMedium!.copyWith(
+        color: theme.colorScheme.primary,
+      );
+
+  static TextStyle get titleMediumPrimary4 =>
+      theme.textTheme.titleMedium!.copyWith(
+        color: theme.colorScheme.primary.withOpacity(0.7),
+      );
+
+  static TextStyle get titleMediumRobotoOrangeA70001_1 =>
+      theme.textTheme.titleMedium!.copyWith(
+        fontFamily: 'Roboto', // added font family
+        color: appTheme.orangeA70001,
+      );
 
   static TextStyle get titleSmallBlueGray80002 =>
       theme.textTheme.titleSmall!.copyWith(

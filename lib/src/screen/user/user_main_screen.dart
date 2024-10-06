@@ -12,6 +12,7 @@ import 'package:vrindavantiffin/src/screen/user/delivery/delivery_address.dart';
 import 'package:vrindavantiffin/src/screen/user/dish/dish_view_screen.dart';
 import 'package:vrindavantiffin/src/screen/user/home/home_screen.dart';
 import 'package:vrindavantiffin/src/screen/user/order/order_summary_screen.dart';
+import 'package:vrindavantiffin/src/screen/user/profile/profile_section_screen.dart';
 import 'package:vrindavantiffin/src/shared/theme/theme_helper.dart';
 
 class UserMainScreen extends ConsumerStatefulWidget {
@@ -74,7 +75,7 @@ class _UserMainScreenState extends ConsumerState<UserMainScreen> {
       HomeScreen(),
       DishScreen(),
       OrderSummaryScreen(),
-      DeliveryAddressScreen()
+      ProfileSectionScreen()
     ];
   }
 
