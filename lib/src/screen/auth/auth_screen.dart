@@ -5,10 +5,15 @@ import 'package:go_router/go_router.dart';
 import 'package:triton_extensions/triton_extensions.dart';
 import 'package:vrindavantiffin/src/core/logger/logger.dart';
 import 'package:vrindavantiffin/src/core/navigation/app_routes.dart';
+import 'package:vrindavantiffin/src/core/utils/size_utils.dart';
 import 'package:vrindavantiffin/src/screen/auth/provider/auth_provider.dart';
 import 'package:vrindavantiffin/src/screen/auth/provider/user_state_provider.dart';
 import 'package:vrindavantiffin/src/screen/auth/state/user_state.dart';
 import 'package:vrindavantiffin/src/shared/color/app_color.dart';
+import 'package:vrindavantiffin/src/shared/theme/custom_text_style.dart';
+import 'package:vrindavantiffin/src/shared/theme/cutom_button_style.dart';
+import 'package:vrindavantiffin/src/widgets/custom_elevated_button.dart';
+import 'package:vrindavantiffin/src/widgets/custom_text_form_feild.dart';
 
 final _logger = Logger('AuthScreen');
 
@@ -28,7 +33,7 @@ class _AuthScreenState extends ConsumerState<AuthScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: _getAppBar(),
+      // appBar: _getAppBar(),
       body: _getBody(),
     );
   }
@@ -97,41 +102,48 @@ class _AuthScreenState extends ConsumerState<AuthScreen> {
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
 
-          Text("Let’s Get Started",style: context.textTheme.headlineLarge?.copyWith(fontWeight: FontWeight.w700),),
+          Text("Let’s Get Started",style: CustomTextStyle.headlineMediumPrimaryBold),
           5.space,
-          Text("Create an new account",style: context.textTheme.titleMedium?.copyWith(fontWeight: FontWeight.w100),),
-          25.space,
-          TextField(
+          Text("Create an new account",style: CustomTextStyle.bodyLargeRobotoPrimary1,),
+          30.space,
+          CustomTextFormField(
             controller: nameTextEditingController,
-            keyboardType: TextInputType.number,
-            decoration: InputDecoration(hintText: "Name"),
+            hintText: "Name",
+            contentPadding: EdgeInsets.fromLTRB(20.h, 18.h, 20.h, 16.h),
           ),
-          15.space,
-          TextField(
+          24.space,
+          CustomTextFormField(
             controller: phoneTextEditingController,
-            keyboardType: TextInputType.number,
-            decoration: InputDecoration(hintText: "Phone no"),
+            textInputType: TextInputType.number,
+            hintText: "Phone Number",
+            contentPadding: EdgeInsets.fromLTRB(18.h, 18.h, 18.h, 14.h),
+
+
           ),
 //regular check 2
-          25.space,
-          ElevatedButton(
+          34.space,
+          CustomElevatedButton(
               onPressed: () async {
                 ref.read(authProvider.notifier).verifyNumberAndSendOtp(phoneTextEditingController.text);
               },
-              child: Text('SIGN UP')),
-          25.space,
-          Divider(),
-          25.space,
+              text: 'SIGN UP',
+            margin: EdgeInsets.only(
+              left: 66.h,
+              right: 70.h
+            ),
+            buttonStyle: CustomButtonStyles.fillOrangeATL51,
 
+          ),
+          32.space,
           RichText(text: TextSpan(
             children: [
               TextSpan(
                 text: "Already have an account? ",
-                style: context.textTheme.labelMedium
+                style: CustomTextStyle.bodyMediumRobotoPrimary_1
               ),
               TextSpan(
                   text: "Login here",
-                  style: context.textTheme.labelMedium?.copyWith(color: context.colorScheme.primary,fontWeight: FontWeight.w800)
+                  style: CustomTextStyle.titleSmallOrangeA70001
               ),
             ]
 
