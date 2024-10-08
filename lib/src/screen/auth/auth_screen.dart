@@ -118,7 +118,10 @@ class _AuthScreenState extends ConsumerState<AuthScreen> {
           ),
           20.space,
           CustomElevatedButton(
-            onPressed: () {},
+            onPressed: () {
+              ref.watch(authProvider.notifier).authenticate();
+
+            },
             text: 'SIGN IN',
             buttonStyle: CustomButtonStyles.fillOrangeATL51,
             margin: EdgeInsets.symmetric(horizontal: 66.h),
@@ -221,6 +224,7 @@ class _AuthScreenState extends ConsumerState<AuthScreen> {
                     .verifyNumberAndSendOtp(phoneTextEditingController.text);*/
                 bool res = _formKey.currentState!.validate();
                 if (res) {
+                  ref.watch(authProvider).user.name = nameTextEditingController.text;
                   context.goNamed(AppRoutes.otp.name,
                       extra: phoneTextEditingController.text);
                 }

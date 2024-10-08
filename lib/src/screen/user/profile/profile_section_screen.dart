@@ -1,19 +1,22 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:vrindavantiffin/src/core/utils/image_constant.dart';
 import 'package:vrindavantiffin/src/core/utils/size_utils.dart';
+import 'package:vrindavantiffin/src/screen/auth/provider/auth_provider.dart';
 import 'package:vrindavantiffin/src/shared/theme/custom_text_style.dart';
 import 'package:vrindavantiffin/src/shared/theme/theme_helper.dart';
 import 'package:vrindavantiffin/src/widgets/custom_image_view.dart';
 
-class ProfileSectionScreen extends StatefulWidget {
+class ProfileSectionScreen extends ConsumerStatefulWidget {
   const ProfileSectionScreen({super.key});
 
   @override
-  State<ProfileSectionScreen> createState() => _ProfileSectionScreenState();
+  ConsumerState<ProfileSectionScreen> createState() =>
+      _ProfileSectionScreenState();
 }
 
-class _ProfileSectionScreenState extends State<ProfileSectionScreen> {
+class _ProfileSectionScreenState extends ConsumerState<ProfileSectionScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -36,7 +39,8 @@ class _ProfileSectionScreenState extends State<ProfileSectionScreen> {
                   SizedBox(height: 32.h),
                   Container(
                     width: double.maxFinite,
-                    padding: EdgeInsets.symmetric(horizontal: 22.h, vertical: 36.h),
+                    padding:
+                        EdgeInsets.symmetric(horizontal: 22.h, vertical: 36.h),
                     decoration: BoxDecoration(
                       color: theme.colorScheme.onError,
                     ),
@@ -109,11 +113,8 @@ class _ProfileSectionScreenState extends State<ProfileSectionScreen> {
             ),
           ),
         ),
-
-
       ),
     );
-
   }
 
   Widget buildRowCoolIconOne(BuildContext context) {
@@ -122,7 +123,6 @@ class _ProfileSectionScreenState extends State<ProfileSectionScreen> {
       child: Row(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-
           CustomImageView(
             imagePath: ImageConstant.notification_bell,
             height: 20.h,
@@ -147,25 +147,66 @@ class _ProfileSectionScreenState extends State<ProfileSectionScreen> {
   }
 
   Widget buildRowArrowLeft(BuildContext context) {
-    return Container(
-      padding: EdgeInsets.symmetric(horizontal: 2.h),
-      width: double.maxFinite,
+    return InkWell(
+      onTap: () {
+        ref.watch(authProvider.notifier).unAuthenticate();
+      },
+      child: Container(
+        padding: EdgeInsets.symmetric(horizontal: 2.h),
+        width: double.maxFinite,
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            CustomImageView(
+              imagePath: ImageConstant.sign_out,
+              height: 18.h,
+              width: 18.h,
+            ),
+            Align(
+              alignment: Alignment.center,
+              child: Padding(
+                padding: EdgeInsets.only(left: 20.h),
+                child: Text(
+                  "Sign out",
+                  style: CustomTextStyle.titleMediumRobotoBluegray80002_1,
+                ),
+              ),
+            ),
+            Spacer(),
+            CustomImageView(
+              imagePath: ImageConstant.arrow_right,
+              height: 12.h,
+              width: 6.h,
+              margin: EdgeInsets.only(top: 4.h),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+
+  /// Common widget
+  Widget buildTile(BuildContext context,
+      {required String iconPath,
+      required String rewardCredits,
+      VoidCallback? onTap}) {
+    return GestureDetector(
+      onTap: onTap,
       child: Row(
         mainAxisAlignment: MainAxisAlignment.center,
-        crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           CustomImageView(
-            imagePath: ImageConstant.sign_out,
-            height: 18.h,
-            width: 18.h,
+            imagePath: iconPath,
+            height: 16.h,
+            width: 20.h,
           ),
-          Align(
-            alignment: Alignment.center,
-            child: Padding(
-              padding: EdgeInsets.only(left: 20.h),
-              child: Text(
-                "Sign out",
-                style: CustomTextStyle.titleMediumRobotoBluegray80002_1,
+          Padding(
+            padding: EdgeInsets.only(left: 20.h),
+            child: Text(
+              rewardCredits,
+              style: CustomTextStyle.titleMediumRobotoBluegray80002_1.copyWith(
+                color: appTheme.blueGray80002,
               ),
             ),
           ),
@@ -174,45 +215,9 @@ class _ProfileSectionScreenState extends State<ProfileSectionScreen> {
             imagePath: ImageConstant.arrow_right,
             height: 12.h,
             width: 6.h,
-            margin: EdgeInsets.only(top: 4.h),
           ),
         ],
       ),
-    );
-  }
-
-
-
-  /// Common widget
-  Widget buildTile(
-      BuildContext context, {
-        required String iconPath,
-        required String rewardCredits,
-      }) {
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.center,
-      children: [
-        CustomImageView(
-          imagePath: iconPath,
-          height: 16.h,
-          width: 20.h,
-        ),
-        Padding(
-          padding: EdgeInsets.only(left: 20.h),
-          child: Text(
-            rewardCredits,
-            style: CustomTextStyle.titleMediumRobotoBluegray80002_1.copyWith(
-              color: appTheme.blueGray80002,
-            ),
-          ),
-        ),
-        Spacer(),
-        CustomImageView(
-          imagePath: ImageConstant.arrow_right,
-          height: 12.h,
-          width: 6.h,
-        ),
-      ],
     );
   }
 
@@ -242,7 +247,8 @@ class _ProfileSectionScreenState extends State<ProfileSectionScreen> {
                         children: [
                           Text(
                             "Anuroop Farkya",
-                            style: CustomTextStyle.titleMediumRobotoBluegray80002_1,
+                            style: CustomTextStyle
+                                .titleMediumRobotoBluegray80002_1,
                           ),
                           Text(
                             "+918305048867",
@@ -268,5 +274,4 @@ class _ProfileSectionScreenState extends State<ProfileSectionScreen> {
       ),
     );
   }
-
 }

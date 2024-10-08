@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:vrindavantiffin/src/core/logger/logger.dart';
+import 'package:vrindavantiffin/src/core/models/user.dart';
 import 'package:vrindavantiffin/src/screen/auth/provider/user_state_provider.dart';
 import 'package:vrindavantiffin/src/screen/auth/service/auth_service.dart';
 import 'package:vrindavantiffin/src/screen/auth/state/auth_state.dart';
@@ -20,8 +21,16 @@ class AuthProvider extends StateNotifier<AuthState> {
   final AuthService service;
 
   AuthProvider(this.ref, this.service)
-      : super(const AuthState(status: AuthStatus.initial)) {
+      : super(AuthState(status: AuthStatus.initial, user: UserDB())) {
     listenUserAuthState();
+  }
+
+  void authenticate() {
+    state = state.copyWith(status: AuthStatus.authenticated);
+  }
+
+  void unAuthenticate() {
+    state = state.copyWith(status: AuthStatus.unauthenticated);
   }
 
   Future<void> listenUserAuthState() async {
@@ -46,8 +55,7 @@ class AuthProvider extends StateNotifier<AuthState> {
       if (verificationId != null) {
         _logger.log("Verification ID received");
         ref.read(userAuthStateProvider.notifier).state = UserAuthStatus.otpSent;
-        state = state.copyWith(
-            message: verificationId);
+        state = state.copyWith(message: verificationId);
       } else {
         _logger.log("Failed to receive Verification ID");
         state = state.copyWith(
@@ -64,13 +72,16 @@ class AuthProvider extends StateNotifier<AuthState> {
   Future<void> verifyOtpAndSignIn(String code) async {
     try {
       await service.verifyOtpAndSignIn(state.message ?? '', code);
-      await service.storeUserToDb();
     } catch (ex) {
       _logger.log('Ex: $ex');
     }
   }
 
-
+  Future<void> registerUserInDb() async {
+    final userDB = await service.registerUser(user: state.user);
+    state = state.copyWith(user: userDB);
+    authenticate();
+  }
 
   Future<void> logout() async {
     try {

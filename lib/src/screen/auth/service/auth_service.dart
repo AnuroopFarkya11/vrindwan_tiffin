@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:vrindavantiffin/src/core/logger/logger.dart';
+import 'package:vrindavantiffin/src/core/models/user.dart';
 import 'package:vrindavantiffin/src/screen/auth/repository/auth%20_repository.dart';
 
 final authServiceProvider = Provider((ref) => AuthService());
@@ -43,17 +44,18 @@ class AuthService extends AuthRepository {
     await auth.signInWithCredential(credential);
   }
 
-  Future<void> storeUserToDb() async {
-    String endPoint = "/user";
+  Future<UserDB> registerUser({required UserDB user}) async {
+    String endPoint = "/public/create-user";
     final response = await dioClient.post(endPoint, data: {
-      "uid": "010102",
-      "name": "Archi Palrecha",
-      "address": "3082, Sudama Nagar Sector E",
-      "number": 8305048867,
-      "role": "ADMIN"
+      "uid": '00000',
+      "name": user.name,
+      "password": user.password,
+      "phoneNumber": user.phoneNumber,
+      "role": "USER"
     });
 
     _logger.log("User created successfully : ${response.data}");
+    return UserDB.fromJson(response.data);
   }
 
   Future<void> logout() async {

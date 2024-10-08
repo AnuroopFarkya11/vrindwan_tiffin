@@ -26,7 +26,7 @@ class AppRouter {
     GoRoute(
         path: AppRoutes.auth.path,
         name: AppRoutes.auth.name,
-        builder: (context, state) => const AuthScreen(),
+        builder: (context, state) => const AuthController(),
         routes: [
           /// Admin console
           GoRoute(
@@ -88,6 +88,31 @@ class AppRouter {
                   child: OtpPinScreen(
                     number: number,
                   ),
+                  transitionsBuilder:
+                      (context, animation, secondaryAnimation, child) {
+                    const begin = Offset(1.0, 0.0);
+                    const end = Offset.zero;
+                    const curve = Curves.ease;
+
+                    var tween = Tween(begin: begin, end: end)
+                        .chain(CurveTween(curve: curve));
+
+                    return SlideTransition(
+                      position: animation.drive(tween),
+                      child: child,
+                    );
+                  },
+                );
+                // return OtpScreenNew();
+              }),
+
+          /// Password Screen
+          GoRoute(
+              path: AppRoutes.password.path,
+              name: AppRoutes.password.name,
+              pageBuilder: (context, state) {
+                return CustomTransitionPage(
+                  child: CreateNewPasswordScreen(),
                   transitionsBuilder:
                       (context, animation, secondaryAnimation, child) {
                     const begin = Offset(1.0, 0.0);

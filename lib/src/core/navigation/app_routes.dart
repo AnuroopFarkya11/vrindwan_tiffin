@@ -2,6 +2,7 @@ enum AppRoutes{
   auth('auth', '/'),
   otp('otp','otp'),
   otpPin('otpPin','otpPin'),
+  password('password','password'),
   home('home','home'),
   payment('payment','payment'),
   cart('cart','cart'),

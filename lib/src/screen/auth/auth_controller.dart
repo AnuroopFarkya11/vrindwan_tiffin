@@ -4,6 +4,7 @@ import 'package:vrindavantiffin/src/screen/auth/auth_screen.dart';
 import 'package:vrindavantiffin/src/screen/auth/provider/auth_provider.dart';
 import 'package:vrindavantiffin/src/screen/auth/state/auth_state.dart';
 import 'package:vrindavantiffin/src/screen/user/home/home_screen.dart';
+import 'package:vrindavantiffin/src/screen/user/user_main_screen.dart';
 
 class AuthController extends ConsumerWidget {
   const AuthController({super.key});
@@ -15,7 +16,7 @@ class AuthController extends ConsumerWidget {
     switch (authStatus.status) {
       case AuthStatus.authenticated:
         {
-          return HomeScreen();
+          return UserMainScreen();
         }
       case AuthStatus.unauthenticated:
         {

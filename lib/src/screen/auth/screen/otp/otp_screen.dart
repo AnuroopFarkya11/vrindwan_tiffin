@@ -1,30 +1,31 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:triton_extensions/triton_extensions.dart';
 import 'package:vrindavantiffin/src/core/navigation/app_router.dart';
 import 'package:vrindavantiffin/src/core/navigation/app_routes.dart';
 import 'package:vrindavantiffin/src/core/utils/size_utils.dart';
 import 'package:vrindavantiffin/src/screen/admin/console/console_screen.dart';
+import 'package:vrindavantiffin/src/screen/auth/provider/auth_provider.dart';
 import 'package:vrindavantiffin/src/shared/theme/custom_text_style.dart';
 import 'package:vrindavantiffin/src/shared/theme/cutom_button_style.dart';
 import 'package:vrindavantiffin/src/widgets/custom_elevated_button.dart';
 import 'package:vrindavantiffin/src/widgets/custom_text_form_feild.dart';
 
-class OtpScreenNew extends StatefulWidget {
+class OtpScreenNew extends ConsumerStatefulWidget {
   final String number;
   const OtpScreenNew({super.key,required this.number});
 
   @override
-  State<OtpScreenNew> createState() => _OtpScreenNewState();
+  ConsumerState<OtpScreenNew> createState() => _OtpScreenNewState();
 }
 
-class _OtpScreenNewState extends State<OtpScreenNew> {
+class _OtpScreenNewState extends ConsumerState<OtpScreenNew> {
 
   TextEditingController phoneTextEditingController = TextEditingController();
   @override
   void initState() {
     super.initState();
-
     phoneTextEditingController.text = widget.number;
   }
 
@@ -106,7 +107,8 @@ class _OtpScreenNewState extends State<OtpScreenNew> {
                       margin: EdgeInsets.symmetric(horizontal: 66.h),
                       buttonStyle: CustomButtonStyles.fillOrangeATL10,
                       onPressedAsync: ()async{
-                        await Future.delayed(Duration(seconds: 5));
+                        await Future.delayed(Duration(seconds: 2));
+                        ref.read(authProvider).user.phoneNumber = phoneTextEditingController.text;
                         context.pushNamed(AppRoutes.otpPin.name,extra:widget.number);
                       },
                     ),
