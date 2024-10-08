@@ -6,6 +6,7 @@ import 'package:triton_extensions/triton_extensions.dart';
 import 'package:vrindavantiffin/src/core/logger/logger.dart';
 import 'package:vrindavantiffin/src/core/navigation/app_routes.dart';
 import 'package:vrindavantiffin/src/core/utils/size_utils.dart';
+import 'package:vrindavantiffin/src/core/utils/validators_functions.dart';
 import 'package:vrindavantiffin/src/screen/auth/provider/auth_provider.dart';
 import 'package:vrindavantiffin/src/screen/auth/provider/user_state_provider.dart';
 import 'package:vrindavantiffin/src/screen/auth/state/user_state.dart';
@@ -29,16 +30,21 @@ class _AuthScreenState extends ConsumerState<AuthScreen> {
   TextEditingController nameTextEditingController = TextEditingController();
   TextEditingController otpTextEditingController = TextEditingController();
 
+  final _formKey = GlobalKey<FormState>();
+
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      // appBar: _getAppBar(),
-      body: _getBody(),
+    return SafeArea(
+      child: Scaffold(
+          // appBar: _getAppBar(),
+          body: _getBody()),
     );
   }
 
   _getAppBar() {
-    return AppBar();
+    return AppBar(
+      backgroundColor: Colors.transparent,
+    );
   }
 
   _getBody() {
@@ -73,7 +79,6 @@ class _AuthScreenState extends ConsumerState<AuthScreen> {
             width: double.maxFinite,
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
-
               children: [
                 Text(
                   "Welcome Back!",
@@ -161,10 +166,10 @@ class _AuthScreenState extends ConsumerState<AuthScreen> {
                   text: "Don't have an account? ",
                   style: CustomTextStyle.bodyMediumRoboto2),
               TextSpan(
-                  text: "Sign up", style: CustomTextStyle.titleSmallOrangeA70001),
+                  text: "Sign up",
+                  style: CustomTextStyle.titleSmallOrangeA70001),
             ])),
           ),
-
         ],
       ),
     );
@@ -173,52 +178,69 @@ class _AuthScreenState extends ConsumerState<AuthScreen> {
   _getSignUpFragment() {
     return Padding(
       padding: 35.paddingHorizontal,
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          Text("Let’s Get Started",
-              style: CustomTextStyle.headlineMediumPrimaryBold),
-          5.space,
-          Text(
-            "Create an new account",
-            style: CustomTextStyle.bodyLargeRobotoPrimary1,
-          ),
-          30.space,
-          CustomTextFormField(
-            controller: nameTextEditingController,
-            hintText: "Name",
-            contentPadding: EdgeInsets.fromLTRB(20.h, 18.h, 20.h, 16.h),
-          ),
-          24.space,
-          CustomTextFormField(
-            controller: phoneTextEditingController,
-            textInputType: TextInputType.number,
-            hintText: "Phone Number",
-            contentPadding: EdgeInsets.fromLTRB(18.h, 18.h, 18.h, 14.h),
-          ),
-//regular check 2
-          34.space,
-          CustomElevatedButton(
-            onPressed: () async {
-              ref
-                  .read(authProvider.notifier)
-                  .verifyNumberAndSendOtp(phoneTextEditingController.text);
-            },
-            text: 'SIGN UP',
-            margin: EdgeInsets.only(left: 66.h, right: 70.h),
-            buttonStyle: CustomButtonStyles.fillOrangeATL51,
-          ),
-          32.space,
-          RichText(
-              text: TextSpan(children: [
-            TextSpan(
-                text: "Already have an account? ",
-                style: CustomTextStyle.bodyMediumRobotoPrimary_1),
-            TextSpan(
-                text: "Login here",
-                style: CustomTextStyle.titleSmallOrangeA70001),
-          ]))
-        ],
+      child: Form(
+        key: _formKey,
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Text("Let’s Get Started",
+                style: CustomTextStyle.headlineMediumPrimaryBold),
+            5.space,
+            Text(
+              "Create an new account",
+              style: CustomTextStyle.bodyLargeRobotoPrimary1,
+            ),
+            30.space,
+            CustomTextFormField(
+              controller: nameTextEditingController,
+              hintText: "Name",
+              contentPadding: EdgeInsets.fromLTRB(20.h, 18.h, 20.h, 16.h),
+              validator: (value) {
+                return isText(value, isRequired: true)
+                    ? null
+                    : "Please enter your name";
+              },
+            ),
+            24.space,
+            CustomTextFormField(
+              controller: phoneTextEditingController,
+              validator: (value) {
+                return isValidPhone(value, isRequired: true)
+                    ? null
+                    : "Please enter a valid number";
+              },
+              textInputType: TextInputType.number,
+              hintText: "Phone Number",
+              contentPadding: EdgeInsets.fromLTRB(18.h, 18.h, 18.h, 14.h),
+            ),
+            34.space,
+            CustomElevatedButton(
+              onPressed: () async {
+                /* ref
+                    .read(authProvider.notifier)
+                    .verifyNumberAndSendOtp(phoneTextEditingController.text);*/
+                bool res = _formKey.currentState!.validate();
+                if (res) {
+                  context.goNamed(AppRoutes.otp.name,
+                      extra: phoneTextEditingController.text);
+                }
+              },
+              text: 'SIGN UP',
+              margin: EdgeInsets.only(left: 66.h, right: 70.h),
+              buttonStyle: CustomButtonStyles.fillOrangeATL51,
+            ),
+            32.space,
+            RichText(
+                text: TextSpan(children: [
+              TextSpan(
+                  text: "Already have an account? ",
+                  style: CustomTextStyle.bodyMediumRobotoPrimary_1),
+              TextSpan(
+                  text: "Login here",
+                  style: CustomTextStyle.titleSmallOrangeA70001),
+            ]))
+          ],
+        ),
       ),
     );
   }

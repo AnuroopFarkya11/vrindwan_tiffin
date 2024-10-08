@@ -1,41 +1,27 @@
 import 'package:flutter/material.dart';
-import 'package:go_router/go_router.dart';
 import 'package:triton_extensions/triton_extensions.dart';
-import 'package:vrindavantiffin/src/core/navigation/app_router.dart';
-import 'package:vrindavantiffin/src/core/navigation/app_routes.dart';
 import 'package:vrindavantiffin/src/core/utils/size_utils.dart';
-import 'package:vrindavantiffin/src/screen/admin/console/console_screen.dart';
 import 'package:vrindavantiffin/src/shared/theme/custom_text_style.dart';
 import 'package:vrindavantiffin/src/shared/theme/cutom_button_style.dart';
 import 'package:vrindavantiffin/src/widgets/custom_elevated_button.dart';
+import 'package:vrindavantiffin/src/widgets/custom_pin_code_textfield.dart';
 import 'package:vrindavantiffin/src/widgets/custom_text_form_feild.dart';
 
-class OtpScreenNew extends StatefulWidget {
+class OtpPinScreen extends StatefulWidget {
   final String number;
-  const OtpScreenNew({super.key,required this.number});
+
+  const OtpPinScreen({super.key, required this.number});
 
   @override
-  State<OtpScreenNew> createState() => _OtpScreenNewState();
+  State<OtpPinScreen> createState() => _OtpPinScreenState();
 }
 
-class _OtpScreenNewState extends State<OtpScreenNew> {
-
-  TextEditingController phoneTextEditingController = TextEditingController();
-  @override
-  void initState() {
-    super.initState();
-
-    phoneTextEditingController.text = widget.number;
-  }
-
-
+class _OtpPinScreenState extends State<OtpPinScreen> {
   @override
   Widget build(BuildContext context) {
     return SafeArea(
         child: Scaffold(
-          appBar: AppBar(
-            backgroundColor: Colors.transparent,
-          ),
+          appBar: _buildAppBar(),
       body: _buildBody(),
     ));
   }
@@ -59,58 +45,63 @@ class _OtpScreenNewState extends State<OtpScreenNew> {
                       "OTP verification".toUpperCase(),
                       style: CustomTextStyle.titleLargeRobotoPrimaryExtraBold_1,
                     ),
-
                     6.space,
                     RichText(
                       text: TextSpan(
                         children: [
                           TextSpan(
-                            text: "We will send you an",
+                            text: "Enter the otp sent to",
                             style: CustomTextStyle.bodyMediumRobotoPrimary_4,
                           ),
                           TextSpan(
                             text: " ",
                           ),
                           TextSpan(
-                            text: "One Time Password",
+                            text: "${widget.number}",
                             style: CustomTextStyle.titleSmallPrimary,
-                          ),
-                          TextSpan(
-                            text: " ",
-                          ),
-                          TextSpan(
-                            text: "the below mobile number",
-                            style: CustomTextStyle.bodyMediumRobotoPrimary_4,
                           ),
                         ],
                       ),
                       textAlign: TextAlign.center,
-                      maxLines: 2,
+                      maxLines: 1,
                       overflow: TextOverflow.ellipsis,
                     ),
-
-                    SizedBox(height: 38.h),
-
-                    CustomTextFormField(
-                      controller: phoneTextEditingController,
-                      hintText: "830 XXX XXX",
-                      textInputAction: TextInputAction.done,
-                      textInputType: TextInputType.numberWithOptions(),
-                      contentPadding: EdgeInsets.fromLTRB(18.h, 18.h, 18.h, 14.h),
+                    38.space,
+                    SizedBox(
+                      width: double.maxFinite,
+                      child: CustomPinCodeTextField(
+                          context: context, onChanged: (value) {}),
                     ),
-
-                    SizedBox(height: 32.h),
-
+                    14.space,
+                    RichText(
+                      text: TextSpan(
+                        children: [
+                          TextSpan(
+                            text: "Didn't received the OTP?",
+                            style: CustomTextStyle.bodyMediumRobotoPrimary_4,
+                          ),
+                          TextSpan(
+                            text: " ",
+                          ),
+                          TextSpan(
+                            text: " RESEND OTP",
+                            style: CustomTextStyle.titleSmallOrangeA70001,
+                          ),
+                        ],
+                      ),
+                      textAlign: TextAlign.center,
+                      maxLines: 1,
+                      overflow: TextOverflow.ellipsis,
+                    ),
+                    32.space,
                     CustomElevatedButton(
-                      text: "GET OTP".toUpperCase(),
-                      margin: EdgeInsets.symmetric(horizontal: 66.h),
+                      text: "Verify & Proceed".toUpperCase(),
+                      margin: EdgeInsets.symmetric(horizontal: 28.h),
                       buttonStyle: CustomButtonStyles.fillOrangeATL10,
-                      onPressedAsync: ()async{
-                        await Future.delayed(Duration(seconds: 5));
-                        context.pushNamed(AppRoutes.otpPin.name,extra:widget.number);
+                      onPressedAsync: () async {
+                        await Future.delayed(Duration(seconds: 2));
                       },
                     ),
-
                   ],
                 ),
               ),
@@ -119,6 +110,12 @@ class _OtpScreenNewState extends State<OtpScreenNew> {
           ),
         ),
       ),
+    );
+  }
+
+  _buildAppBar() {
+    return AppBar(
+      backgroundColor: Colors.transparent,
     );
   }
 }

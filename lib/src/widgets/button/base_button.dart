@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 
-class BaseButton extends StatelessWidget {
+class BaseButton extends StatefulWidget {
   final String text;
   final VoidCallback? onPressed;
+  final Future<void> Function()? onPressedAsync;
   final ButtonStyle? buttonStyle;
   final TextStyle? buttonTextStyle;
   final bool? isDisabled;
@@ -15,6 +16,7 @@ class BaseButton extends StatelessWidget {
     Key? key,
     required this.text,
     this.onPressed,
+    this.onPressedAsync,
     this.buttonStyle,
     this.buttonTextStyle,
     this.isDisabled,
@@ -24,6 +26,11 @@ class BaseButton extends StatelessWidget {
     this.alignment,
   }) : super(key: key);
 
+  @override
+  State<BaseButton> createState() => _BaseButtonState();
+}
+
+class _BaseButtonState extends State<BaseButton> {
   @override
   Widget build(BuildContext context) {
     return const SizedBox.shrink();
