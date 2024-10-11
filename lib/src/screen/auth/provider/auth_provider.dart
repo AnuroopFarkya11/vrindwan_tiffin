@@ -90,4 +90,16 @@ class AuthProvider extends StateNotifier<AuthState> {
       _logger.log('Exception while logout: $e');
     }
   }
+
+  Future<void> login(
+      {required String username, required String password}) async {
+    try {
+
+      final user = await service.loginUser(username,password);
+      state = state.copyWith(user: user);
+      authenticate();
+    } on Exception catch (e) {
+      _logger.log('Exception while login: $e');
+    }
+  }
 }

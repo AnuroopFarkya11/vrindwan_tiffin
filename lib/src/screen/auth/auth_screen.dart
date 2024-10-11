@@ -27,6 +27,7 @@ class AuthScreen extends ConsumerStatefulWidget {
 
 class _AuthScreenState extends ConsumerState<AuthScreen> {
   TextEditingController phoneTextEditingController = TextEditingController();
+  TextEditingController passwordTextEditingController = TextEditingController();
   TextEditingController nameTextEditingController = TextEditingController();
   TextEditingController otpTextEditingController = TextEditingController();
 
@@ -71,109 +72,116 @@ class _AuthScreenState extends ConsumerState<AuthScreen> {
     return Container(
       width: double.maxFinite,
       padding: 22.padding,
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          Container(
-            padding: 14.paddingHorizontal,
-            width: double.maxFinite,
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Text(
-                  "Welcome Back!",
-                  style: CustomTextStyle.headlineMediumPrimary,
-                ),
-                6.space,
-                Text(
-                  "Log in to your existant account",
-                  style: CustomTextStyle.bodyLargeRobotoPrimary1,
-                ),
-              ],
+      child: SingleChildScrollView(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Container(
+              padding: 14.paddingHorizontal,
+              width: double.maxFinite,
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Text(
+                    "Welcome Back!",
+                    style: CustomTextStyle.headlineMediumPrimary,
+                  ),
+                  6.space,
+                  Text(
+                    "Log in to your existant account",
+                    style: CustomTextStyle.bodyLargeRobotoPrimary1,
+                  ),
+                ],
+              ),
             ),
-          ),
-          24.space,
-          CustomTextFormField(
-            hintText: "Mobile Number",
-            contentPadding: EdgeInsets.fromLTRB(18.h, 18.h, 18.h, 14.h),
-          ),
-          24.space,
-          CustomTextFormField(
-            hintText: "Password",
-            textInputAction: TextInputAction.done,
-            textInputType: TextInputType.visiblePassword,
-            obscureText: true,
-            contentPadding: EdgeInsets.symmetric(
-              horizontal: 18.h,
-              vertical: 18.h,
+            24.space,
+            CustomTextFormField(
+              controller: phoneTextEditingController,
+              hintText: "Mobile Number",
+              contentPadding: EdgeInsets.fromLTRB(18.h, 18.h, 18.h, 14.h),
             ),
-          ),
-          12.space,
-          Align(
-            alignment: Alignment.centerRight,
-            child: Text(
-              "Forget Password?",
-              style: CustomTextStyle.titleSmallOrangeA70001_1,
+            24.space,
+            CustomTextFormField(
+              controller: passwordTextEditingController,
+              hintText: "Password",
+              textInputAction: TextInputAction.done,
+              textInputType: TextInputType.visiblePassword,
+              obscureText: true,
+              contentPadding: EdgeInsets.symmetric(
+                horizontal: 18.h,
+                vertical: 18.h,
+              ),
             ),
-          ),
-          20.space,
-          CustomElevatedButton(
-            onPressed: () {
-              ref.watch(authProvider.notifier).authenticate();
-
-            },
-            text: 'SIGN IN',
-            buttonStyle: CustomButtonStyles.fillOrangeATL51,
-            margin: EdgeInsets.symmetric(horizontal: 66.h),
-          ),
-          24.space,
-          Text(
-            'Or connect using',
-            style: CustomTextStyle.bodyMediumRoboto1,
-          ),
-          14.space,
-          Container(
-            width: double.maxFinite,
-            margin: EdgeInsets.only(left: 14.h, right: 6.h),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                CustomElevatedButton(
-                  height: 36.h,
-                  width: 114.h,
-                  text: 'Google',
-                  buttonStyle: CustomButtonStyles.fillOrangeATL51,
-                  buttonTextStyle: CustomTextStyle.titleSmallGray100,
-                  onPressed: () {},
-                ),
-                CustomElevatedButton(
-                  height: 36.h,
-                  width: 114.h,
-                  text: 'Facebook',
-                  buttonStyle: CustomButtonStyles.fillOrangeATL51,
-                  buttonTextStyle: CustomTextStyle.titleSmallGray100,
-                  onPressed: () {},
-                )
-              ],
+            12.space,
+            Align(
+              alignment: Alignment.centerRight,
+              child: Text(
+                "Forget Password?",
+                style: CustomTextStyle.titleSmallOrangeA70001_1,
+              ),
             ),
-          ),
-          22.space,
-          GestureDetector(
-            onTap: () {
-              ref.read(userAuthStateProvider.notifier).state =
-                  UserAuthStatus.signUp;
-            },
-            child: RichText(
-                text: TextSpan(children: [
-              TextSpan(
-                  text: "Don't have an account? ",
-                  style: CustomTextStyle.bodyMediumRoboto2),
-              TextSpan(
-                  text: "Sign up",
-                  style: CustomTextStyle.titleSmallOrangeA70001),
-            ])),
-          ),
-        ],
+            20.space,
+            CustomElevatedButton(
+              onPressedAsync: () async{
+                // ref.watch(authProvider.notifier).authenticate();
+                await ref.read(authProvider.notifier).login(
+                  username: phoneTextEditingController.text,
+                  password: passwordTextEditingController.text
+                );
+              },
+              text: 'SIGN IN',
+              buttonStyle: CustomButtonStyles.fillOrangeATL51,
+              margin: EdgeInsets.symmetric(horizontal: 66.h),
+            ),
+            24.space,
+            Text(
+              'Or connect using',
+              style: CustomTextStyle.bodyMediumRoboto1,
+            ),
+            14.space,
+            Container(
+              width: double.maxFinite,
+              margin: EdgeInsets.only(left: 14.h, right: 6.h),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  CustomElevatedButton(
+                    height: 36.h,
+                    width: 114.h,
+                    text: 'Google',
+                    buttonStyle: CustomButtonStyles.fillOrangeATL51,
+                    buttonTextStyle: CustomTextStyle.titleSmallGray100,
+                    onPressed: () {},
+                  ),
+                  CustomElevatedButton(
+                    height: 36.h,
+                    width: 114.h,
+                    text: 'Facebook',
+                    buttonStyle: CustomButtonStyles.fillOrangeATL51,
+                    buttonTextStyle: CustomTextStyle.titleSmallGray100,
+                    onPressed: () {},
+                  )
+                ],
+              ),
+            ),
+            22.space,
+            GestureDetector(
+              onTap: () {
+                ref.read(userAuthStateProvider.notifier).state =
+                    UserAuthStatus.signUp;
+              },
+              child: RichText(
+                  text: TextSpan(children: [
+                TextSpan(
+                    text: "Don't have an account? ",
+                    style: CustomTextStyle.bodyMediumRoboto2),
+                TextSpan(
+                    text: "Sign up",
+                    style: CustomTextStyle.titleSmallOrangeA70001),
+              ])),
+            ),
+          ],
+        ),
       ),
     );
   }
@@ -224,7 +232,8 @@ class _AuthScreenState extends ConsumerState<AuthScreen> {
                     .verifyNumberAndSendOtp(phoneTextEditingController.text);*/
                 bool res = _formKey.currentState!.validate();
                 if (res) {
-                  ref.watch(authProvider).user.name = nameTextEditingController.text;
+                  ref.watch(authProvider).user.name =
+                      nameTextEditingController.text;
                   context.goNamed(AppRoutes.otp.name,
                       extra: phoneTextEditingController.text);
                 }

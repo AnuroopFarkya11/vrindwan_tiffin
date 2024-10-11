@@ -42,7 +42,7 @@ class UserDB {
     _name = json['name'];
     _userName = json['userName'];
     _address = json['address'];
-    _phoneNumber = json['phoneNumber'];
+    _phoneNumber = json['phoneNumber'].toString();
     _password = json['password'];
     _role = json['role'];
     _location = json['location'];

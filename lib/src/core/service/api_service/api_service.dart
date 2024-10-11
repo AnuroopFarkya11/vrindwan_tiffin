@@ -1,6 +1,9 @@
+import 'dart:convert';
+
 import 'package:dio/dio.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:vrindavantiffin/src/core/logger/logger.dart';
+import 'package:vrindavantiffin/src/core/service/api_service/interceptors/auth_interceptor.dart';
 import 'package:vrindavantiffin/src/core/service/api_service/interceptors/log_interceptor.dart';
 
 final dioClientProvider = Provider((ref) {
@@ -16,7 +19,10 @@ class DioClient {
     _dio.options.baseUrl = 'http://192.168.29.101:8080';
     _dio.options.connectTimeout = const Duration(seconds: 30);
     _dio.options.receiveTimeout = const Duration(seconds: 30);
-    _dio.options.headers = {'Content-Type': 'application/json'};
+    _dio.options.headers = {
+      'Content-Type': 'application/json',
+      'Authorization': _basicAuth()
+    };
 
     _dio.interceptors.addAll([
       LoggingInterceptor(),
@@ -87,7 +93,6 @@ class DioClient {
         _logger.log("Receive Timeout Exception");
         break;
       case DioExceptionType.badResponse:
-        // The server responded with a non-2XX status code
         _logger
             .log("Received invalid status code: ${error.response?.statusCode}");
         break;
@@ -99,5 +104,26 @@ class DioClient {
         _logger.log("Unexpected error: ${error.message}");
         break;
     }
+  }
+
+  String _basicAuth() {
+    String username = '9826337267';
+    String password = 'Anuroop2';
+
+    String basicAuth =
+        'Basic ' + base64Encode(utf8.encode('$username:$password'));
+
+    return basicAuth;
+  }
+
+  void useBasicAuth(String username, String password) {
+    // _dio.interceptors.clear();
+    _dio.interceptors.remove(AuthInterceptor);
+    _dio.interceptors.add(AuthInterceptor.basicAuth(username, password));
+  }
+
+  void useBearerToken(String token) {
+    _dio.interceptors.clear();
+    _dio.interceptors.add(AuthInterceptor.token(token));
   }
 }

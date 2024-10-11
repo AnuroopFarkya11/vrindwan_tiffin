@@ -314,6 +314,8 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
 
   /// Section Widget
   Widget buildColumnHelloUser() {
+
+    String? name = ref.read(authProvider).user.name;
     return SizedBox(
       width: double.maxFinite,
       child: Align(
@@ -324,7 +326,7 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
             SizedBox(
               width: 162.h,
               child: Text(
-                "Hello,\nAnuroop.",
+                "Hello,\n${name??""}.",
                 maxLines: 2,
                 overflow: TextOverflow.ellipsis,
                 style: theme.textTheme.displaySmall,
