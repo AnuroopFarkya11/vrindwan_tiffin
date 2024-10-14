@@ -31,6 +31,8 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
   final scrollController = ScrollController();
   final _debouncedSearchRx = BehaviorSubject<String>.seeded('');
 
+  late HomeState home;
+
   Future<List<String>> _search(String query) async {
     if (query.isEmpty) {
       return [];
@@ -61,6 +63,8 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
 
   @override
   Widget build(BuildContext context) {
+    home = ref.watch(homeProvider);
+
     return Scaffold(
       // appBar: _getAppBar(),
       body: _getBody(),
@@ -85,7 +89,6 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
   }
 
   _getBody() {
-    final home = ref.watch(homeProvider);
 
     switch (home.status) {
       case (HomeStatus.loading):
@@ -269,7 +272,7 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
           ),
         ),
         15.space,
-       FoodCardOne()
+       _getThaliCards(),
       ],
     );
   }
@@ -340,6 +343,23 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
           ],
         ),
       ),
+    );
+  }
+
+  _getThaliCards() {
+    return SizedBox(
+      height: 200,
+      child: ListView.separated(
+          shrinkWrap: true,
+          scrollDirection: Axis.horizontal,
+          itemBuilder: (context, index) {
+            var item = home.categoricalItems?['Thali']?[index];
+            return FoodCardOne(item: item!,);
+          },
+          separatorBuilder: (context, index) {
+            return 20.space;
+          },
+          itemCount: home.categoricalItems?['Thali']?.length??0),
     );
   }
 }
