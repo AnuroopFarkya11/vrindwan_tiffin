@@ -34,6 +34,14 @@ class _AuthScreenState extends ConsumerState<AuthScreen> {
   final _formKey = GlobalKey<FormState>();
 
   @override
+  void initState() {
+    super.initState();
+    phoneTextEditingController.text = '9826337267';
+    passwordTextEditingController.text = 'Anuroop';
+  }
+
+
+  @override
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(

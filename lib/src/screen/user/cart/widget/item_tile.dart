@@ -21,9 +21,9 @@ class _FoodItemCardState extends ConsumerState<FoodItemTile> {
   Widget build(BuildContext context) {
     return ListTile(
 
-      title: Text(widget.entry.item.name),
+      title: Text(widget.entry.item.name??""),
       subtitle: Text(
-          "${widget.entry.item.price} x ${widget.entry.quantity} : Rs. ${widget.entry.item.price * widget.entry.quantity} "),
+          "${widget.entry.item.price} x ${widget.entry.quantity} : Rs. ${widget.entry.item.price??0 * widget.entry.quantity} "),
       trailing: InputQty(
         initVal: widget.entry.quantity,
         isIntrinsicWidth: true,

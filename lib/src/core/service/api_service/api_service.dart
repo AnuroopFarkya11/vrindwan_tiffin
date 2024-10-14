@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'package:dio/dio.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:vrindavantiffin/src/core/logger/logger.dart';
+import 'package:vrindavantiffin/src/core/service/api_service/api_response.dart';
 import 'package:vrindavantiffin/src/core/service/api_service/interceptors/auth_interceptor.dart';
 import 'package:vrindavantiffin/src/core/service/api_service/interceptors/log_interceptor.dart';
 
@@ -16,7 +17,7 @@ class DioClient {
   final _logger = Logger("DioClient");
 
   DioClient({required Dio dio}) : _dio = dio {
-    _dio.options.baseUrl = 'http://192.168.29.101:8080';
+    _dio.options.baseUrl = 'http://192.168.29.244:8080';
     _dio.options.connectTimeout = const Duration(seconds: 30);
     _dio.options.receiveTimeout = const Duration(seconds: 30);
     _dio.options.headers = {
@@ -29,86 +30,83 @@ class DioClient {
     ]);
   }
 
-  Future<Response> get(String endPoint,
+  Future<ApiResponse<T>> get<T>(String endPoint,
       {Map<String, dynamic>? queryParameter}) async {
+    return await _sendRequest<T>(
+        () => _dio.get(endPoint, queryParameters: queryParameter));
+  }
+
+  Future<ApiResponse<T>> post<T>(String endPoint, {dynamic data}) async {
+    return await _sendRequest<T>(() => _dio.post(endPoint, data: data));
+  }
+
+  Future<ApiResponse<T>> put<T>(String endPoint, {dynamic data}) async {
+    return await _sendRequest<T>(() => _dio.put(endPoint, data: data));
+  }
+
+  Future<ApiResponse<T>> delete<T>(String endPoint, {dynamic data}) async {
+    return await _sendRequest<T>(() => _dio.delete(endPoint, data: data));
+  }
+
+  Future<ApiResponse<T>> patch<T>(String endPoint, {dynamic data}) async {
+    return await _sendRequest<T>(() => _dio.patch(endPoint, data: data));
+  }
+
+  Future<ApiResponse<T>> _sendRequest<T>(
+      Future<Response> Function() request) async {
     try {
-      final response =
-          await _dio.get(endPoint, queryParameters: queryParameter);
-      return response;
+      final response = await request();
+      return _handleResponse<T>(response);
     } on DioException catch (e) {
-      _handleError(e);
-      rethrow;
+      return ApiResponse<T>(errorMessage: _handleError(e));
     }
   }
 
-  Future<Response> post(String endPoint, {dynamic data}) async {
-    try {
-      final response = _dio.post(endPoint, data: data);
-      return response;
-    } on DioException catch (e) {
-      _handleError(e);
-      rethrow;
+  ApiResponse<T> _handleResponse<T>(Response response) {
+    switch (response.statusCode) {
+      case 200:
+        return ApiResponse<T>(data: response.data);
+      case 400:
+        return ApiResponse<T>(errorMessage: 'Bad request: ${response.data}');
+      case 401:
+        return ApiResponse<T>(errorMessage: 'Unauthorized access');
+      case 404:
+        return ApiResponse<T>(errorMessage: 'Not found');
+      case 500:
+      default:
+        return ApiResponse<T>(
+            errorMessage: 'Server error: ${response.statusCode}');
     }
   }
 
-  Future<Response> put(String endpoint, {dynamic data}) async {
-    try {
-      final response = await _dio.put(endpoint, data: data);
-      return response;
-    } on DioException catch (e) {
-      _handleError(e);
-      rethrow;
-    }
-  }
-
-  Future<Response> delete(String endpoint, {dynamic data}) async {
-    try {
-      final response = await _dio.delete(endpoint, data: data);
-      return response;
-    } on DioException catch (e) {
-      _handleError(e);
-      rethrow;
-    }
-  }
-
-  Future<Response> patch(String endpoint, {dynamic data}) async {
-    try {
-      final response = await _dio.patch(endpoint, data: data);
-      return response;
-    } on DioException catch (e) {
-      _handleError(e);
-      rethrow;
-    }
-  }
-
-  void _handleError(DioException error) {
+  String _handleError(DioException error) {
     switch (error.type) {
       case DioExceptionType.connectionTimeout:
-        _logger.log("Connection Timeout Exception");
-        break;
+        return "Connection Timeout Exception";
+
       case DioExceptionType.sendTimeout:
         _logger.log("Send Timeout Exception");
-        break;
+        return "Send Timeout Exception";
       case DioExceptionType.receiveTimeout:
         _logger.log("Receive Timeout Exception");
-        break;
+        return "Receive Timeout Exception";
       case DioExceptionType.badResponse:
         _logger
             .log("Received invalid status code: ${error.response?.statusCode}");
-        break;
+        return "Received invalid status code: ${error.response?.statusCode}";
       case DioExceptionType.cancel:
         _logger.log("Request was cancelled");
-        break;
+        return "Request was cancelled";
 
       default:
         _logger.log("Unexpected error: ${error.message}");
-        break;
+        return"Unexpected error: ${error.message}";
     }
   }
 
   String _basicAuth() {
     String username = '9826337267';
-    String password = 'Anuroop2';
+    String password = 'Anuroop';
 
     String basicAuth =
         'Basic ' + base64Encode(utf8.encode('$username:$password'));

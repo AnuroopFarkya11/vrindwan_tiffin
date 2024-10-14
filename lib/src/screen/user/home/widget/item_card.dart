@@ -36,12 +36,12 @@ class _FoodItemCardState extends ConsumerState<FoodItemCard> {
                 ),
                 SizedBox(height: constraints.maxHeight * 0.02),
                 Text(
-                  widget.item.name,
+                  widget.item.name??"",
                   style: TextStyle(fontSize: constraints.maxWidth * 0.09),
                 ),
                 SizedBox(height: constraints.maxHeight * 0.02),
                 Text(
-                  widget.item.description,
+                  widget.item.description??"",
                   style: TextStyle(fontSize: constraints.maxWidth * 0.08),
                 ),
                 Spacer(),

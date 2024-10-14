@@ -1,295 +1,420 @@
-import 'package:equatable/equatable.dart';
-
-class FoodItem extends Equatable {
-  /// Unique identifier for the food item.
-  final String id;
-
-  /// Name of the food item.
-  final String name;
-
-  /// Description of the food item.
-  final String description;
-
-  /// Price of the food item.
-  final double price;
-
-  /// URL to the image of the food item.
-  final String imageUrl;
-
-  /// Availability status of the food item.
-  final bool isAvailable;
-
-  /// Quantity available (if applicable).
-  final int quantity;
-
-  /// Category of the food item (e.g., vegetarian, non-vegetarian).
-  final String category;
-
-  /// Timestamp of when the food item was created.
-  final DateTime createdAt;
-
-  /// Timestamp of when the food item was last updated.
-  final DateTime updatedAt;
-
-  /// Indicates whether the food item is part of a special offer or promotion.
-  final bool isOnOffer;
-
-  /// Discount applied to the food item, if any.
-  final double discount;
-
-  /// Estimated preparation time in minutes.
-  final int preparationTime;
-
-  /// Nutritional information (e.g., calories, protein, fat).
-  final Map<String, dynamic> nutritionalInfo;
-
-  /// User ratings for the food item.
-  final double averageRating;
-
-  /// Total number of reviews for the food item.
-  final int reviewCount;
-
-  /// The origin or cuisine of the food item (e.g., Indian, Chinese).
-  final String cuisine;
-
-  /// The type of meal (e.g., breakfast, lunch, dinner).
-  final String mealType;
-
-  /// Tags or keywords associated with the food item (e.g., spicy, gluten-free).
-  final List<String> tags;
-
-  /// Boolean to indicate if the food item is a daily special.
-  final bool isDailySpecial;
-
-  /// Boolean to indicate if the food item is customizable (e.g., toppings).
-  final bool isCustomizable;
-
-  /// User comments or special instructions related to the food item.
-  late final String specialInstructions;
-
-  /// List of ingredients used in the food item.
-  final List<String> ingredients;
-
-  /// Boolean to indicate if the food item is part of a meal plan or combo.
-  final bool isPartOfMealPlan;
-
-  /// The weight of the food item (if applicable).
-  final double weight;
-
-  /// The serving size of the food item.
-  final String servingSize;
-
-  /// Boolean to indicate if the food item is suitable for a specific diet (e.g., keto, paleo).
-  final bool isDietFriendly;
-
-  /// List of allergens present in the food item.
-  final List<String> allergens;
-
-  /// Estimated calories for the food item.
-  final int calories;
-
-  /// The type of container used for the food item (e.g., box, bag).
-  final String containerType;
-
-  /// The cost of packaging if any.
-  final double packagingCost;
-
-  /// Boolean to indicate if the food item can be ordered for takeout.
-  final bool isAvailableForTakeout;
-
-  /// Boolean to indicate if the food item can be ordered for delivery.
-  final bool isAvailableForDelivery;
-
-  /// Boolean to indicate if the food item is available for pickup.
-  final bool isAvailableForPickup;
-
-  /// The average preparation time for large orders of this item.
-  final int largeOrderPreparationTime;
-
-  /// The maximum number of units that can be ordered at once.
-  final int maxOrderQuantity;
-
-  /// Timestamp of when the food item will next be available.
-  final DateTime nextAvailableDate;
-
-  /// Boolean to indicate if the food item is part of a seasonal menu.
-  final bool isSeasonal;
-
-  /// Creates a [FoodItem] instance.
+class FoodItem {
   FoodItem({
-    required this.id,
-    required this.name,
-    required this.description,
-    required this.price,
-    required this.imageUrl,
-    required this.isAvailable,
-    this.quantity = 0,
-    this.category = '',
-    DateTime? createdAt,
-    DateTime? updatedAt,
-    this.isOnOffer = false,
-    this.discount = 0.0,
-    this.preparationTime = 0,
-    Map<String, dynamic>? nutritionalInfo,
-    this.averageRating = 0.0,
-    this.reviewCount = 0,
-    this.cuisine = '',
-    this.mealType = '',
+    Map<String,dynamic>? id,
+    String? name,
+    String? hindiName,
+    String? description,
+    String? hindiDescription,
+    num? price,
+    String? imageUrl,
+    bool? isAvailable,
+    num? quantity,
+    String? category,
+    bool? isOnOffer,
+    num? discount,
+    num? preparationTime,
+    NutritionalInfo? nutritionalInfo,
+    num? averageRating,
+    num? reviewCount,
+    String? cuisine,
+    String? mealType,
     List<String>? tags,
-    this.isDailySpecial = false,
-    this.isCustomizable = false,
-    this.specialInstructions = '',
+    bool? isDailySpecial,
+    bool? isCustomizable,
+    String? specialInstructions,
     List<String>? ingredients,
-    this.isPartOfMealPlan = false,
-    this.weight = 0.0,
-    this.servingSize = '',
-    this.isDietFriendly = false,
+    bool? isPartOfMealPlan,
+    num? weight,
+    String? servingSize,
+    bool? isDietFriendly,
     List<String>? allergens,
-    this.calories = 0,
-    this.containerType = '',
-    this.packagingCost = 0.0,
-    this.isAvailableForTakeout = false,
-    this.isAvailableForDelivery = false,
-    this.isAvailableForPickup = false,
-    this.largeOrderPreparationTime = 0,
-    this.maxOrderQuantity = 0,
-    DateTime? nextAvailableDate,
-    this.isSeasonal = false,
-  })  : this.createdAt = createdAt ?? DateTime.now(),
-        this.updatedAt = updatedAt ?? DateTime.now(),
-        this.nutritionalInfo = nutritionalInfo ?? {},
-        this.tags = tags ?? [],
-        this.ingredients = ingredients ?? [],
-        this.allergens = allergens ?? [],
-        this.nextAvailableDate = nextAvailableDate ?? DateTime.now();
-
-  @override
-  List<Object?> get props => [
-    id,
-    name,
-    description,
-    price,
-    imageUrl,
-    isAvailable,
-    quantity,
-    category,
-    createdAt,
-    updatedAt,
-    isOnOffer,
-    discount,
-    preparationTime,
-    nutritionalInfo,
-    averageRating,
-    reviewCount,
-    cuisine,
-    mealType,
-    tags,
-    isDailySpecial,
-    isCustomizable,
-    specialInstructions,
-    ingredients,
-    isPartOfMealPlan,
-    weight,
-    servingSize,
-    isDietFriendly,
-    allergens,
-    calories,
-    containerType,
-    packagingCost,
-    isAvailableForTakeout,
-    isAvailableForDelivery,
-    isAvailableForPickup,
-    largeOrderPreparationTime,
-    maxOrderQuantity,
-    nextAvailableDate,
-    isSeasonal,
-  ];
-
-  /// Converts the [FoodItem] to a map for storage or serialization.
-  Map<String, dynamic> toMap() {
-    return {
-      'id': id,
-      'name': name,
-      'description': description,
-      'price': price,
-      'imageUrl': imageUrl,
-      'isAvailable': isAvailable,
-      'quantity': quantity,
-      'category': category,
-      'createdAt': createdAt.toIso8601String(),
-      'updatedAt': updatedAt.toIso8601String(),
-      'isOnOffer': isOnOffer,
-      'discount': discount,
-      'preparationTime': preparationTime,
-      'nutritionalInfo': nutritionalInfo,
-      'averageRating': averageRating,
-      'reviewCount': reviewCount,
-      'cuisine': cuisine,
-      'mealType': mealType,
-      'tags': tags,
-      'isDailySpecial': isDailySpecial,
-      'isCustomizable': isCustomizable,
-      'specialInstructions': specialInstructions,
-      'ingredients': ingredients,
-      'isPartOfMealPlan': isPartOfMealPlan,
-      'weight': weight,
-      'servingSize': servingSize,
-      'isDietFriendly': isDietFriendly,
-      'allergens': allergens,
-      'calories': calories,
-      'containerType': containerType,
-      'packagingCost': packagingCost,
-      'isAvailableForTakeout': isAvailableForTakeout,
-      'isAvailableForDelivery': isAvailableForDelivery,
-      'isAvailableForPickup': isAvailableForPickup,
-      'largeOrderPreparationTime': largeOrderPreparationTime,
-      'maxOrderQuantity': maxOrderQuantity,
-      'nextAvailableDate': nextAvailableDate.toIso8601String(),
-      'isSeasonal': isSeasonal,
-    };
+    String? containerType,
+    num? packagingCost,
+    bool? isAvailableForTakeout,
+    bool? isAvailableForDelivery,
+    bool? isAvailableForPickup,
+    num? largeOrderPreparationTime,
+    num? maxOrderQuantity,
+    String? nextAvailableDate,
+    bool? isSeasonal,
+  }) {
+    _id = id;
+    _name = name;
+    _hindiName = hindiName;
+    _description = description;
+    _hindiDescription = hindiDescription;
+    _price = price;
+    _imageUrl = imageUrl;
+    _isAvailable = isAvailable;
+    _quantity = quantity;
+    _category = category;
+    _isOnOffer = isOnOffer;
+    _discount = discount;
+    _preparationTime = preparationTime;
+    _nutritionalInfo = nutritionalInfo;
+    _averageRating = averageRating;
+    _reviewCount = reviewCount;
+    _cuisine = cuisine;
+    _mealType = mealType;
+    _tags = tags;
+    _isDailySpecial = isDailySpecial;
+    _isCustomizable = isCustomizable;
+    _specialInstructions = specialInstructions;
+    _ingredients = ingredients;
+    _isPartOfMealPlan = isPartOfMealPlan;
+    _weight = weight;
+    _servingSize = servingSize;
+    _isDietFriendly = isDietFriendly;
+    _allergens = allergens;
+    _containerType = containerType;
+    _packagingCost = packagingCost;
+    _isAvailableForTakeout = isAvailableForTakeout;
+    _isAvailableForDelivery = isAvailableForDelivery;
+    _isAvailableForPickup = isAvailableForPickup;
+    _largeOrderPreparationTime = largeOrderPreparationTime;
+    _maxOrderQuantity = maxOrderQuantity;
+    _nextAvailableDate = nextAvailableDate;
+    _isSeasonal = isSeasonal;
   }
 
-  /// Creates a [FoodItem] from a map.
-  factory FoodItem.fromMap(Map<String, dynamic> map) {
-    return FoodItem(
-      id: map['id'],
-      name: map['name'],
-      description: map['description'],
-      price: map['price'],
-      imageUrl: map['imageUrl'],
-      isAvailable: map['isAvailable'],
-      quantity: map['quantity'] ?? 0,
-      category: map['category'] ?? '',
-      createdAt: DateTime.parse(map['createdAt']),
-      updatedAt: DateTime.parse(map['updatedAt']),
-      isOnOffer: map['isOnOffer'] ?? false,
-      discount: (map['discount'] as num?)?.toDouble() ?? 0.0,
-      preparationTime: map['preparationTime'] ?? 0,
-      nutritionalInfo: Map<String, dynamic>.from(map['nutritionalInfo'] ?? {}),
-      averageRating: (map['averageRating'] as num?)?.toDouble() ?? 0.0,
-      reviewCount: map['reviewCount'] ?? 0,
-      cuisine: map['cuisine'] ?? '',
-      mealType: map['mealType'] ?? '',
-      tags: List<String>.from(map['tags'] ?? []),
-      isDailySpecial: map['isDailySpecial'] ?? false,
-      isCustomizable: map['isCustomizable'] ?? false,
-      specialInstructions: map['specialInstructions'] ?? '',
-      ingredients: List<String>.from(map['ingredients'] ?? []),
-      isPartOfMealPlan: map['isPartOfMealPlan'] ?? false,
-      weight: (map['weight'] as num?)?.toDouble() ?? 0.0,
-      servingSize: map['servingSize'] ?? '',
-      isDietFriendly: map['isDietFriendly'] ?? false,
-      allergens: List<String>.from(map['allergens'] ?? []),
-      calories: map['calories'] ?? 0,
-      containerType: map['containerType'] ?? '',
-      packagingCost: (map['packagingCost'] as num?)?.toDouble() ?? 0.0,
-      isAvailableForTakeout: map['isAvailableForTakeout'] ?? false,
-      isAvailableForDelivery: map['isAvailableForDelivery'] ?? false,
-      isAvailableForPickup: map['isAvailableForPickup'] ?? false,
-      largeOrderPreparationTime: map['largeOrderPreparationTime'] ?? 0,
-      maxOrderQuantity: map['maxOrderQuantity'] ?? 0,
-      nextAvailableDate: DateTime.parse(map['nextAvailableDate']),
-      isSeasonal: map['isSeasonal'] ?? false,
-    );
+  FoodItem.fromJson(dynamic json) {
+    _id = json['id'];
+    _name = json['name'];
+    _hindiName = json['hindiName'];
+    _description = json['description'];
+    _hindiDescription = json['hindiDescription'];
+    _price = json['price'];
+    _imageUrl = json['imageUrl'];
+    _isAvailable = json['isAvailable'];
+    _quantity = json['quantity'];
+    _category = json['category'];
+    _isOnOffer = json['isOnOffer'];
+    _discount = json['discount'];
+    _preparationTime = json['preparationTime'];
+    _nutritionalInfo = json['nutritionalInfo'] != null
+        ? NutritionalInfo.fromJson(json['nutritionalInfo'])
+        : null;
+    _averageRating = json['averageRating'];
+    _reviewCount = json['reviewCount'];
+    _cuisine = json['cuisine'];
+    _mealType = json['mealType'];
+    _tags = json['tags'] != null ? json['tags'].cast<String>() : [];
+    _isDailySpecial = json['isDailySpecial'];
+    _isCustomizable = json['isCustomizable'];
+    _specialInstructions = json['specialInstructions'];
+    _ingredients =
+        json['ingredients'] != null ? json['ingredients'].cast<String>() : [];
+    _isPartOfMealPlan = json['isPartOfMealPlan'];
+    _weight = json['weight'];
+    _servingSize = json['servingSize'];
+    _isDietFriendly = json['isDietFriendly'];
+    _allergens =
+        json['allergens'] != null ? json['allergens'].cast<String>() : [];
+    _containerType = json['containerType'];
+    _packagingCost = json['packagingCost'];
+    _isAvailableForTakeout = json['isAvailableForTakeout'];
+    _isAvailableForDelivery = json['isAvailableForDelivery'];
+    _isAvailableForPickup = json['isAvailableForPickup'];
+    _largeOrderPreparationTime = json['largeOrderPreparationTime'];
+    _maxOrderQuantity = json['maxOrderQuantity'];
+    _nextAvailableDate = json['nextAvailableDate'];
+    _isSeasonal = json['isSeasonal'];
+  }
+
+  Map<String,dynamic>? _id;
+  String? _name;
+  String? _hindiName;
+  String? _description;
+  String? _hindiDescription;
+  num? _price;
+  String? _imageUrl;
+  bool? _isAvailable;
+  num? _quantity;
+  String? _category;
+  bool? _isOnOffer;
+  num? _discount;
+  num? _preparationTime;
+  NutritionalInfo? _nutritionalInfo;
+  num? _averageRating;
+  num? _reviewCount;
+  String? _cuisine;
+  String? _mealType;
+  List<String>? _tags;
+  bool? _isDailySpecial;
+  bool? _isCustomizable;
+  String? _specialInstructions;
+  List<String>? _ingredients;
+  bool? _isPartOfMealPlan;
+  num? _weight;
+  String? _servingSize;
+  bool? _isDietFriendly;
+  List<String>? _allergens;
+  String? _containerType;
+  num? _packagingCost;
+  bool? _isAvailableForTakeout;
+  bool? _isAvailableForDelivery;
+  bool? _isAvailableForPickup;
+  num? _largeOrderPreparationTime;
+  num? _maxOrderQuantity;
+  String? _nextAvailableDate;
+  bool? _isSeasonal;
+
+  FoodItem copyWith({
+    Map<String,dynamic>? id,
+    String? name,
+    String? hindiName,
+    String? description,
+    String? hindiDescription,
+    num? price,
+    String? imageUrl,
+    bool? isAvailable,
+    num? quantity,
+    String? category,
+    bool? isOnOffer,
+    num? discount,
+    num? preparationTime,
+    NutritionalInfo? nutritionalInfo,
+    num? averageRating,
+    num? reviewCount,
+    String? cuisine,
+    String? mealType,
+    List<String>? tags,
+    bool? isDailySpecial,
+    bool? isCustomizable,
+    String? specialInstructions,
+    List<String>? ingredients,
+    bool? isPartOfMealPlan,
+    num? weight,
+    String? servingSize,
+    bool? isDietFriendly,
+    List<String>? allergens,
+    String? containerType,
+    num? packagingCost,
+    bool? isAvailableForTakeout,
+    bool? isAvailableForDelivery,
+    bool? isAvailableForPickup,
+    num? largeOrderPreparationTime,
+    num? maxOrderQuantity,
+    String? nextAvailableDate,
+    bool? isSeasonal,
+  }) =>
+      FoodItem(
+        id: id ?? _id,
+        name: name ?? _name,
+        hindiName: hindiName ?? _hindiName,
+        description: description ?? _description,
+        hindiDescription: hindiDescription ?? _hindiDescription,
+        price: price ?? _price,
+        imageUrl: imageUrl ?? _imageUrl,
+        isAvailable: isAvailable ?? _isAvailable,
+        quantity: quantity ?? _quantity,
+        category: category ?? _category,
+        isOnOffer: isOnOffer ?? _isOnOffer,
+        discount: discount ?? _discount,
+        preparationTime: preparationTime ?? _preparationTime,
+        nutritionalInfo: nutritionalInfo ?? _nutritionalInfo,
+        averageRating: averageRating ?? _averageRating,
+        reviewCount: reviewCount ?? _reviewCount,
+        cuisine: cuisine ?? _cuisine,
+        mealType: mealType ?? _mealType,
+        tags: tags ?? _tags,
+        isDailySpecial: isDailySpecial ?? _isDailySpecial,
+        isCustomizable: isCustomizable ?? _isCustomizable,
+        specialInstructions: specialInstructions ?? _specialInstructions,
+        ingredients: ingredients ?? _ingredients,
+        isPartOfMealPlan: isPartOfMealPlan ?? _isPartOfMealPlan,
+        weight: weight ?? _weight,
+        servingSize: servingSize ?? _servingSize,
+        isDietFriendly: isDietFriendly ?? _isDietFriendly,
+        allergens: allergens ?? _allergens,
+        containerType: containerType ?? _containerType,
+        packagingCost: packagingCost ?? _packagingCost,
+        isAvailableForTakeout: isAvailableForTakeout ?? _isAvailableForTakeout,
+        isAvailableForDelivery:
+            isAvailableForDelivery ?? _isAvailableForDelivery,
+        isAvailableForPickup: isAvailableForPickup ?? _isAvailableForPickup,
+        largeOrderPreparationTime:
+            largeOrderPreparationTime ?? _largeOrderPreparationTime,
+        maxOrderQuantity: maxOrderQuantity ?? _maxOrderQuantity,
+        nextAvailableDate: nextAvailableDate ?? _nextAvailableDate,
+        isSeasonal: isSeasonal ?? _isSeasonal,
+      );
+
+  Map<String, dynamic>? get id => _id;
+
+  String? get name => _name;
+
+  String? get hindiName => _hindiName;
+
+  String? get description => _description;
+
+  String? get hindiDescription => _hindiDescription;
+
+  num? get price => _price;
+
+  String? get imageUrl => _imageUrl;
+
+  bool? get isAvailable => _isAvailable;
+
+  num? get quantity => _quantity;
+
+  String? get category => _category;
+
+  bool? get isOnOffer => _isOnOffer;
+
+  num? get discount => _discount;
+
+  num? get preparationTime => _preparationTime;
+
+  NutritionalInfo? get nutritionalInfo => _nutritionalInfo;
+
+  num? get averageRating => _averageRating;
+
+  num? get reviewCount => _reviewCount;
+
+  String? get cuisine => _cuisine;
+
+  String? get mealType => _mealType;
+
+  List<String>? get tags => _tags;
+
+  bool? get isDailySpecial => _isDailySpecial;
+
+  bool? get isCustomizable => _isCustomizable;
+
+  String? get specialInstructions => _specialInstructions;
+
+  List<String>? get ingredients => _ingredients;
+
+  bool? get isPartOfMealPlan => _isPartOfMealPlan;
+
+  num? get weight => _weight;
+
+  String? get servingSize => _servingSize;
+
+  bool? get isDietFriendly => _isDietFriendly;
+
+  List<String>? get allergens => _allergens;
+
+  String? get containerType => _containerType;
+
+  num? get packagingCost => _packagingCost;
+
+  bool? get isAvailableForTakeout => _isAvailableForTakeout;
+
+  bool? get isAvailableForDelivery => _isAvailableForDelivery;
+
+  bool? get isAvailableForPickup => _isAvailableForPickup;
+
+  num? get largeOrderPreparationTime => _largeOrderPreparationTime;
+
+  num? get maxOrderQuantity => _maxOrderQuantity;
+
+  String? get nextAvailableDate => _nextAvailableDate;
+
+  bool? get isSeasonal => _isSeasonal;
+
+  Map<String, dynamic> toJson() {
+    final map = <String, dynamic>{};
+    map['name'] = _name;
+    map['hindiName'] = _hindiName;
+    map['description'] = _description;
+    map['hindiDescription'] = _hindiDescription;
+    map['price'] = _price;
+    map['imageUrl'] = _imageUrl;
+    map['isAvailable'] = _isAvailable;
+    map['quantity'] = _quantity;
+    map['category'] = _category;
+    map['isOnOffer'] = _isOnOffer;
+    map['discount'] = _discount;
+    map['preparationTime'] = _preparationTime;
+    if (_nutritionalInfo != null) {
+      map['nutritionalInfo'] = _nutritionalInfo?.toJson();
+    }
+    map['averageRating'] = _averageRating;
+    map['reviewCount'] = _reviewCount;
+    map['cuisine'] = _cuisine;
+    map['mealType'] = _mealType;
+    map['tags'] = _tags;
+    map['isDailySpecial'] = _isDailySpecial;
+    map['isCustomizable'] = _isCustomizable;
+    map['specialInstructions'] = _specialInstructions;
+    map['ingredients'] = _ingredients;
+    map['isPartOfMealPlan'] = _isPartOfMealPlan;
+    map['weight'] = _weight;
+    map['servingSize'] = _servingSize;
+    map['isDietFriendly'] = _isDietFriendly;
+    map['allergens'] = _allergens;
+    map['containerType'] = _containerType;
+    map['packagingCost'] = _packagingCost;
+    map['isAvailableForTakeout'] = _isAvailableForTakeout;
+    map['isAvailableForDelivery'] = _isAvailableForDelivery;
+    map['isAvailableForPickup'] = _isAvailableForPickup;
+    map['largeOrderPreparationTime'] = _largeOrderPreparationTime;
+    map['maxOrderQuantity'] = _maxOrderQuantity;
+    map['nextAvailableDate'] = _nextAvailableDate;
+    map['isSeasonal'] = _isSeasonal;
+    return map;
+  }
+}
+
+/// calories : 900
+/// proteins : 30
+/// carbs : 120
+/// fats : 20
+
+class NutritionalInfo {
+  NutritionalInfo({
+    num? calories,
+    num? proteins,
+    num? carbs,
+    num? fats,
+  }) {
+    _calories = calories;
+    _proteins = proteins;
+    _carbs = carbs;
+    _fats = fats;
+  }
+
+  NutritionalInfo.fromJson(dynamic json) {
+    _calories = json['calories'];
+    _proteins = json['proteins'];
+    _carbs = json['carbs'];
+    _fats = json['fats'];
+  }
+
+  num? _calories;
+  num? _proteins;
+  num? _carbs;
+  num? _fats;
+
+  NutritionalInfo copyWith({
+    num? calories,
+    num? proteins,
+    num? carbs,
+    num? fats,
+  }) =>
+      NutritionalInfo(
+        calories: calories ?? _calories,
+        proteins: proteins ?? _proteins,
+        carbs: carbs ?? _carbs,
+        fats: fats ?? _fats,
+      );
+
+  num? get calories => _calories;
+
+  num? get proteins => _proteins;
+
+  num? get carbs => _carbs;
+
+  num? get fats => _fats;
+
+  Map<String, dynamic> toJson() {
+    final map = <String, dynamic>{};
+    map['calories'] = _calories;
+    map['proteins'] = _proteins;
+    map['carbs'] = _carbs;
+    map['fats'] = _fats;
+    return map;
   }
 }

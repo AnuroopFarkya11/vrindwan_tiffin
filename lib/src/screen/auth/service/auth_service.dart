@@ -62,10 +62,10 @@ class AuthService extends AuthRepository {
     String endPoint = "/user/login";
     dioClient.useBasicAuth(username, password);
     final response = await dioClient.get(endPoint);
-    if (response.statusCode == 200) {
+    if (response.isSuccess) {
       return UserDB.fromJson(response.data);
     }
-    throw Exception(response.statusMessage);
+    throw Exception(response.errorMessage);
   }
 
   Future<void> logout() async {

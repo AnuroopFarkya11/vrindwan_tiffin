@@ -256,7 +256,7 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
             textBaseline: TextBaseline.alphabetic,
             children: [
               Text(
-                "Today's special",
+                "Thali Special",
                 style: CustomTextStyle.headlineMediumPrimaryBold
                     ?.copyWith(textBaseline: TextBaseline.alphabetic),
               ),

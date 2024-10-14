@@ -10,10 +10,10 @@ class CartService extends CartRepository {
 
   @override
   Future<void> addItem(FoodItem item, {int quantity = 1}) async {
-    if (_items.containsKey(item.id)) {
-      _items[item.id]!.quantity = quantity;
+    if (_items.containsKey(item.name)) {
+      _items[item.name]!.quantity = quantity;
     } else {
-      _items[item.id] = CartEntry(item: item, quantity: quantity);
+      _items[item.name??""] = CartEntry(item: item, quantity: quantity);
     }
   }
 
@@ -47,7 +47,7 @@ class CartService extends CartRepository {
   Future<double> sumTotal() async {
     return _items.values.fold<double>(
       0.0,
-      (total, entry) => total + (entry.item.price * entry.quantity),
+      (total, entry) => total + (entry.item.price??0 * entry.quantity),
     );
   }
 
@@ -105,9 +105,9 @@ class CartService extends CartRepository {
   @override
   Future<void> addSpecialInstructions(
       FoodItem item, String instructions) async {
-    if (_items.containsKey(item.id)) {
-      _items[item.id]!.item.specialInstructions = instructions;
-    }
+    // if (_items.containsKey(item.id)) {
+    //   _items[item.id]!.item.specialInstructions = instructions;
+    // }
   }
 
   @override
