@@ -21,7 +21,7 @@ class FoodCardOne extends StatelessWidget {
         // context.pushNamed(AppRoutes.dish.name);
         PersistentNavBarNavigator.pushNewScreen(
           context,
-          screen: DishScreen(),
+          screen: DishScreen(item: item,),
           withNavBar: true, // OPTIONAL VALUE. True by default.
           pageTransitionAnimation: PageTransitionAnimation.cupertino,
         );
@@ -72,7 +72,7 @@ class FoodCardOne extends StatelessWidget {
                           Align(
                             alignment: Alignment.bottomCenter,
                             child: Text(
-                              "${item.price}",
+                              "Rs. ${item.price}",
                               style:
                               CustomTextStyle.bodyMediumRoboto1,
                             ),

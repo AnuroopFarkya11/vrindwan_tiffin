@@ -65,10 +65,12 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
   Widget build(BuildContext context) {
     home = ref.watch(homeProvider);
 
-    return Scaffold(
-      // appBar: _getAppBar(),
-      body: _getBody(),
-      bottomSheet: _getSheet(),
+    return SafeArea(
+      child: Scaffold(
+        // appBar: _getAppBar(),
+        body: _getBody(),
+        bottomSheet: _getSheet(),
+      ),
     );
   }
 
@@ -89,7 +91,6 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
   }
 
   _getBody() {
-
     switch (home.status) {
       case (HomeStatus.loading):
         {
@@ -187,7 +188,6 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
         return Padding(
           padding: EdgeInsets.only(right: 22),
           child: SearchBar(
-
             hintText: "Search",
             onTap: () {
               controller.openView();
@@ -233,6 +233,8 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
   }
 
   _getCategoryCards() {
+    var categoricalItems = home.categoricalItems;
+    categoricalItems?.remove('thali');
     return SizedBox(
       height: 120,
       child: ListView.separated(
@@ -240,10 +242,13 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
             return 20.space;
           },
           scrollDirection: Axis.horizontal,
-          itemCount: 10,
+          itemCount: categoricalItems?.keys.length ?? 0,
           padding: EdgeInsets.zero,
           itemBuilder: (context, index) {
-            return CategoryCard();
+            var category = categoricalItems?.keys.elementAt(index) ?? "";
+            return CategoryCard(
+              categoryName: category,
+            );
           }),
     );
   }
@@ -272,7 +277,7 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
           ),
         ),
         15.space,
-       _getThaliCards(),
+        _getThaliCards(),
       ],
     );
   }
@@ -301,8 +306,8 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
           ),
           15.space,
           ListView.separated(
-            controller: scrollController,
-            shrinkWrap: true,
+              controller: scrollController,
+              shrinkWrap: true,
               itemBuilder: (context, index) {
                 return FoodCardTwo();
               },
@@ -317,7 +322,6 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
 
   /// Section Widget
   Widget buildColumnHelloUser() {
-
     String? name = ref.read(authProvider).user.name;
     return SizedBox(
       width: double.maxFinite,
@@ -329,7 +333,7 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
             SizedBox(
               width: 162.h,
               child: Text(
-                "Hello,\n${name??""}.",
+                "Hello,\n${name ?? ""}.",
                 maxLines: 2,
                 overflow: TextOverflow.ellipsis,
                 style: theme.textTheme.displaySmall,
@@ -354,12 +358,14 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
           scrollDirection: Axis.horizontal,
           itemBuilder: (context, index) {
             var item = home.categoricalItems?['Thali']?[index];
-            return FoodCardOne(item: item!,);
+            return FoodCardOne(
+              item: item!,
+            );
           },
           separatorBuilder: (context, index) {
             return 20.space;
           },
-          itemCount: home.categoricalItems?['Thali']?.length??0),
+          itemCount: home.categoricalItems?['Thali']?.length ?? 0),
     );
   }
 }

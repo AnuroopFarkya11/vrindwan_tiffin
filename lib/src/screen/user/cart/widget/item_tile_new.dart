@@ -1,13 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:input_quantity/input_quantity.dart';
 import 'package:triton_extensions/triton_extensions.dart';
+import 'package:vrindavantiffin/src/core/models/item_model.dart';
 import 'package:vrindavantiffin/src/core/utils/size_utils.dart';
+import 'package:vrindavantiffin/src/screen/user/cart/model/cart_entry.dart';
 import 'package:vrindavantiffin/src/shared/theme/custom_text_style.dart';
 import 'package:vrindavantiffin/src/shared/theme/theme_helper.dart';
 import 'package:vrindavantiffin/src/widgets/custom_image_view.dart';
 
 class ItemTileNew extends StatelessWidget {
-  const ItemTileNew({super.key});
+  final CartEntry item;
+  const ItemTileNew({super.key, required this.item});
 
   @override
   Widget build(BuildContext context) {
@@ -37,12 +40,13 @@ class ItemTileNew extends StatelessWidget {
               children: [
 
                 Text(
-                  "Normal Thali",
+                  item.item.name??"",
                   style: CustomTextStyle.titleMediumRoboto1,
                 ),
                 4.space,
                 Text(
-                  "Description",
+                  item.item.description??"",
+                  maxLines: 2,
                   style: CustomTextStyle.bodySmallRoboto1,
                 ),
                 4.space,
@@ -55,7 +59,7 @@ class ItemTileNew extends StatelessWidget {
                       Align(
                         alignment: Alignment.bottomCenter,
                         child: Text(
-                          "Rs. 150",
+                          "Rs. ${item.item.price}",
                           style:
                           CustomTextStyle.bodyMediumRoboto1,
                         ),
@@ -64,6 +68,7 @@ class ItemTileNew extends StatelessWidget {
                         mainAxisSize: MainAxisSize.min,
                         children: [
                           InputQty(
+
                             decoration: QtyDecorationProps(
                               enabledBorder: InputBorder.none,
                               plusBtn: Container(

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:vrindavantiffin/src/core/models/item_model.dart';
 import 'package:vrindavantiffin/src/core/navigation/app_routes.dart';
 import 'package:vrindavantiffin/src/screen/admin/console/console_screen.dart';
 import 'package:vrindavantiffin/src/screen/admin/form/form_screen.dart';
@@ -154,7 +155,10 @@ class AppRouter {
           GoRoute(
               path: AppRoutes.dish.path,
               name: AppRoutes.dish.name,
-              builder: (context, state) => DishScreen()),
+              builder: (context, state) {
+                FoodItem item = state.extra as FoodItem;
+                return DishScreen(item: item);
+              }),
 
           /// Delivery Screen
           GoRoute(

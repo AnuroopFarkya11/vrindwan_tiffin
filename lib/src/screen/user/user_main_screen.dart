@@ -73,7 +73,7 @@ class _UserMainScreenState extends ConsumerState<UserMainScreen> {
   List<Widget> _buildScreens() {
     return [
       HomeScreen(),
-      DishScreen(),
+      HomeScreen(),
       OrderSummaryScreen(),
       ProfileSectionScreen()
     ];

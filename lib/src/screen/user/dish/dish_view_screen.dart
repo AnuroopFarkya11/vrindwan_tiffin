@@ -5,7 +5,10 @@ import 'package:input_quantity/input_quantity.dart';
 
 import 'package:triton_extensions/triton_extensions.dart';
 import 'package:vrindavantiffin/src/app.dart';
+import 'package:vrindavantiffin/src/core/models/item_model.dart';
 import 'package:vrindavantiffin/src/core/utils/size_utils.dart';
+import 'package:vrindavantiffin/src/screen/user/cart/provider/cart_provider.dart';
+import 'package:vrindavantiffin/src/screen/user/cart/state/cart_state.dart';
 import 'package:vrindavantiffin/src/screen/user/home/widget/food_card_two.dart';
 import 'package:vrindavantiffin/src/shared/theme/custom_text_style.dart';
 import 'package:vrindavantiffin/src/shared/theme/cutom_button_style.dart';
@@ -15,7 +18,8 @@ import 'package:vrindavantiffin/src/widgets/custom_image_view.dart';
 import 'package:vrindavantiffin/src/widgets/custom_rating_bar.dart';
 
 class DishScreen extends ConsumerStatefulWidget {
-  const DishScreen({super.key});
+  final FoodItem item;
+  const DishScreen({super.key,required this.item});
 
   @override
   ConsumerState<DishScreen> createState() => _HomeScreenState();
@@ -24,6 +28,7 @@ class DishScreen extends ConsumerStatefulWidget {
 class _HomeScreenState extends ConsumerState<DishScreen> {
   final scrollController = ScrollController();
   bool cart = false;
+  late CartProvider cartProviderRef;
 
   @override
   void initState() {
@@ -37,56 +42,57 @@ class _HomeScreenState extends ConsumerState<DishScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(),
-      body: _getBody(),
+    cartProviderRef = ref.watch(cartProvider.notifier);
+    return SafeArea(
+      child: Scaffold(
+        appBar: AppBar(),
+        body: _getBody(),
+      ),
     );
   }
 
   _getBody() {
-    return SafeArea(
-      child: SizedBox(
-        width: double.maxFinite,
-        child: Column(
-          children: [
-            Expanded(
-                child: SingleChildScrollView(
-              child: Container(
-                width: double.maxFinite,
-                padding: EdgeInsets.only(left: 22.h, top: 8.h, right: 22.h),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    _buildStackFavorite(context),
-                    24.space,
-                    _buildDishName(),
-                    10.space,
-                    _buildRatingBar(context),
-                    // 14.space,
-                    // _buildBuyNow(context),
-                    20.space,
-                    Text(
-                      "Product Description",
-                      style: CustomTextStyle.titleLargeRobotoPrimary_2,
+    return SizedBox(
+      width: double.maxFinite,
+      child: Column(
+        children: [
+          Expanded(
+              child: SingleChildScrollView(
+            child: Container(
+              width: double.maxFinite,
+              padding: EdgeInsets.only(left: 22.h, top: 8.h, right: 22.h),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  _buildStackFavorite(context),
+                  24.space,
+                  _buildDishName(),
+                  10.space,
+                  _buildRatingBar(context),
+                  // 14.space,
+                  // _buildBuyNow(context),
+                  20.space,
+                  Text(
+                    "Product Description",
+                    style: CustomTextStyle.titleLargeRobotoPrimary_2,
+                  ),
+                  8.space,
+                  Padding(
+                    padding: EdgeInsets.only(left: 2.h),
+                    child: Text(
+                      widget.item.description??"",
+                      maxLines: 4,
+                      overflow: TextOverflow.ellipsis,
+                      style: CustomTextStyle.bodyMediumRobotoPrimary_5,
                     ),
-                    8.space,
-                    Padding(
-                      padding: EdgeInsets.only(left: 2.h),
-                      child: Text(
-                        "Description jdnvjnadslnvionaiosnvdio;nasio;nvonao;snc anvinfjvijeipvn[pam ]pojaop qj jpwvjp[oaj 9jfg[jwoe' jopjwiefhn q0wj9kjaopjdfionasiofvniosnvjn uaibwufbu anb ",
-                        maxLines: 4,
-                        overflow: TextOverflow.ellipsis,
-                        style: CustomTextStyle.bodyMediumRobotoPrimary_5,
-                      ),
-                    ),
-                    20.space,
-                    _getSuggestedDish(),
-                  ],
-                ),
+                  ),
+                  20.space,
+                  _getSuggestedDish(),
+                ],
               ),
-            ))
-          ],
-        ),
+            ),
+          ))
+        ],
       ),
     );
   }
@@ -194,8 +200,10 @@ class _HomeScreenState extends ConsumerState<DishScreen> {
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
           Text(
-            "Name",
-            style: CustomTextStyle.headlineMediumPrimary1,
+            widget.item.name??"",
+            maxLines: 1,
+            overflow: TextOverflow.ellipsis,
+            style: CustomTextStyle.headlineMediumPrimary,
           ),
           _buildAddToCartOrCounter()
         ],
@@ -266,12 +274,15 @@ class _HomeScreenState extends ConsumerState<DishScreen> {
                 cart = false;
               });
             }
+            cartProviderRef.placeItemToCart(widget.item, value);
+
           },
         );
 
       case false:
         return CustomElevatedButton(
           onPressed: () {
+            cartProviderRef.placeItemToCart(widget.item, 1);
             setState(() {
               cart = true;
             });

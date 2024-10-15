@@ -18,14 +18,17 @@ class CartScreen extends ConsumerStatefulWidget {
 class _CartScreenState extends ConsumerState<CartScreen> {
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: _getAppBar(),
-      body: _getBody(),
+    return SafeArea(
+      child: Scaffold(
+        appBar: _getAppBar(),
+        body: _getBody(),
+      ),
     );
   }
 
   _getAppBar() {
     return AppBar(
+      backgroundColor: Colors.transparent,
       title: Text('Food Cart'),
     );
   }

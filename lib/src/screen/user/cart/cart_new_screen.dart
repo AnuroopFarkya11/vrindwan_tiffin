@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:triton_extensions/triton_extensions.dart';
 import 'package:vrindavantiffin/src/core/navigation/app_routes.dart';
 import 'package:vrindavantiffin/src/core/utils/size_utils.dart';
+import 'package:vrindavantiffin/src/screen/user/cart/provider/cart_provider.dart';
+import 'package:vrindavantiffin/src/screen/user/cart/state/cart_state.dart';
 import 'package:vrindavantiffin/src/screen/user/cart/widget/item_tile_new.dart';
 import 'package:vrindavantiffin/src/shared/theme/custom_text_style.dart';
 import 'package:vrindavantiffin/src/shared/theme/cutom_button_style.dart';
@@ -10,20 +13,28 @@ import 'package:vrindavantiffin/src/shared/theme/theme_helper.dart';
 import 'package:vrindavantiffin/src/widgets/custom_elevated_button.dart';
 import 'package:vrindavantiffin/src/widgets/custom_text_form_feild.dart';
 
-class CartNewScreen extends StatefulWidget {
+class CartNewScreen extends ConsumerStatefulWidget {
   const CartNewScreen({super.key});
 
   @override
-  State<CartNewScreen> createState() => _CartNewScreenState();
+  ConsumerState<CartNewScreen> createState() => _CartNewScreenState();
 }
 
-class _CartNewScreenState extends State<CartNewScreen> {
+class _CartNewScreenState extends ConsumerState<CartNewScreen> {
+
+  late CartProvider cartProviderRef;
+  late CartState cartStateRef;
+
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: _buildAppBar(),
-      body: _buildBody(),
-      bottomNavigationBar: _buildRowContinue(),
+    cartProviderRef = ref.watch(cartProvider.notifier);
+    cartStateRef = ref.watch(cartProvider);
+    return SafeArea(
+      child: Scaffold(
+        appBar: _buildAppBar(),
+        body: _buildBody(),
+        bottomNavigationBar: _buildRowContinue(),
+      ),
     );
   }
 
@@ -48,13 +59,14 @@ class _CartNewScreenState extends State<CartNewScreen> {
   }
 
   _buildCartItems() {
+    var entries = cartStateRef.entries;
     return Container(
       width: double.maxFinite,
       child: ListView.separated(
         shrinkWrap: true,
-        itemCount: 2,
+        itemCount: entries?.length??0,
         itemBuilder: (context, index) {
-          return ItemTileNew();
+          return ItemTileNew(item: entries![index],);
         },
         separatorBuilder: (context, index) {
           return 15.space;

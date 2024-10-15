@@ -7,7 +7,8 @@ import 'package:vrindavantiffin/src/shared/theme/custom_text_style.dart';
 import 'package:vrindavantiffin/src/shared/theme/theme_helper.dart';
 
 class CategoryCard extends StatelessWidget {
-  const CategoryCard({super.key});
+  final String categoryName;
+  const CategoryCard({super.key,required this.categoryName});
 
   @override
   Widget build(BuildContext context) {
@@ -35,7 +36,7 @@ class CategoryCard extends StatelessWidget {
             ),
             10.space,
             Text(
-              "Dinner",
+              categoryName??"",
               style: CustomTextStyle.bodyLargeRobotoPrimary,
             )
           ],
