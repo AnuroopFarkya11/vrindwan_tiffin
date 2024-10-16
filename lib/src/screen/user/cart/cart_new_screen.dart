@@ -29,6 +29,7 @@ class _CartNewScreenState extends ConsumerState<CartNewScreen> {
   Widget build(BuildContext context) {
     cartProviderRef = ref.watch(cartProvider.notifier);
     cartStateRef = ref.watch(cartProvider);
+
     return SafeArea(
       child: Scaffold(
         appBar: _buildAppBar(),
@@ -66,7 +67,7 @@ class _CartNewScreenState extends ConsumerState<CartNewScreen> {
         shrinkWrap: true,
         itemCount: entries?.length??0,
         itemBuilder: (context, index) {
-          return ItemTileNew(item: entries![index],);
+          return ItemTileNew(item: entries![index],cartProvider: cartProviderRef,);
         },
         separatorBuilder: (context, index) {
           return 15.space;
@@ -97,7 +98,7 @@ class _CartNewScreenState extends ConsumerState<CartNewScreen> {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               Text("Subtotal:",style: CustomTextStyle.titleMediumRobotoPrimary,),
-              Text("Rs. 123",style: CustomTextStyle.titleMediumRobotoPrimary3,)
+              Text("Rs. ${ref.watch(cartProvider).total}",style: CustomTextStyle.titleMediumRobotoPrimary3,)
             ],
           ),
           12.space,
@@ -105,7 +106,7 @@ class _CartNewScreenState extends ConsumerState<CartNewScreen> {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               Text("Discount:",style: CustomTextStyle.titleMediumRobotoPrimary,),
-              Text("- Rs. 10",style: CustomTextStyle.titleMediumRobotoPrimary3,)
+              Text("- Rs. 0",style: CustomTextStyle.titleMediumRobotoPrimary3,)
             ],
           ),
 
@@ -116,7 +117,7 @@ class _CartNewScreenState extends ConsumerState<CartNewScreen> {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               Text("Total:",style: CustomTextStyle.headlineMediumPrimaryBold,),
-              Text("Rs. 113",style: CustomTextStyle.headlineMediumPrimary,)
+              Text("Rs. ${cartStateRef.total}",style: CustomTextStyle.headlineMediumPrimary,)
             ],
           ),
 

@@ -13,7 +13,7 @@ class CartService extends CartRepository {
     if (_items.containsKey(item.name)) {
       _items[item.name]!.quantity = quantity;
     } else {
-      _items[item.name??""] = CartEntry(item: item, quantity: quantity);
+      _items[item.name ?? ""] = CartEntry(item: item, quantity: quantity);
     }
   }
 
@@ -40,15 +40,17 @@ class CartService extends CartRepository {
 
   @override
   Future<int> getItemQuantity(FoodItem item) async {
-    return _items[item.id]?.quantity ?? 0;
+    return _items[item.name]?.quantity ?? 0;
   }
 
   @override
   Future<double> sumTotal() async {
-    return _items.values.fold<double>(
-      0.0,
-      (total, entry) => total + (entry.item.price??0 * entry.quantity),
+    double value = _items.values.fold<double>(
+      0,
+      (total, entry) => total + ((entry.item.price ?? 0) * entry.quantity),
     );
+
+    return value;
   }
 
   @override

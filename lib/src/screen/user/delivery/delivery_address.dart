@@ -26,10 +26,12 @@ class DeliveryAddressScreen extends StatefulWidget {
 class _DeliveryAddressScreenState extends State<DeliveryAddressScreen> {
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: _buildAppBar(),
-      body: _buildBody(),
-      bottomNavigationBar: _buildRowContinue(),
+    return SafeArea(
+      child: Scaffold(
+        appBar: _buildAppBar(),
+        body: _buildBody(),
+        bottomNavigationBar: _buildRowContinue(),
+      ),
     );
   }
 

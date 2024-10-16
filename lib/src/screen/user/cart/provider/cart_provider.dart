@@ -28,7 +28,8 @@ class CartProvider extends StateNotifier<CartState> {
     if (entries.isEmpty)
       state = state.copyWith(status: CartStatus.empty);
     else {
-      state = state.copyWith(status: CartStatus.filled, entries: entries,total: total);
+      state = state.copyWith(
+          status: CartStatus.filled, entries: entries, total: total);
     }
   }
 
@@ -42,15 +43,16 @@ class CartProvider extends StateNotifier<CartState> {
 
     if (items.isNotEmpty) {
       double total = await service.sumTotal();
-      state = state.copyWith(status: CartStatus.filled,entries: items,total: total);
+      state = state.copyWith(
+          status: CartStatus.filled, entries: items, total: total);
     } else {
-      state = state.copyWith(status: CartStatus.empty,entries: items);
+      state = state.copyWith(status: CartStatus.empty, entries: items);
     }
   }
 
-  int getItemQty(FoodItem item){
-    int cnt=0;
-    Future.microtask(()async{
+  int getItemQty(FoodItem item) {
+    int cnt = 0;
+    Future.microtask(() async {
       cnt = await service.getItemQuantity(item);
     });
     return cnt;

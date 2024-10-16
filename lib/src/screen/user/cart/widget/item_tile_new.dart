@@ -1,17 +1,26 @@
+import 'dart:ffi';
+
 import 'package:flutter/material.dart';
 import 'package:input_quantity/input_quantity.dart';
 import 'package:triton_extensions/triton_extensions.dart';
 import 'package:vrindavantiffin/src/core/models/item_model.dart';
 import 'package:vrindavantiffin/src/core/utils/size_utils.dart';
 import 'package:vrindavantiffin/src/screen/user/cart/model/cart_entry.dart';
+import 'package:vrindavantiffin/src/screen/user/cart/provider/cart_provider.dart';
 import 'package:vrindavantiffin/src/shared/theme/custom_text_style.dart';
 import 'package:vrindavantiffin/src/shared/theme/theme_helper.dart';
 import 'package:vrindavantiffin/src/widgets/custom_image_view.dart';
 
-class ItemTileNew extends StatelessWidget {
+class ItemTileNew extends StatefulWidget {
   final CartEntry item;
-  const ItemTileNew({super.key, required this.item});
+  final CartProvider cartProvider;
+  const ItemTileNew({super.key, required this.item,required this.cartProvider});
 
+  @override
+  State<ItemTileNew> createState() => _ItemTileNewState();
+}
+
+class _ItemTileNewState extends State<ItemTileNew> {
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -40,12 +49,12 @@ class ItemTileNew extends StatelessWidget {
               children: [
 
                 Text(
-                  item.item.name??"",
+                  widget.item.item.name??"",
                   style: CustomTextStyle.titleMediumRoboto1,
                 ),
                 4.space,
                 Text(
-                  item.item.description??"",
+                  widget.item.item.description??"",
                   maxLines: 2,
                   style: CustomTextStyle.bodySmallRoboto1,
                 ),
@@ -59,7 +68,7 @@ class ItemTileNew extends StatelessWidget {
                       Align(
                         alignment: Alignment.bottomCenter,
                         child: Text(
-                          "Rs. ${item.item.price}",
+                          "Rs. ${widget.item.item.price}",
                           style:
                           CustomTextStyle.bodyMediumRoboto1,
                         ),
@@ -98,6 +107,12 @@ class ItemTileNew extends StatelessWidget {
                             ),
                             qtyFormProps: QtyFormProps(
                                 style: CustomTextStyle.titleLargeRobotoPrimaryRegular),
+                            onQtyChanged: (value){
+
+                              double v = value as double;
+
+                              widget.cartProvider.placeItemToCart(widget.item.item, v.toInt());
+                            },
                             isIntrinsicWidth: true,
                           ),
                         ],
