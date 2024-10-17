@@ -28,6 +28,7 @@ class CustomTextFormField extends StatelessWidget {
     this.fillColor,
     this.filled = true,
     this.validator,
+    this.onSaved
   }) : super(key: key);
 
   final Alignment? alignment;
@@ -55,6 +56,7 @@ class CustomTextFormField extends StatelessWidget {
   final Color? fillColor;
   final bool filled;
   final FormFieldValidator<String>? validator;
+  final Function(String?)? onSaved;
 
   @override
   Widget build(BuildContext context) {
@@ -94,6 +96,8 @@ class CustomTextFormField extends StatelessWidget {
         maxLines: maxLines,
         decoration: _getInputDecoration(theme),
         validator: validator,
+        onSaved: onSaved,
+
       ),
     );
   }

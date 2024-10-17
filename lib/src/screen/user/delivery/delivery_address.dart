@@ -4,6 +4,7 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:go_router/go_router.dart';
 import 'package:triton_extensions/triton_extensions.dart';
+import 'package:vrindavantiffin/src/core/models/address_model.dart';
 import 'package:vrindavantiffin/src/core/navigation/app_router.dart';
 import 'package:vrindavantiffin/src/core/navigation/app_routes.dart';
 import 'package:vrindavantiffin/src/core/utils/size_utils.dart';
@@ -24,6 +25,9 @@ class DeliveryAddressScreen extends StatefulWidget {
 }
 
 class _DeliveryAddressScreenState extends State<DeliveryAddressScreen> {
+  final _formKey = GlobalKey<FormState>();
+  final Address address = A;
+
   @override
   Widget build(BuildContext context) {
     return SafeArea(
@@ -56,31 +60,39 @@ class _DeliveryAddressScreenState extends State<DeliveryAddressScreen> {
               12.space,
               _buildStepper(),
               24.space,
-              _buildNameField(),
-              24.space,
-              _buildPhoneField(),
-              24.space,
-              Padding(
-                padding: EdgeInsets.only(left: 4.h),
-                child: Text(
-                  "+ Add Alternate Phone Number",
-                  style: CustomTextStyle.titleSmallOrangeA700,
-                ),
-              ),
-              24.space,
-              _buildRowPinCodeAndUseMyLocation(),
-              24.space,
-              _buildRowStateAndCity(),
-              24.space,
-              _buildAddressField(),
-              24.space,
-              _buildAddressField2(),
-              24.space,
-              Padding(
-                padding: EdgeInsets.only(left: 4.h),
-                child: Text(
-                  "+ Add Near By Landmark",
-                  style: CustomTextStyle.titleSmall1,
+              Form(
+                key: _formKey,
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    _buildNameField(),
+                    24.space,
+                    _buildPhoneField(),
+                    24.space,
+                    Padding(
+                      padding: EdgeInsets.only(left: 4.h),
+                      child: Text(
+                        "+ Add Alternate Phone Number",
+                        style: CustomTextStyle.titleSmallOrangeA700,
+                      ),
+                    ),
+                    24.space,
+                    _buildRowPinCodeAndUseMyLocation(),
+                    24.space,
+                    _buildRowStateAndCity(),
+                    24.space,
+                    _buildAddressField(),
+                    24.space,
+                    _buildAddressField2(),
+                    24.space,
+                    Padding(
+                      padding: EdgeInsets.only(left: 4.h),
+                      child: Text(
+                        "+ Add Near By Landmark",
+                        style: CustomTextStyle.titleSmall1,
+                      ),
+                    ),
+                  ],
                 ),
               ),
               24.space
@@ -152,6 +164,11 @@ class _DeliveryAddressScreenState extends State<DeliveryAddressScreen> {
       padding: EdgeInsets.only(right: 2.h),
       child: CustomTextFormField(
         hintText: "Name*",
+        validator: (value) {
+          if (value == "") {
+            return "Please enter name.";
+          }
+        },
         contentPadding: EdgeInsets.fromLTRB(20.h, 18.h, 20.h, 16.h),
       ),
     );
