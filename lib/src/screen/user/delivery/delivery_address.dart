@@ -8,6 +8,7 @@ import 'package:vrindavantiffin/src/core/models/address_model.dart';
 import 'package:vrindavantiffin/src/core/navigation/app_router.dart';
 import 'package:vrindavantiffin/src/core/navigation/app_routes.dart';
 import 'package:vrindavantiffin/src/core/utils/size_utils.dart';
+import 'package:vrindavantiffin/src/core/utils/validators_functions.dart';
 import 'package:vrindavantiffin/src/screen/admin/console/console_screen.dart';
 import 'package:vrindavantiffin/src/shared/color/app_color.dart';
 import 'package:vrindavantiffin/src/shared/theme/custom_text_style.dart';
@@ -26,7 +27,7 @@ class DeliveryAddressScreen extends StatefulWidget {
 
 class _DeliveryAddressScreenState extends State<DeliveryAddressScreen> {
   final _formKey = GlobalKey<FormState>();
-  final Address address = A;
+  final Address address = Address();
 
   @override
   Widget build(BuildContext context) {
@@ -166,10 +167,14 @@ class _DeliveryAddressScreenState extends State<DeliveryAddressScreen> {
         hintText: "Name*",
         validator: (value) {
           if (value == "") {
-            return "Please enter name.";
+            return "Please enter a name.";
           }
         },
         contentPadding: EdgeInsets.fromLTRB(20.h, 18.h, 20.h, 16.h),
+        onSaved: (value) {
+          print("NAME FIELD : $value");
+          address.name = value;
+        },
       ),
     );
   }
@@ -180,6 +185,15 @@ class _DeliveryAddressScreenState extends State<DeliveryAddressScreen> {
       child: CustomTextFormField(
         hintText: "Phone Number*",
         textInputType: TextInputType.number,
+        validator: (value) {
+          bool res = isValidPhone(value);
+          if (!res) {
+            return "Enter a valid number.";
+          }
+        },
+        onSaved: (value) {
+          print("NUMBER FIELD : $value");
+        },
         contentPadding: EdgeInsets.fromLTRB(18.h, 18.h, 18.h, 14.h),
       ),
     );
@@ -205,6 +219,15 @@ class _DeliveryAddressScreenState extends State<DeliveryAddressScreen> {
         hintText: "Pincode*",
         textInputType: TextInputType.number,
         contentPadding: EdgeInsets.fromLTRB(18.h, 18.h, 18.h, 14.h),
+        validator: (value) {
+          bool res = isValidPincode(value);
+          if (!res) {
+            return "Enter a valid pincode";
+          }
+        },
+        onSaved: (value) {
+          address.postalCode = value;
+        },
       ),
     );
   }
@@ -242,10 +265,17 @@ class _DeliveryAddressScreenState extends State<DeliveryAddressScreen> {
   _buildStateField() {
     return Expanded(
       child: CustomTextFormField(
-        hintText: "State*",
-        textInputType: TextInputType.number,
-        contentPadding: EdgeInsets.fromLTRB(18.h, 18.h, 18.h, 14.h),
-      ),
+          hintText: "State*",
+          textInputType: TextInputType.number,
+          contentPadding: EdgeInsets.fromLTRB(18.h, 18.h, 18.h, 14.h),
+          validator: (value) {
+            if (value == null || value == "") {
+              return "Enter a valid state";
+            }
+          },
+          onSaved: (value) {
+            address.state = value;
+          }),
     );
   }
 
@@ -255,6 +285,14 @@ class _DeliveryAddressScreenState extends State<DeliveryAddressScreen> {
         hintText: "City*",
         textInputType: TextInputType.number,
         contentPadding: EdgeInsets.fromLTRB(18.h, 18.h, 18.h, 14.h),
+        validator: (value) {
+          if (value == null || value == "") {
+            return "Enter a valid city.";
+          }
+        },
+        onSaved: (value) {
+          address.city = value;
+        },
       ),
     );
   }
@@ -263,9 +301,17 @@ class _DeliveryAddressScreenState extends State<DeliveryAddressScreen> {
     return Padding(
       padding: EdgeInsets.only(right: 2.h),
       child: CustomTextFormField(
-        hintText: "House No. Building Number",
+        hintText: "House No. Building Number*",
         textInputType: TextInputType.number,
         contentPadding: EdgeInsets.fromLTRB(14.h, 18.h, 14.h, 12.h),
+        validator: (value) {
+          if (value == null || value == "") {
+            return "Enter a valid address";
+          }
+        },
+        onSaved: (value) {
+          address.street = value;
+        },
       ),
     );
   }
@@ -295,7 +341,12 @@ class _DeliveryAddressScreenState extends State<DeliveryAddressScreen> {
             width: 146.h,
             text: "CONTINUE".toUpperCase(),
             onPressed: () {
-              context.pushNamed(AppRoutes.orderSummary.name);
+              bool? isValid = _formKey.currentState?.validate();
+              if(isValid!=null && isValid)
+                {
+                  _formKey.currentState?.save();
+                  // context.pushNamed(AppRoutes.orderSummary.name);
+                }
             },
             buttonStyle: CustomButtonStyles.fillOrangeATL51,
             buttonTextStyle: CustomTextStyle.titleSmallOnError,

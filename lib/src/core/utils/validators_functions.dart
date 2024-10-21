@@ -22,8 +22,7 @@ bool isValidEmail(String? inputString, {bool isRequired = false}) {
   }
 
   if (inputString != null && inputString.isNotEmpty) {
-    const pattern =
-        r'^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$';
+    const pattern = r'^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$';
     final regExp = RegExp(pattern);
     isInputStringValid = regExp.hasMatch(inputString);
   }
@@ -58,8 +57,7 @@ bool isValidPassword(String? inputString, {bool isRequired = false}) {
   }
 
   if (inputString != null && inputString.isNotEmpty) {
-    const pattern =
-        r'^(?=.*[A-Z])(?=.*[a-z])(?=.*\d)(?=.*[\W_])(?!.*\s).{8,}$';
+    const pattern = r'^(?=.*[A-Z])(?=.*[a-z])(?=.*\d)(?=.*[\W_])(?!.*\s).{8,}$';
     final regExp = RegExp(pattern);
     isInputStringValid = regExp.hasMatch(inputString);
   }
@@ -81,4 +79,12 @@ bool isNumeric(String? inputString, {bool isRequired = false}) {
   }
 
   return isInputStringValid;
+}
+
+bool isValidPincode(String? pincode) {
+  if (pincode != null) {
+    final RegExp pincodeRegex = RegExp(r'^[1-9][0-9]{5}$');
+    return pincodeRegex.hasMatch(pincode);
+  }
+  return false;
 }
