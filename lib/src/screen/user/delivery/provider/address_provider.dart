@@ -6,6 +6,10 @@ import 'package:vrindavantiffin/src/screen/user/delivery/state/address_state.dar
 
 final _logger = Logger('AddressProvider');
 
+
+
+final addressProvider = StateNotifierProvider<AddressProvider,AddressState>((ref)=>AddressProvider());
+
 class AddressProvider extends StateNotifier<AddressState> {
   AddressProvider() : super(AddressState(status: AddressStatus.initial));
 

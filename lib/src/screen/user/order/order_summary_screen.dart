@@ -1,9 +1,11 @@
 import 'package:another_stepper/another_stepper.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:go_router/go_router.dart';
 import 'package:triton_extensions/triton_extensions.dart';
+import 'package:vrindavantiffin/src/core/models/address_model.dart';
 import 'package:vrindavantiffin/src/core/navigation/app_router.dart';
 import 'package:vrindavantiffin/src/core/navigation/app_routes.dart';
 import 'package:vrindavantiffin/src/core/utils/size_utils.dart';
@@ -16,14 +18,15 @@ import 'package:vrindavantiffin/src/widgets/custom_elevated_button.dart';
 import 'package:vrindavantiffin/src/widgets/custom_image_view.dart';
 import 'package:vrindavantiffin/src/widgets/custom_text_form_feild.dart';
 
-class OrderSummaryScreen extends StatefulWidget {
-  const OrderSummaryScreen({super.key});
+class OrderSummaryScreen extends ConsumerStatefulWidget {
+  final Address address;
+  const OrderSummaryScreen({super.key, required this.address});
 
   @override
-  State<OrderSummaryScreen> createState() => _OrderSummaryScreenState();
+  ConsumerState<OrderSummaryScreen> createState() => _OrderSummaryScreenState();
 }
 
-class _OrderSummaryScreenState extends State<OrderSummaryScreen> {
+class _OrderSummaryScreenState extends ConsumerState<OrderSummaryScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -164,7 +167,7 @@ class _OrderSummaryScreenState extends State<OrderSummaryScreen> {
           Padding(
             padding: EdgeInsets.only(left: 4.h),
             child: Text(
-              "Anuroop Farkya",
+              widget.address.name??"",
               style: CustomTextStyle.titleMediumRoboto,
             ),
           ),
@@ -172,7 +175,7 @@ class _OrderSummaryScreenState extends State<OrderSummaryScreen> {
           Padding(
             padding: EdgeInsets.only(left: 4.h),
             child: Text(
-              "3082, Sudama Nagar Sector-E \nIndore \n\n8305048867",
+              "${widget.address.street} \n${widget.address.city} \n\n${widget.address.phoneNumber}",
               style: CustomTextStyle.bodyMediumRoboto1,
               maxLines: 4,
               overflow: TextOverflow.ellipsis,

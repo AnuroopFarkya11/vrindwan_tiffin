@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:vrindavantiffin/src/core/models/address_model.dart';
 import 'package:vrindavantiffin/src/core/models/item_model.dart';
 import 'package:vrindavantiffin/src/core/navigation/app_routes.dart';
 import 'package:vrindavantiffin/src/screen/admin/console/console_screen.dart';
@@ -170,7 +171,10 @@ class AppRouter {
           GoRoute(
               path: AppRoutes.orderSummary.path,
               name: AppRoutes.orderSummary.name,
-              builder: (context, state) => OrderSummaryScreen()),
+              builder: (context, state) {
+                Address address = state.extra as Address;
+                return OrderSummaryScreen(address: address,);
+              }),
         ]),
   ]);
 }

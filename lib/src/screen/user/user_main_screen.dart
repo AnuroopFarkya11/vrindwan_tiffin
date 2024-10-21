@@ -74,7 +74,7 @@ class _UserMainScreenState extends ConsumerState<UserMainScreen> {
     return [
       HomeScreen(),
       HomeScreen(),
-      OrderSummaryScreen(),
+      HomeScreen(),
       ProfileSectionScreen()
     ];
   }

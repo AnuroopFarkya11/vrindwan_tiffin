@@ -26,10 +26,12 @@ class _PaymentScreenState extends State<PaymentScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: _buildAppBar(),
-      body: _buildBody(),
-      bottomNavigationBar: _buildRowContinue(),
+    return SafeArea(
+      child: Scaffold(
+        appBar: _buildAppBar(),
+        body: _buildBody(),
+        bottomNavigationBar: _buildRowContinue(),
+      ),
     );
   }
 
@@ -165,7 +167,7 @@ class _PaymentScreenState extends State<PaymentScreen> {
           CustomElevatedButton(
             height: 50.h,
             width: 146.h,
-            text: "CONTINUE".toUpperCase(),
+            text: "Place Order".toUpperCase(),
             onPressed: () {},
             buttonStyle: CustomButtonStyles.fillOrangeATL51,
             buttonTextStyle: CustomTextStyle.titleSmallOnError,
@@ -176,7 +178,7 @@ class _PaymentScreenState extends State<PaymentScreen> {
   }
 
   _buildPaymentOptionsTile(){
-    final List<String> paymentMethods = ['Credit Card', 'Debit Card', 'PayPal', 'Net Banking', 'UPI'];
+    final List<String> paymentMethods = ['Credit Card', 'Debit Card', 'PayPal', 'Net Banking', 'UPI', 'Cash On Delivery'];
     return  Padding(
       padding:EdgeInsets.only(left: 10.h,right: 20.h),
       child: ListView.separated(

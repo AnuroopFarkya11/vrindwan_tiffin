@@ -1,5 +1,6 @@
 import 'package:another_stepper/another_stepper.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:go_router/go_router.dart';
@@ -10,6 +11,8 @@ import 'package:vrindavantiffin/src/core/navigation/app_routes.dart';
 import 'package:vrindavantiffin/src/core/utils/size_utils.dart';
 import 'package:vrindavantiffin/src/core/utils/validators_functions.dart';
 import 'package:vrindavantiffin/src/screen/admin/console/console_screen.dart';
+import 'package:vrindavantiffin/src/screen/user/delivery/provider/address_provider.dart';
+import 'package:vrindavantiffin/src/screen/user/delivery/state/address_state.dart';
 import 'package:vrindavantiffin/src/shared/color/app_color.dart';
 import 'package:vrindavantiffin/src/shared/theme/custom_text_style.dart';
 import 'package:vrindavantiffin/src/shared/theme/cutom_button_style.dart';
@@ -18,19 +21,24 @@ import 'package:vrindavantiffin/src/widgets/custom_elevated_button.dart';
 import 'package:vrindavantiffin/src/widgets/custom_image_view.dart';
 import 'package:vrindavantiffin/src/widgets/custom_text_form_feild.dart';
 
-class DeliveryAddressScreen extends StatefulWidget {
+class DeliveryAddressScreen extends ConsumerStatefulWidget {
   const DeliveryAddressScreen({super.key});
 
   @override
-  State<DeliveryAddressScreen> createState() => _DeliveryAddressScreenState();
+  ConsumerState<DeliveryAddressScreen> createState() =>
+      _DeliveryAddressScreenState();
 }
 
-class _DeliveryAddressScreenState extends State<DeliveryAddressScreen> {
+class _DeliveryAddressScreenState extends ConsumerState<DeliveryAddressScreen> {
   final _formKey = GlobalKey<FormState>();
   final Address address = Address();
+  late AddressProvider addressProviderRef;
+  late AddressState addressState;
 
   @override
   Widget build(BuildContext context) {
+    addressProviderRef = ref.read(addressProvider.notifier);
+    addressState = ref.watch(addressProvider);
     return SafeArea(
       child: Scaffold(
         appBar: _buildAppBar(),
@@ -192,7 +200,7 @@ class _DeliveryAddressScreenState extends State<DeliveryAddressScreen> {
           }
         },
         onSaved: (value) {
-          print("NUMBER FIELD : $value");
+          address.phoneNumber = value;
         },
         contentPadding: EdgeInsets.fromLTRB(18.h, 18.h, 18.h, 14.h),
       ),
@@ -266,7 +274,7 @@ class _DeliveryAddressScreenState extends State<DeliveryAddressScreen> {
     return Expanded(
       child: CustomTextFormField(
           hintText: "State*",
-          textInputType: TextInputType.number,
+          textInputType: TextInputType.text,
           contentPadding: EdgeInsets.fromLTRB(18.h, 18.h, 18.h, 14.h),
           validator: (value) {
             if (value == null || value == "") {
@@ -283,7 +291,7 @@ class _DeliveryAddressScreenState extends State<DeliveryAddressScreen> {
     return Expanded(
       child: CustomTextFormField(
         hintText: "City*",
-        textInputType: TextInputType.number,
+        textInputType: TextInputType.text,
         contentPadding: EdgeInsets.fromLTRB(18.h, 18.h, 18.h, 14.h),
         validator: (value) {
           if (value == null || value == "") {
@@ -302,7 +310,7 @@ class _DeliveryAddressScreenState extends State<DeliveryAddressScreen> {
       padding: EdgeInsets.only(right: 2.h),
       child: CustomTextFormField(
         hintText: "House No. Building Number*",
-        textInputType: TextInputType.number,
+        textInputType: TextInputType.text,
         contentPadding: EdgeInsets.fromLTRB(14.h, 18.h, 14.h, 12.h),
         validator: (value) {
           if (value == null || value == "") {
@@ -321,7 +329,7 @@ class _DeliveryAddressScreenState extends State<DeliveryAddressScreen> {
       padding: EdgeInsets.only(right: 2.h),
       child: CustomTextFormField(
         hintText: "Road Name, Area, Colony",
-        textInputType: TextInputType.number,
+        textInputType: TextInputType.text,
         contentPadding: EdgeInsets.fromLTRB(18.h, 18.h, 18.h, 14.h),
       ),
     );
@@ -340,13 +348,15 @@ class _DeliveryAddressScreenState extends State<DeliveryAddressScreen> {
             height: 50.h,
             width: 146.h,
             text: "CONTINUE".toUpperCase(),
-            onPressed: () {
+            onPressedAsync: () async {
               bool? isValid = _formKey.currentState?.validate();
-              if(isValid!=null && isValid)
-                {
-                  _formKey.currentState?.save();
-                  // context.pushNamed(AppRoutes.orderSummary.name);
+              if (isValid != null && isValid) {
+                _formKey.currentState?.save();
+                await addressProviderRef.addAddress(address);
+                if (ref.watch(addressProvider).status == AddressStatus.loaded) {
+                  context.pushNamed(AppRoutes.orderSummary.name,extra: address);
                 }
+              }
             },
             buttonStyle: CustomButtonStyles.fillOrangeATL51,
             buttonTextStyle: CustomTextStyle.titleSmallOnError,
