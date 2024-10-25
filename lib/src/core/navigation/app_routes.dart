@@ -9,6 +9,7 @@ enum AppRoutes{
   console('console','console'),
   form('form','form'),
   delivery('delivery','delivery'),
+  addDelivery('addDelivery','addDelivery'),
   orderSummary('orderSummary','orderSummary'),
   orderPlaced('orderPlaced','orderPlaced'),
   dish('dish','dish'),

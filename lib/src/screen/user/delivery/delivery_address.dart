@@ -10,9 +10,11 @@ import 'package:vrindavantiffin/src/core/navigation/app_router.dart';
 import 'package:vrindavantiffin/src/core/navigation/app_routes.dart';
 import 'package:vrindavantiffin/src/core/utils/size_utils.dart';
 import 'package:vrindavantiffin/src/core/utils/validators_functions.dart';
+import 'package:vrindavantiffin/src/data/address_data.dart';
 import 'package:vrindavantiffin/src/screen/admin/console/console_screen.dart';
 import 'package:vrindavantiffin/src/screen/user/delivery/provider/address_provider.dart';
 import 'package:vrindavantiffin/src/screen/user/delivery/state/address_state.dart';
+import 'package:vrindavantiffin/src/screen/user/delivery/widget/address_card.dart';
 import 'package:vrindavantiffin/src/shared/color/app_color.dart';
 import 'package:vrindavantiffin/src/shared/theme/custom_text_style.dart';
 import 'package:vrindavantiffin/src/shared/theme/cutom_button_style.dart';
@@ -34,6 +36,7 @@ class _DeliveryAddressScreenState extends ConsumerState<DeliveryAddressScreen> {
   final Address address = Address();
   late AddressProvider addressProviderRef;
   late AddressState addressState;
+  String? _selectedAddressId;
 
   @override
   Widget build(BuildContext context) {
@@ -51,7 +54,7 @@ class _DeliveryAddressScreenState extends ConsumerState<DeliveryAddressScreen> {
   _buildAppBar() {
     return AppBar(
       title: Text(
-        "Add delivery address",
+        "Delivery address",
         style: CustomTextStyle.titleLargeRobotoPrimary_1,
       ),
     );
@@ -69,41 +72,13 @@ class _DeliveryAddressScreenState extends ConsumerState<DeliveryAddressScreen> {
               12.space,
               _buildStepper(),
               24.space,
-              Form(
-                key: _formKey,
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    _buildNameField(),
-                    24.space,
-                    _buildPhoneField(),
-                    24.space,
-                    Padding(
-                      padding: EdgeInsets.only(left: 4.h),
-                      child: Text(
-                        "+ Add Alternate Phone Number",
-                        style: CustomTextStyle.titleSmallOrangeA700,
-                      ),
-                    ),
-                    24.space,
-                    _buildRowPinCodeAndUseMyLocation(),
-                    24.space,
-                    _buildRowStateAndCity(),
-                    24.space,
-                    _buildAddressField(),
-                    24.space,
-                    _buildAddressField2(),
-                    24.space,
-                    Padding(
-                      padding: EdgeInsets.only(left: 4.h),
-                      child: Text(
-                        "+ Add Near By Landmark",
-                        style: CustomTextStyle.titleSmall1,
-                      ),
-                    ),
-                  ],
-                ),
-              ),
+
+
+              _buildAddressList(),
+              24.space,
+              _buildAddNewAddress(),
+
+
               24.space
             ],
           ),
@@ -168,171 +143,30 @@ class _DeliveryAddressScreenState extends ConsumerState<DeliveryAddressScreen> {
             stepperDirection: Axis.horizontal));
   }
 
-  _buildNameField() {
-    return Padding(
-      padding: EdgeInsets.only(right: 2.h),
-      child: CustomTextFormField(
-        hintText: "Name*",
-        validator: (value) {
-          if (value == "") {
-            return "Please enter a name.";
-          }
-        },
-        contentPadding: EdgeInsets.fromLTRB(20.h, 18.h, 20.h, 16.h),
-        onSaved: (value) {
-          print("NAME FIELD : $value");
-          address.name = value;
-        },
-      ),
-    );
+
+  void _onAddressSelected(String addressId) {
+    setState(() {
+      _selectedAddressId = addressId; // Update selected address
+    });
   }
 
-  _buildPhoneField() {
-    return Padding(
-      padding: EdgeInsets.only(right: 2.h),
-      child: CustomTextFormField(
-        hintText: "Phone Number*",
-        textInputType: TextInputType.number,
-        validator: (value) {
-          bool res = isValidPhone(value);
-          if (!res) {
-            return "Enter a valid number.";
-          }
-        },
-        onSaved: (value) {
-          address.phoneNumber = value;
-        },
-        contentPadding: EdgeInsets.fromLTRB(18.h, 18.h, 18.h, 14.h),
-      ),
-    );
-  }
+  _buildAddressList() {
+     List<Address> addresses = addressList.map((e){
+      return Address.fromJson(e);
+    }).toList();
 
-  _buildRowPinCodeAndUseMyLocation() {
-    return Container(
-      width: double.maxFinite,
-      margin: EdgeInsets.only(right: 2.h),
-      child: Row(
-        children: [
-          _buildPinCodeField(),
-          24.spaceHorizontal,
-          _buildUseMyLocation()
-        ],
-      ),
+    return ListView.builder(
+      shrinkWrap: true,
+      itemCount: addresses.length,
+      itemBuilder: (context, index) {
+        return AddressCard(
+          address: addresses[index],
+          selectedAddressId: _selectedAddressId,
+          onSelected: _onAddressSelected,
+        );
+      },
     );
-  }
 
-  _buildPinCodeField() {
-    return Expanded(
-      child: CustomTextFormField(
-        hintText: "Pincode*",
-        textInputType: TextInputType.number,
-        contentPadding: EdgeInsets.fromLTRB(18.h, 18.h, 18.h, 14.h),
-        validator: (value) {
-          bool res = isValidPincode(value);
-          if (!res) {
-            return "Enter a valid pincode";
-          }
-        },
-        onSaved: (value) {
-          address.postalCode = value;
-        },
-      ),
-    );
-  }
-
-  _buildUseMyLocation() {
-    return Expanded(
-        child: CustomElevatedButton(
-      height: 60.h,
-      text: "Use My Location",
-      onPressed: () {},
-      leftIcon: Container(
-        margin: EdgeInsets.only(right: 6.h),
-        child: CustomImageView(
-          height: 18.h,
-          width: 14.h,
-          imagePath: "assets/icons/marker.svg",
-          fit: BoxFit.contain,
-        ),
-      ),
-      buttonStyle: CustomButtonStyles.fillOrangeATL10,
-      buttonTextStyle: CustomTextStyle.titleSmallOnError,
-    ));
-  }
-
-  _buildRowStateAndCity() {
-    return Container(
-      width: double.maxFinite,
-      margin: EdgeInsets.only(right: 2.h),
-      child: Row(
-        children: [_buildStateField(), 24.spaceHorizontal, _buildCityField()],
-      ),
-    );
-  }
-
-  _buildStateField() {
-    return Expanded(
-      child: CustomTextFormField(
-          hintText: "State*",
-          textInputType: TextInputType.text,
-          contentPadding: EdgeInsets.fromLTRB(18.h, 18.h, 18.h, 14.h),
-          validator: (value) {
-            if (value == null || value == "") {
-              return "Enter a valid state";
-            }
-          },
-          onSaved: (value) {
-            address.state = value;
-          }),
-    );
-  }
-
-  _buildCityField() {
-    return Expanded(
-      child: CustomTextFormField(
-        hintText: "City*",
-        textInputType: TextInputType.text,
-        contentPadding: EdgeInsets.fromLTRB(18.h, 18.h, 18.h, 14.h),
-        validator: (value) {
-          if (value == null || value == "") {
-            return "Enter a valid city.";
-          }
-        },
-        onSaved: (value) {
-          address.city = value;
-        },
-      ),
-    );
-  }
-
-  _buildAddressField() {
-    return Padding(
-      padding: EdgeInsets.only(right: 2.h),
-      child: CustomTextFormField(
-        hintText: "House No. Building Number*",
-        textInputType: TextInputType.text,
-        contentPadding: EdgeInsets.fromLTRB(14.h, 18.h, 14.h, 12.h),
-        validator: (value) {
-          if (value == null || value == "") {
-            return "Enter a valid address";
-          }
-        },
-        onSaved: (value) {
-          address.street = value;
-        },
-      ),
-    );
-  }
-
-  _buildAddressField2() {
-    return Padding(
-      padding: EdgeInsets.only(right: 2.h),
-      child: CustomTextFormField(
-        hintText: "Road Name, Area, Colony",
-        textInputType: TextInputType.text,
-        contentPadding: EdgeInsets.fromLTRB(18.h, 18.h, 18.h, 14.h),
-      ),
-    );
   }
 
   _buildRowContinue() {
@@ -349,15 +183,8 @@ class _DeliveryAddressScreenState extends ConsumerState<DeliveryAddressScreen> {
             width: 146.h,
             text: "CONTINUE".toUpperCase(),
             onPressedAsync: () async {
-              bool? isValid = _formKey.currentState?.validate();
-              if (isValid != null && isValid) {
-                _formKey.currentState?.save();
-                address.country = "India";
-                await addressProviderRef.addAddress(address);
-                if (ref.watch(addressProvider).status == AddressStatus.loaded) {
-                  context.pushNamed(AppRoutes.orderSummary.name,extra: address);
-                }
-              }
+
+              context.pushNamed(AppRoutes.orderSummary.name,extra: address);
             },
             buttonStyle: CustomButtonStyles.fillOrangeATL51,
             buttonTextStyle: CustomTextStyle.titleSmallOnError,
@@ -366,4 +193,23 @@ class _DeliveryAddressScreenState extends ConsumerState<DeliveryAddressScreen> {
       ),
     );
   }
+
+  _buildAddNewAddress() {
+    return GestureDetector(
+      onTap: (){
+        context.pushNamed(AppRoutes.addDelivery.name);
+      },
+      child: Container(
+        padding: EdgeInsets.only(right: 14.h),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            Text("Add a new Delivery address",style: CustomTextStyle.titleMediumRobotoOrangeA7001,),
+            Icon(Icons.arrow_forward_ios_rounded,size: 20,)
+          ],
+        ),
+      ),
+    );
+  }
+
 }

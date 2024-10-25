@@ -14,6 +14,7 @@ import 'package:vrindavantiffin/src/screen/auth/screen/otp_screen.dart';
 import 'package:vrindavantiffin/src/screen/auth/screen/password/create_new_password.dart';
 import 'package:vrindavantiffin/src/screen/user/cart/cart_new_screen.dart';
 import 'package:vrindavantiffin/src/screen/user/cart/cart_screen.dart';
+import 'package:vrindavantiffin/src/screen/user/delivery/add_delivery_address_screen.dart';
 import 'package:vrindavantiffin/src/screen/user/delivery/delivery_address.dart';
 import 'package:vrindavantiffin/src/screen/user/dish/dish_list_screen.dart';
 import 'package:vrindavantiffin/src/screen/user/dish/dish_view_screen.dart';
@@ -177,6 +178,12 @@ class AppRouter {
               path: AppRoutes.delivery.path,
               name: AppRoutes.delivery.name,
               builder: (context, state) => DeliveryAddressScreen()),
+
+          /// Add Delivery Address Screen
+          GoRoute(
+              path: AppRoutes.addDelivery.path,
+              name: AppRoutes.addDelivery.name,
+              builder: (context, state) => AddDeliveryAddressScreen()),
 
           /// Order Summary Screen
           GoRoute(

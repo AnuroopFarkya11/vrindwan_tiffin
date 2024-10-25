@@ -9,6 +9,8 @@ class ImageConstant {
   static const String about_us = "assets/icons/about_us.svg";
   static const String sign_out = "assets/icons/sign_out.svg";
   static const String arrow_right = "assets/icons/arrow_right.svg";
+  static const String marker = "assets/icons/marker.svg";
+
 
 
 }
