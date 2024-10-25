@@ -14,6 +14,7 @@ class CategoryCard extends StatelessWidget {
   Widget build(BuildContext context) {
     return InkWell(
       onTap: (){
+        context.goNamed(AppRoutes.dishList.name,extra:categoryName );
       },
       child: SizedBox(
         width: 76,

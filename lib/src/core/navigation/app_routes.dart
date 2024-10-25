@@ -11,7 +11,9 @@ enum AppRoutes{
   delivery('delivery','delivery'),
   orderSummary('orderSummary','orderSummary'),
   orderPlaced('orderPlaced','orderPlaced'),
-  dish('dish','dish')
+  dish('dish','dish'),
+  dishList('dishList','dishList')
+
 
 
   ;

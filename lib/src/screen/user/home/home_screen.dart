@@ -3,6 +3,7 @@ import 'package:flutter/rendering.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:rxdart/rxdart.dart';
 import 'package:triton_extensions/triton_extensions.dart';
+import 'package:vrindavantiffin/src/core/models/item_model.dart';
 import 'package:vrindavantiffin/src/core/utils/size_utils.dart';
 import 'package:vrindavantiffin/src/screen/auth/provider/auth_provider.dart';
 import 'package:vrindavantiffin/src/screen/user/cart/cart_sheet.dart';
@@ -309,7 +310,7 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
               controller: scrollController,
               shrinkWrap: true,
               itemBuilder: (context, index) {
-                return FoodCardTwo();
+                return FoodCardTwo(item: FoodItem(),);
               },
               separatorBuilder: (context, index) {
                 return 20.space;

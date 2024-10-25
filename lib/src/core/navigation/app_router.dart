@@ -15,6 +15,7 @@ import 'package:vrindavantiffin/src/screen/auth/screen/password/create_new_passw
 import 'package:vrindavantiffin/src/screen/user/cart/cart_new_screen.dart';
 import 'package:vrindavantiffin/src/screen/user/cart/cart_screen.dart';
 import 'package:vrindavantiffin/src/screen/user/delivery/delivery_address.dart';
+import 'package:vrindavantiffin/src/screen/user/dish/dish_list_screen.dart';
 import 'package:vrindavantiffin/src/screen/user/dish/dish_view_screen.dart';
 import 'package:vrindavantiffin/src/screen/user/home/home_screen.dart';
 import 'package:vrindavantiffin/src/screen/user/order/order_placed_screen.dart';
@@ -30,7 +31,6 @@ class AppRouter {
         path: AppRoutes.auth.path,
         name: AppRoutes.auth.name,
         builder: (context, state) => const UserMainScreen(),
-
         routes: [
           /// Admin console
           GoRoute(
@@ -161,6 +161,15 @@ class AppRouter {
               builder: (context, state) {
                 FoodItem item = state.extra as FoodItem;
                 return DishScreen(item: item);
+              }),
+
+          /// Dish List Screen
+          GoRoute(
+              path: AppRoutes.dishList.path,
+              name: AppRoutes.dishList.name,
+              builder: (context, state) {
+                String category = state.extra as String;
+                return DishListScreen(category: category,);
               }),
 
           /// Delivery Screen

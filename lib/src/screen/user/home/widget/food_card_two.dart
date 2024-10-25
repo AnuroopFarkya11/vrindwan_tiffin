@@ -1,12 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:triton_extensions/triton_extensions.dart';
+import 'package:vrindavantiffin/src/core/models/item_model.dart';
 import 'package:vrindavantiffin/src/core/utils/size_utils.dart';
 import 'package:vrindavantiffin/src/shared/theme/custom_text_style.dart';
 import 'package:vrindavantiffin/src/shared/theme/theme_helper.dart';
 import 'package:vrindavantiffin/src/widgets/custom_image_view.dart';
 
 class FoodCardTwo extends StatelessWidget {
-  const FoodCardTwo({super.key});
+  final FoodItem item;
+  const FoodCardTwo({super.key,required this.item});
 
   @override
   Widget build(BuildContext context) {
@@ -35,13 +37,14 @@ class FoodCardTwo extends StatelessWidget {
               children: [
 
                 Text(
-                  "Normal Thali",
+                  item.name??"",
                   style: CustomTextStyle.titleMediumRoboto1,
                 ),
                 4.space,
                 Text(
-                  "Description",
+                  item.description??"",
                   style: CustomTextStyle.bodySmallRoboto1,
+                  overflow: TextOverflow.ellipsis,
                 ),
                 4.space,
                 SizedBox(
@@ -53,7 +56,7 @@ class FoodCardTwo extends StatelessWidget {
                       Align(
                         alignment: Alignment.bottomCenter,
                         child: Text(
-                          "Rs. 150",
+                          "Rs. ${item.price}",
                           style:
                           CustomTextStyle.bodyMediumRoboto1,
                         ),
@@ -69,7 +72,7 @@ class FoodCardTwo extends StatelessWidget {
                           mainAxisSize: MainAxisSize.min,
                           children: [
                             Text(
-                              "5 left",
+                              "${item.quantity} left",
                               style: theme.textTheme.labelLarge,
                             ),
                           ],

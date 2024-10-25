@@ -224,7 +224,7 @@ class _HomeScreenState extends ConsumerState<DishScreen> {
             controller: scrollController,
             shrinkWrap: true,
             itemBuilder: (context, index) {
-              return FoodCardTwo();
+              return FoodCardTwo(item: FoodItem(),);
             },
             separatorBuilder: (context, index) {
               return 20.space;
