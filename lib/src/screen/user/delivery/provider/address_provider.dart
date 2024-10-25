@@ -6,9 +6,8 @@ import 'package:vrindavantiffin/src/screen/user/delivery/state/address_state.dar
 
 final _logger = Logger('AddressProvider');
 
-
-
-final addressProvider = StateNotifierProvider<AddressProvider,AddressState>((ref)=>AddressProvider());
+final addressProvider = StateNotifierProvider<AddressProvider, AddressState>(
+    (ref) => AddressProvider());
 
 class AddressProvider extends StateNotifier<AddressState> {
   AddressProvider() : super(AddressState(status: AddressStatus.initial));
@@ -18,10 +17,13 @@ class AddressProvider extends StateNotifier<AddressState> {
   Future<void> addAddress(Address address) async {
     state = state.copyWith(status: AddressStatus.loading);
     try {
-      await service.addAddress(address: address);
-      state = state.copyWith(status: AddressStatus.loaded);
-    } catch (e) {
-      _logger.log('Something went wrong while adding address : $e');
+      // TODO : Store address to local storage
+      // address = await service.addAddress(address: address);
+
+
+      state = state.copyWith(status: AddressStatus.loaded, address: address);
+    } catch (e,s) {
+      _logger.error(Exception("$e\n$s"));
       state = state.copyWith(status: AddressStatus.failed);
     }
   }

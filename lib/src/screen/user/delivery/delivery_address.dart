@@ -352,6 +352,7 @@ class _DeliveryAddressScreenState extends ConsumerState<DeliveryAddressScreen> {
               bool? isValid = _formKey.currentState?.validate();
               if (isValid != null && isValid) {
                 _formKey.currentState?.save();
+                address.country = "India";
                 await addressProviderRef.addAddress(address);
                 if (ref.watch(addressProvider).status == AddressStatus.loaded) {
                   context.pushNamed(AppRoutes.orderSummary.name,extra: address);

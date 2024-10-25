@@ -105,8 +105,8 @@ class DioClient {
   }
 
   String _basicAuth() {
-    String username = '9826337267';
-    String password = 'Anuroop';
+    String username = '8305048867';
+    String password = 'Ram';
 
     String basicAuth =
         'Basic ' + base64Encode(utf8.encode('$username:$password'));

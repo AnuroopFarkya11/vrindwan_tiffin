@@ -38,6 +38,9 @@ class ThemeHelper {
     var colorScheme = _supportedColorScheme[_appTheme] ?? ColorSchemes.lightCodeColorScheme;
     var appTheme = LightCodeColors();
     return ThemeData(
+      progressIndicatorTheme: ProgressIndicatorThemeData(
+        color: colorScheme.onError
+      ),
       appBarTheme: AppBarTheme(
         backgroundColor: Colors.transparent
       ),

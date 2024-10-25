@@ -1,7 +1,9 @@
+import 'package:vrindavantiffin/src/core/models/id.dart';
+
 class FoodItem {
   FoodItem({
-    Map<String,dynamic>? id,
-    String? name,
+    Id? id,
+    String? foodName,
     String? hindiName,
     String? description,
     String? hindiDescription,
@@ -39,7 +41,7 @@ class FoodItem {
     bool? isSeasonal,
   }) {
     _id = id;
-    _name = name;
+    _name = foodName;
     _hindiName = hindiName;
     _description = description;
     _hindiDescription = hindiDescription;
@@ -78,8 +80,8 @@ class FoodItem {
   }
 
   FoodItem.fromJson(dynamic json) {
-    _id = json['id'];
-    _name = json['name'];
+    _id = Id.fromJson(json['id']);
+    _name = json['foodName'];
     _hindiName = json['hindiName'];
     _description = json['description'];
     _hindiDescription = json['hindiDescription'];
@@ -121,7 +123,7 @@ class FoodItem {
     _isSeasonal = json['isSeasonal'];
   }
 
-  Map<String,dynamic>? _id;
+  Id? _id;
   String? _name;
   String? _hindiName;
   String? _description;
@@ -160,7 +162,7 @@ class FoodItem {
   bool? _isSeasonal;
 
   FoodItem copyWith({
-    Map<String,dynamic>? id,
+    Id? id,
     String? name,
     String? hindiName,
     String? description,
@@ -200,7 +202,7 @@ class FoodItem {
   }) =>
       FoodItem(
         id: id ?? _id,
-        name: name ?? _name,
+        foodName: name ?? _name,
         hindiName: hindiName ?? _hindiName,
         description: description ?? _description,
         hindiDescription: hindiDescription ?? _hindiDescription,
@@ -240,7 +242,7 @@ class FoodItem {
         isSeasonal: isSeasonal ?? _isSeasonal,
       );
 
-  Map<String, dynamic>? get id => _id;
+  Id? get id => _id;
 
   String? get name => _name;
 
@@ -316,7 +318,8 @@ class FoodItem {
 
   Map<String, dynamic> toJson() {
     final map = <String, dynamic>{};
-    map['name'] = _name;
+    map['id'] = id?.toJson();
+    map['foodName'] = _name;
     map['hindiName'] = _hindiName;
     map['description'] = _description;
     map['hindiDescription'] = _hindiDescription;

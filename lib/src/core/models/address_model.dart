@@ -1,5 +1,9 @@
+import 'package:vrindavantiffin/src/core/models/id.dart';
+import 'package:vrindavantiffin/src/core/models/order_model.dart';
+
 class Address {
-  dynamic id;
+  Id? id;
+  String? addressId;
   String? name;
   String? street;
   String? city;
@@ -13,6 +17,7 @@ class Address {
 
   Address({
     this.id,
+    this.addressId,
     this.name,
     this.street,
     this.city,
@@ -28,8 +33,9 @@ class Address {
   // Factory constructor to create a DeliveryAddress object from JSON
   factory Address.fromJson(Map<String, dynamic> json) {
     return Address(
-      id: json['id'],
+      id: Id.fromJson(json['id']),
       name: json['name'] as String,
+      addressId: json['addressId'] as String,
       street: json['street'] as String,
       city: json['city'] as String,
       state: json['state'] as String,
@@ -45,6 +51,8 @@ class Address {
   // Method to convert the DeliveryAddress object to JSON
   Map<String, dynamic> toJson() {
     return {
+      'id':id?.toJson(),
+      'addressId': addressId,
       'name': name,
       'street': street,
       'city': city,

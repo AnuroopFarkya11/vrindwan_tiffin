@@ -69,7 +69,7 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
       child: Scaffold(
         // appBar: _getAppBar(),
         body: _getBody(),
-        bottomSheet: _getSheet(),
+        // bottomSheet: _getSheet(),
       ),
     );
   }

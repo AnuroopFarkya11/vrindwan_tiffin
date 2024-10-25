@@ -35,38 +35,42 @@ class _UserMainScreenState extends ConsumerState<UserMainScreen> {
   @override
   Widget build(BuildContext context) {
     final cartStatus = ref.watch(cartProvider);
-    return Stack(
-      children: [
-        PersistentTabView(
-          context,
-          controller: _controller,
-          screens: _buildScreens(),
-          items: _navBarsItems(),
-          handleAndroidBackButtonPress: true,
-          resizeToAvoidBottomInset: true,
-          stateManagement: true,
-          hideNavigationBarWhenKeyboardAppears: true,
-          padding: EdgeInsets.only(top: 8.h, bottom: 8.h),
-          // backgroundColor: Colors.grey.shade900,
-          isVisible: true,
-          animationSettings: const NavBarAnimationSettings(
-            navBarItemAnimation: ItemAnimationSettings(
-              duration: Duration(milliseconds: 400),
-              curve: Curves.ease,
+    return SafeArea(
+      child: Scaffold(
+        body: Stack(
+          children: [
+            PersistentTabView(
+              context,
+              controller: _controller,
+              screens: _buildScreens(),
+              items: _navBarsItems(),
+              handleAndroidBackButtonPress: true,
+              resizeToAvoidBottomInset: true,
+              stateManagement: true,
+              hideNavigationBarWhenKeyboardAppears: true,
+              padding: EdgeInsets.only(top: 8.h, bottom: 8.h),
+              // backgroundColor: Colors.grey.shade900,
+              isVisible: true,
+              animationSettings: const NavBarAnimationSettings(
+                navBarItemAnimation: ItemAnimationSettings(
+                  duration: Duration(milliseconds: 400),
+                  curve: Curves.ease,
+                ),
+                screenTransitionAnimation: ScreenTransitionAnimationSettings(
+                  animateTabTransition: true,
+                  duration: Duration(milliseconds: 200),
+                  screenTransitionAnimationType:
+                      ScreenTransitionAnimationType.fadeIn,
+                ),
+              ),
+              confineToSafeArea: true,
+              navBarHeight: kBottomNavigationBarHeight,
+              navBarStyle: NavBarStyle.style9,
             ),
-            screenTransitionAnimation: ScreenTransitionAnimationSettings(
-              animateTabTransition: true,
-              duration: Duration(milliseconds: 200),
-              screenTransitionAnimationType:
-                  ScreenTransitionAnimationType.fadeIn,
-            ),
-          ),
-          confineToSafeArea: true,
-          navBarHeight: kBottomNavigationBarHeight,
-          navBarStyle: NavBarStyle.style9,
+            CartPopup(isVisible: cartStatus.status == CartStatus.filled)
+          ],
         ),
-        CartPopup(isVisible: cartStatus.status == CartStatus.filled)
-      ],
+      ),
     );
   }
 

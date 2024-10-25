@@ -1,10 +1,15 @@
 import 'package:another_stepper/another_stepper.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:go_router/go_router.dart';
 import 'package:triton_extensions/triton_extensions.dart';
+import 'package:vrindavantiffin/src/core/navigation/app_router.dart';
+import 'package:vrindavantiffin/src/core/navigation/app_routes.dart';
 import 'package:vrindavantiffin/src/core/utils/size_utils.dart';
 import 'package:vrindavantiffin/src/screen/admin/console/console_screen.dart';
+import 'package:vrindavantiffin/src/screen/user/order/provider/order_provider.dart';
 import 'package:vrindavantiffin/src/screen/user/payment/widget/payment_mode_tile.dart';
 import 'package:vrindavantiffin/src/shared/color/app_color.dart';
 import 'package:vrindavantiffin/src/shared/theme/custom_text_style.dart';
@@ -14,14 +19,14 @@ import 'package:vrindavantiffin/src/widgets/custom_elevated_button.dart';
 import 'package:vrindavantiffin/src/widgets/custom_image_view.dart';
 import 'package:vrindavantiffin/src/widgets/custom_text_form_feild.dart';
 
-class PaymentScreen extends StatefulWidget {
+class PaymentScreen extends ConsumerStatefulWidget {
   const PaymentScreen({super.key});
 
   @override
-  State<PaymentScreen> createState() => _PaymentScreenState();
+  ConsumerState<PaymentScreen> createState() => _PaymentScreenState();
 }
 
-class _PaymentScreenState extends State<PaymentScreen> {
+class _PaymentScreenState extends ConsumerState<PaymentScreen> {
   String? selectedMethod;
 
   @override
@@ -168,7 +173,10 @@ class _PaymentScreenState extends State<PaymentScreen> {
             height: 50.h,
             width: 146.h,
             text: "Place Order".toUpperCase(),
-            onPressed: () {},
+            onPressed: (){
+              context.pushNamed(AppRoutes.orderPlaced.name);
+              ref.read(orderProvider.notifier).placeOrder();
+            },
             buttonStyle: CustomButtonStyles.fillOrangeATL51,
             buttonTextStyle: CustomTextStyle.titleSmallOnError,
           )
