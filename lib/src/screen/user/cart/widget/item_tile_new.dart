@@ -77,7 +77,7 @@ class _ItemTileNewState extends State<ItemTileNew> {
                         mainAxisSize: MainAxisSize.min,
                         children: [
                           InputQty(
-
+                            initVal:widget.item.quantity,
                             decoration: QtyDecorationProps(
                               enabledBorder: InputBorder.none,
                               plusBtn: Container(
