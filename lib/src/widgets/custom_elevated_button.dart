@@ -28,7 +28,7 @@ class CustomElevatedButton extends BaseButton {
           onPressed: onPressed,
           onPressedAsync: onPressedAsync,
           buttonStyle: buttonStyle,
-          isDisabled: isDisabled,
+          isDisabled: isDisabled??false,
           buttonTextStyle: buttonTextStyle,
           height: height,
           width: width,
@@ -77,7 +77,7 @@ class _CustomElevatedButtonState extends State<CustomElevatedButton> {
         decoration: widget.decoration,
         child: ElevatedButton(
           style: widget.buttonStyle,
-          onPressed: _isLoading ? null : _handleOnPressed,
+          onPressed: _isLoading || widget.isDisabled ? null : _handleOnPressed,
           child: Row(
             mainAxisAlignment: MainAxisAlignment.center,
             crossAxisAlignment: CrossAxisAlignment.center,

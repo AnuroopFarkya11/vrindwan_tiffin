@@ -143,8 +143,9 @@ class _DeliveryAddressScreenState extends ConsumerState<DeliveryAddressScreen> {
 
 
   void _onAddressSelected(String addressId) {
+    addressProviderRef.selectAddress(addressId);
     setState(() {
-      _selectedAddressId = addressId; // Update selected address
+      _selectedAddressId = addressId;
     });
   }
 
@@ -182,10 +183,12 @@ class _DeliveryAddressScreenState extends ConsumerState<DeliveryAddressScreen> {
             height: 50.h,
             width: 146.h,
             text: "CONTINUE".toUpperCase(),
-            onPressedAsync: () async {
-
-              context.pushNamed(AppRoutes.orderSummary.name,extra: address);
+            isDisabled: _selectedAddressId==null,
+            onPressed: (){
+              context.pushNamed(AppRoutes.orderSummary.name);
             },
+            // onPressedAsync: null,
+
             buttonStyle: CustomButtonStyles.fillOrangeATL51,
             buttonTextStyle: CustomTextStyle.titleSmallOnError,
           )

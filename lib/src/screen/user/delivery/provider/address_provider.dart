@@ -8,16 +8,17 @@ import 'package:vrindavantiffin/src/screen/user/delivery/state/address_state.dar
 
 final _logger = Logger('AddressProvider');
 
-final addressProvider = StateNotifierProvider<AddressProvider, AddressState>(
-    (ref) {
-      AuthState state = ref.watch(authProvider);
-      return AddressProvider(state);
-    } );
+final addressProvider =
+    StateNotifierProvider<AddressProvider, AddressState>((ref) {
+  AuthState state = ref.watch(authProvider);
+  return AddressProvider(state);
+});
 
 class AddressProvider extends StateNotifier<AddressState> {
   AuthState authStateRef;
 
-  AddressProvider(this.authStateRef) : super(AddressState(status: AddressStatus.initial)){
+  AddressProvider(this.authStateRef)
+      : super(AddressState(status: AddressStatus.initial)) {
     getAddresses();
   }
 
@@ -29,17 +30,24 @@ class AddressProvider extends StateNotifier<AddressState> {
       // TODO : Store address to local storage
       // address = await service.addAddress(address: address);
 
-
       state = state.copyWith(status: AddressStatus.loaded, address: address);
-    } catch (e,s) {
+    } catch (e, s) {
       _logger.error(Exception("$e\n$s"));
       state = state.copyWith(status: AddressStatus.failed);
     }
   }
 
-
-  Future<void> getAddresses()async{
-    List<Address> userAddress = authStateRef.user.addresses??[];
+  Future<void> getAddresses() async {
+    List<Address> userAddress = authStateRef.user.addresses ?? [];
     state = state.copyWith(addresses: userAddress);
   }
+
+  Future<void> selectAddress(String id) async {
+    Address? address = state.addresses
+        ?.firstWhere((e) => e.addressId == id);
+    if (address != null) {
+      state = state.copyWith(address: address);
+    }
+  }
+
 }

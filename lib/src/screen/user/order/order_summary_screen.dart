@@ -10,6 +10,8 @@ import 'package:vrindavantiffin/src/core/navigation/app_router.dart';
 import 'package:vrindavantiffin/src/core/navigation/app_routes.dart';
 import 'package:vrindavantiffin/src/core/utils/size_utils.dart';
 import 'package:vrindavantiffin/src/screen/admin/console/console_screen.dart';
+import 'package:vrindavantiffin/src/screen/user/delivery/provider/address_provider.dart';
+import 'package:vrindavantiffin/src/screen/user/delivery/state/address_state.dart';
 import 'package:vrindavantiffin/src/shared/color/app_color.dart';
 import 'package:vrindavantiffin/src/shared/theme/custom_text_style.dart';
 import 'package:vrindavantiffin/src/shared/theme/cutom_button_style.dart';
@@ -19,16 +21,22 @@ import 'package:vrindavantiffin/src/widgets/custom_image_view.dart';
 import 'package:vrindavantiffin/src/widgets/custom_text_form_feild.dart';
 
 class OrderSummaryScreen extends ConsumerStatefulWidget {
-  final Address address;
-  const OrderSummaryScreen({super.key, required this.address});
+
+  const OrderSummaryScreen({super.key});
 
   @override
   ConsumerState<OrderSummaryScreen> createState() => _OrderSummaryScreenState();
 }
 
 class _OrderSummaryScreenState extends ConsumerState<OrderSummaryScreen> {
+
+  late AddressState addressProviderRef;
+
   @override
   Widget build(BuildContext context) {
+    addressProviderRef = ref.watch(addressProvider);
+
+
     return SafeArea(
       child: Scaffold(
         appBar: _buildAppBar(),
@@ -152,6 +160,7 @@ class _OrderSummaryScreenState extends ConsumerState<OrderSummaryScreen> {
   }
 
   _buildAddressInfoCard() {
+    Address? address = addressProviderRef.address;
     return Container(
       width: double.maxFinite,
       padding: EdgeInsets.symmetric(horizontal: 22.h, vertical: 14.h),
@@ -169,7 +178,7 @@ class _OrderSummaryScreenState extends ConsumerState<OrderSummaryScreen> {
           Padding(
             padding: EdgeInsets.only(left: 4.h),
             child: Text(
-              widget.address.name??"",
+             address?.name??"",
               style: CustomTextStyle.titleMediumRoboto,
             ),
           ),
@@ -177,7 +186,7 @@ class _OrderSummaryScreenState extends ConsumerState<OrderSummaryScreen> {
           Padding(
             padding: EdgeInsets.only(left: 4.h),
             child: Text(
-              "${widget.address.street} \n${widget.address.city} \n\n${widget.address.phoneNumber}",
+              "${address?.street} \n${address?.city} \n\n${address?.phoneNumber}",
               style: CustomTextStyle.bodyMediumRoboto1,
               maxLines: 4,
               overflow: TextOverflow.ellipsis,

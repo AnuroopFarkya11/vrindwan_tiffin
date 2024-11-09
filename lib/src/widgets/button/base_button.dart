@@ -6,7 +6,7 @@ class BaseButton extends StatefulWidget {
   final Future<void> Function()? onPressedAsync;
   final ButtonStyle? buttonStyle;
   final TextStyle? buttonTextStyle;
-  final bool? isDisabled;
+  final bool isDisabled;
   final double? height;
   final double? width;
   final EdgeInsets? margin;
@@ -19,11 +19,12 @@ class BaseButton extends StatefulWidget {
     this.onPressedAsync,
     this.buttonStyle,
     this.buttonTextStyle,
-    this.isDisabled,
     this.height,
     this.width,
     this.margin,
     this.alignment,
+    this.isDisabled=false,
+
   }) : super(key: key);
 
   @override

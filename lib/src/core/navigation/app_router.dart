@@ -160,12 +160,9 @@ class AppRouter {
               path: AppRoutes.orderSummary.path,
               name: AppRoutes.orderSummary.name,
               pageBuilder: (context, state) {
-                Address address = state.extra as Address;
 
                 return CustomTransitionPage(
-                    child: OrderSummaryScreen(
-                      address: address,
-                    ),
+                    child: OrderSummaryScreen(),
                     transitionsBuilder:
                         AppTransitionBuilder.fadeTransitionRoute);
               }),
