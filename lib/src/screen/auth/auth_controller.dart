@@ -25,7 +25,11 @@ class AuthController extends ConsumerWidget {
       case AuthStatus.failed:
         {
           // todo Error screen
-          return Placeholder();
+          return Scaffold(
+            body: Center(
+              child: Text("Something went wrong"),
+            ),
+          );
         }
 
       default:

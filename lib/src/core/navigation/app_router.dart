@@ -33,7 +33,7 @@ class AppRouter {
     GoRoute(
         path: AppRoutes.auth.path,
         name: AppRoutes.auth.name,
-        builder: (context, state) => const UserMainScreen(),
+        builder: (context, state) => const AuthController(),
         routes: [
           /// Admin console
           GoRoute(

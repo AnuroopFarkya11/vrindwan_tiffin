@@ -36,8 +36,8 @@ class _AuthScreenState extends ConsumerState<AuthScreen> {
   @override
   void initState() {
     super.initState();
-    phoneTextEditingController.text = '9826337267';
-    passwordTextEditingController.text = 'Anuroop';
+    phoneTextEditingController.text = '8305048867';
+    passwordTextEditingController.text = 'Ram';
   }
 
 

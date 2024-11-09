@@ -1,16 +1,25 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:vrindavantiffin/src/core/logger/logger.dart';
 import 'package:vrindavantiffin/src/core/models/address_model.dart';
+import 'package:vrindavantiffin/src/screen/auth/provider/auth_provider.dart';
+import 'package:vrindavantiffin/src/screen/auth/state/auth_state.dart';
 import 'package:vrindavantiffin/src/screen/user/delivery/service/delivery_service.dart';
 import 'package:vrindavantiffin/src/screen/user/delivery/state/address_state.dart';
 
 final _logger = Logger('AddressProvider');
 
 final addressProvider = StateNotifierProvider<AddressProvider, AddressState>(
-    (ref) => AddressProvider());
+    (ref) {
+      AuthState state = ref.watch(authProvider);
+      return AddressProvider(state);
+    } );
 
 class AddressProvider extends StateNotifier<AddressState> {
-  AddressProvider() : super(AddressState(status: AddressStatus.initial));
+  AuthState authStateRef;
+
+  AddressProvider(this.authStateRef) : super(AddressState(status: AddressStatus.initial)){
+    getAddresses();
+  }
 
   final AddressService service = AddressService();
 
@@ -26,5 +35,11 @@ class AddressProvider extends StateNotifier<AddressState> {
       _logger.error(Exception("$e\n$s"));
       state = state.copyWith(status: AddressStatus.failed);
     }
+  }
+
+
+  Future<void> getAddresses()async{
+    List<Address> userAddress = authStateRef.user.addresses??[];
+    state = state.copyWith(addresses: userAddress);
   }
 }

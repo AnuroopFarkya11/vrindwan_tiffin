@@ -37,6 +37,7 @@ class _DeliveryAddressScreenState extends ConsumerState<DeliveryAddressScreen> {
   late AddressProvider addressProviderRef;
   late AddressState addressState;
   String? _selectedAddressId;
+  ScrollController scrollController = ScrollController();
 
   @override
   Widget build(BuildContext context) {
@@ -64,6 +65,7 @@ class _DeliveryAddressScreenState extends ConsumerState<DeliveryAddressScreen> {
     return SizedBox(
       width: double.maxFinite,
       child: SingleChildScrollView(
+        controller: scrollController,
         child: Padding(
           padding: 22.paddingHorizontal,
           child: Column(
@@ -72,13 +74,9 @@ class _DeliveryAddressScreenState extends ConsumerState<DeliveryAddressScreen> {
               12.space,
               _buildStepper(),
               24.space,
-
-
               _buildAddressList(),
               24.space,
               _buildAddNewAddress(),
-
-
               24.space
             ],
           ),
@@ -151,11 +149,13 @@ class _DeliveryAddressScreenState extends ConsumerState<DeliveryAddressScreen> {
   }
 
   _buildAddressList() {
-     List<Address> addresses = addressList.map((e){
-      return Address.fromJson(e);
-    }).toList();
+    //  List<Address> addresses = addressList.map((e){
+    //   return Address.fromJson(e);
+    // }).toList();
+    List<Address> addresses =  addressState.addresses??[];
 
     return ListView.builder(
+      controller: scrollController,
       shrinkWrap: true,
       itemCount: addresses.length,
       itemBuilder: (context, index) {

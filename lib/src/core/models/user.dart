@@ -1,3 +1,5 @@
+import 'package:vrindavantiffin/src/core/models/address_model.dart';
+
 /// uid : "1105021"
 /// name : "RamJI"
 /// userName : null
@@ -11,11 +13,28 @@
 /// updatedAt : "2024-10-08T20:17:49.219693439"
 
 class UserDB {
+
+
+
+  String? _uid;
+  String? _name;
+  dynamic _userName;
+  List<Address>? _addresses;
+  String? _phoneNumber;
+  String? _password;
+  String? _role;
+  dynamic _location;
+  List<dynamic>? _orderEntities;
+  String? _createdAt;
+  String? _updatedAt;
+
+
+
   UserDB({
     String? uid,
     String? name,
     dynamic userName,
-    dynamic address,
+    List<Address>? addresses,
     String? phoneNumber,
     String? password,
     String? role,
@@ -27,7 +46,7 @@ class UserDB {
     _uid = uid;
     _name = name;
     _userName = userName;
-    _address = address;
+    _addresses = addresses;
     _phoneNumber = phoneNumber;
     _password = password;
     _role = role;
@@ -37,11 +56,14 @@ class UserDB {
     _updatedAt = updatedAt;
   }
 
-  UserDB.fromJson(dynamic json) {
+  UserDB.fromJson(Map<String,dynamic> json) {
+
+    List<Address> addresses = List<Address>.from(json['addresses'].map((e)=>Address.fromJson(e)).toList());
+
     _uid = json['uid'];
     _name = json['name'];
     _userName = json['userName'];
-    _address = json['address'];
+    _addresses = addresses;
     _phoneNumber = json['phoneNumber'].toString();
     _password = json['password'];
     _role = json['role'];
@@ -56,23 +78,12 @@ class UserDB {
     _updatedAt = json['updatedAt'];
   }
 
-  String? _uid;
-  String? _name;
-  dynamic _userName;
-  dynamic _address;
-  String? _phoneNumber;
-  String? _password;
-  String? _role;
-  dynamic _location;
-  List<dynamic>? _orderEntities;
-  String? _createdAt;
-  String? _updatedAt;
 
   UserDB copyWith({
     String? uid,
     String? name,
     dynamic userName,
-    dynamic address,
+    List<Address>? addresses,
     String? phoneNumber,
     String? password,
     String? role,
@@ -85,7 +96,7 @@ class UserDB {
         uid: uid ?? _uid,
         name: name ?? _name,
         userName: userName ?? _userName,
-        address: address ?? _address,
+        addresses: addresses ?? _addresses,
         phoneNumber: phoneNumber ?? _phoneNumber,
         password: password ?? _password,
         role: role ?? _role,
@@ -101,7 +112,7 @@ class UserDB {
 
   dynamic get userName => _userName;
 
-  dynamic get address => _address;
+  List<Address>? get addresses => _addresses;
 
   String? get phoneNumber => _phoneNumber;
 
@@ -127,7 +138,7 @@ class UserDB {
     map['uid'] = _uid;
     map['name'] = _name;
     map['userName'] = _userName;
-    map['address'] = _address;
+    map['addresses'] = _addresses;
     map['phoneNumber'] = _phoneNumber;
     map['password'] = _password;
     map['role'] = _role;
@@ -148,8 +159,8 @@ class UserDB {
     _userName = value;
   }
 
-  set address(dynamic value) {
-    _address = value;
+  set addresses(List<Address>? value) {
+    _addresses = value??[];
   }
 
   set phoneNumber(String? value) {

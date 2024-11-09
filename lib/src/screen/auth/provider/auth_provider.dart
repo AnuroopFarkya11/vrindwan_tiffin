@@ -98,8 +98,9 @@ class AuthProvider extends StateNotifier<AuthState> {
       final user = await service.loginUser(username,password);
       state = state.copyWith(user: user);
       authenticate();
-    } on Exception catch (e) {
-      _logger.log('Exception while login: $e');
+    }catch (e,s) {
+      _logger.log('Exception while login: $e ||| $s');
+      state = state.copyWith(status: AuthStatus.failed);
     }
   }
 }
