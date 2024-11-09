@@ -42,7 +42,6 @@ class Sizer extends StatelessWidget {
       builder: (context, constraints) {
         return OrientationBuilder(
           builder: (context, orientation) {
-            log("Sizer invoked");
             SizeUtils.setScreenSize(constraints, orientation);
             return builder(context, orientation, SizeUtils.deviceType);
           },
@@ -74,7 +73,6 @@ class SizeUtils {
     BoxConstraints constraints,
     Orientation currentOrientation,
   ) {
-    log("setScreenSize INVOKED");
     boxConstraints = constraints;
     orientation = currentOrientation;
 
@@ -87,7 +85,6 @@ class SizeUtils {
           boxConstraints.maxHeight.isNonZero(defaultValue: FIGMA_DESIGN_WIDTH);
       height = boxConstraints.maxWidth.isNonZero();
     }
-    log("Width and height : w : $width and $height");
     deviceType = DeviceType.mobile;
   }
 }

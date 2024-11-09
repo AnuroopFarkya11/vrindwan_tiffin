@@ -29,10 +29,12 @@ class OrderSummaryScreen extends ConsumerStatefulWidget {
 class _OrderSummaryScreenState extends ConsumerState<OrderSummaryScreen> {
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: _buildAppBar(),
-      body: _buildBody(),
-      bottomNavigationBar: _buildRowContinue(),
+    return SafeArea(
+      child: Scaffold(
+        appBar: _buildAppBar(),
+        body: _buildBody(),
+        bottomNavigationBar: _buildRowContinue(),
+      ),
     );
   }
 

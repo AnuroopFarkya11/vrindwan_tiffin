@@ -238,6 +238,7 @@ class _HomeScreenState extends ConsumerState<DishScreen> {
     switch (cart) {
       case true:
         return InputQty(
+
           decoration: QtyDecorationProps(
             enabledBorder: InputBorder.none,
             plusBtn: Container(
@@ -274,7 +275,8 @@ class _HomeScreenState extends ConsumerState<DishScreen> {
                 cart = false;
               });
             }
-            cartProviderRef.placeItemToCart(widget.item, value);
+
+            cartProviderRef.placeItemToCart(widget.item, value.toInt());
 
           },
         );

@@ -3,6 +3,7 @@ import 'package:go_router/go_router.dart';
 import 'package:vrindavantiffin/src/core/models/address_model.dart';
 import 'package:vrindavantiffin/src/core/models/item_model.dart';
 import 'package:vrindavantiffin/src/core/navigation/app_routes.dart';
+import 'package:vrindavantiffin/src/core/navigation/transition_builder.dart';
 import 'package:vrindavantiffin/src/screen/admin/console/console_screen.dart';
 import 'package:vrindavantiffin/src/screen/admin/form/form_screen.dart';
 import 'package:vrindavantiffin/src/screen/admin/form/route/form_route.dart';
@@ -21,6 +22,7 @@ import 'package:vrindavantiffin/src/screen/user/dish/dish_view_screen.dart';
 import 'package:vrindavantiffin/src/screen/user/home/home_screen.dart';
 import 'package:vrindavantiffin/src/screen/user/order/order_placed_screen.dart';
 import 'package:vrindavantiffin/src/screen/user/order/order_summary_screen.dart';
+import 'package:vrindavantiffin/src/screen/user/order/order_tracking_screen.dart';
 import 'package:vrindavantiffin/src/screen/user/payment/payment_screen.dart';
 import 'package:vrindavantiffin/src/screen/user/user_main_screen.dart';
 
@@ -59,26 +61,8 @@ class AppRouter {
                     child: OtpScreenNew(
                       number: number,
                     ),
-                    transitionsBuilder: (BuildContext context,
-                        Animation<double> animation,
-                        Animation<double> secondaryAnimation,
-                        Widget child) {
-                      const begin = Offset(1.0, 0.0);
-                      const end = Offset.zero;
-                      const curve = Curves.ease;
-
-                      var tween = Tween(begin: begin, end: end)
-                          .chain(CurveTween(curve: curve));
-
-                      return SlideTransition(
-                        position: animation.drive(
-                            Tween(begin: Offset(0.0, 1.0), end: Offset.zero)),
-                        child: FadeTransition(
-                          opacity: animation,
-                          child: child,
-                        ),
-                      );
-                    });
+                    transitionsBuilder:
+                        AppTransitionBuilder.slideTransitionRoute);
                 // return OtpScreenNew();
               }),
 
@@ -93,20 +77,7 @@ class AppRouter {
                   child: OtpPinScreen(
                     number: number,
                   ),
-                  transitionsBuilder:
-                      (context, animation, secondaryAnimation, child) {
-                    const begin = Offset(1.0, 0.0);
-                    const end = Offset.zero;
-                    const curve = Curves.ease;
-
-                    var tween = Tween(begin: begin, end: end)
-                        .chain(CurveTween(curve: curve));
-
-                    return SlideTransition(
-                      position: animation.drive(tween),
-                      child: child,
-                    );
-                  },
+                  transitionsBuilder: AppTransitionBuilder.slideTransitionRoute,
                 );
                 // return OtpScreenNew();
               }),
@@ -118,20 +89,7 @@ class AppRouter {
               pageBuilder: (context, state) {
                 return CustomTransitionPage(
                   child: CreateNewPasswordScreen(),
-                  transitionsBuilder:
-                      (context, animation, secondaryAnimation, child) {
-                    const begin = Offset(1.0, 0.0);
-                    const end = Offset.zero;
-                    const curve = Curves.ease;
-
-                    var tween = Tween(begin: begin, end: end)
-                        .chain(CurveTween(curve: curve));
-
-                    return SlideTransition(
-                      position: animation.drive(tween),
-                      child: child,
-                    );
-                  },
+                  transitionsBuilder: AppTransitionBuilder.slideTransitionRoute,
                 );
                 // return OtpScreenNew();
               }),
@@ -147,7 +105,10 @@ class AppRouter {
           GoRoute(
               path: AppRoutes.cart.name,
               name: AppRoutes.cart.name,
-              builder: (context, state) => CartNewScreen()),
+              pageBuilder: (context, state) => CustomTransitionPage(
+                  child: CartNewScreen(),
+                  transitionsBuilder:
+                      AppTransitionBuilder.bottomTransitionRoute)),
 
           /// Payment Screen
           GoRoute(
@@ -168,16 +129,25 @@ class AppRouter {
           GoRoute(
               path: AppRoutes.dishList.path,
               name: AppRoutes.dishList.name,
-              builder: (context, state) {
+              pageBuilder: (context, state) {
                 String category = state.extra as String;
-                return DishListScreen(category: category,);
+                return CustomTransitionPage(
+                    child: DishListScreen(
+                      category: category,
+                    ),
+                    transitionsBuilder:
+                        AppTransitionBuilder.slideTransitionRoute);
+                // return ;
               }),
 
           /// Delivery Screen
           GoRoute(
               path: AppRoutes.delivery.path,
               name: AppRoutes.delivery.name,
-              builder: (context, state) => DeliveryAddressScreen()),
+              pageBuilder: (context, state) => CustomTransitionPage(
+                  child: DeliveryAddressScreen(),
+                  transitionsBuilder:
+                      AppTransitionBuilder.slideTransitionRoute)),
 
           /// Add Delivery Address Screen
           GoRoute(
@@ -189,9 +159,15 @@ class AppRouter {
           GoRoute(
               path: AppRoutes.orderSummary.path,
               name: AppRoutes.orderSummary.name,
-              builder: (context, state) {
+              pageBuilder: (context, state) {
                 Address address = state.extra as Address;
-                return OrderSummaryScreen(address: address,);
+
+                return CustomTransitionPage(
+                    child: OrderSummaryScreen(
+                      address: address,
+                    ),
+                    transitionsBuilder:
+                        AppTransitionBuilder.fadeTransitionRoute);
               }),
 
           /// Order Placed Screen
@@ -199,7 +175,6 @@ class AppRouter {
               path: AppRoutes.orderPlaced.path,
               name: AppRoutes.orderPlaced.name,
               builder: (context, state) => OrderPlacedScreen()),
-
         ]),
   ]);
 }

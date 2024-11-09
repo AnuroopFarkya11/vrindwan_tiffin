@@ -17,7 +17,9 @@ class DioClient {
   final _logger = Logger("DioClient");
 
   DioClient({required Dio dio}) : _dio = dio {
-    _dio.options.baseUrl = 'http://192.168.29.244:8080';
+
+    // _dio.options.baseUrl = 'http://192.168.29.101:8080';
+    _dio.options.baseUrl = 'http://15.206.195.96:8080';
     _dio.options.connectTimeout = const Duration(seconds: 30);
     _dio.options.receiveTimeout = const Duration(seconds: 30);
     _dio.options.headers = {
