@@ -35,7 +35,7 @@ class _ProfileSectionScreenState extends ConsumerState<ProfileSectionScreen> {
               padding: EdgeInsets.only(top: 22.h),
               child: Column(
                 children: [
-                  buildColumnAbhishek(context),
+                  buildUserProfileName(context),
                   SizedBox(height: 32.h),
                   Container(
                     width: double.maxFinite,
@@ -221,7 +221,7 @@ class _ProfileSectionScreenState extends ConsumerState<ProfileSectionScreen> {
     );
   }
 
-  Widget buildColumnAbhishek(BuildContext context) {
+  Widget buildUserProfileName(BuildContext context) {
     return Container(
       width: double.maxFinite,
       margin: EdgeInsets.symmetric(horizontal: 22.h),

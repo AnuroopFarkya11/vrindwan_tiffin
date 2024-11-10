@@ -4,7 +4,8 @@ import 'package:triton_extensions/triton_extensions.dart';
 import 'package:vrindavantiffin/src/screen/user/order/widget/order_status_step.dart';
 
 class OrderTracker extends StatefulWidget {
-  const OrderTracker({super.key});
+  final ScrollController scrollController;
+  const OrderTracker({super.key,required this.scrollController});
 
   @override
   State<OrderTracker> createState() => _OrderTrackerState();
@@ -15,9 +16,9 @@ class _OrderTrackerState extends State<OrderTracker> {
   // Current active step
   final List<OrderStep> _steps = [
     OrderStep("Order Placed", "We have received your order", Icons.check_box_outlined),
-    OrderStep("Payment Confirmed", "Awaiting confirmation", Icons.payment_outlined),
+    OrderStep("Waiting For Confirmation", "Awaiting confirmation", Icons.payment_outlined),
     OrderStep("Order Processed", "We are preparing your order", Icons.work_outline),
-    OrderStep("Ready to pickup", "Order #757578 from Tasty food", Icons.shopping_bag_outlined),
+    OrderStep("Out For Delivery", "Order #757578 from Tasty food", Icons.shopping_bag_outlined),
   ];
 
   void _nextStep() {
@@ -31,6 +32,8 @@ class _OrderTrackerState extends State<OrderTracker> {
   @override
   Widget build(BuildContext context) {
     return ListView.builder(
+      controller: widget.scrollController,
+      shrinkWrap: true,
       itemCount: _steps.length,
       itemBuilder: (context, index) {
         return OrderStatusStep(

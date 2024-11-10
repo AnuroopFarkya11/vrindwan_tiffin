@@ -45,6 +45,7 @@ class _DeliveryAddressScreenState extends ConsumerState<AddDeliveryAddressScreen
 
   @override
   Widget build(BuildContext context) {
+
     addressProviderRef = ref.read(addressProvider.notifier);
     addressState = ref.watch(addressProvider);
 
