@@ -28,7 +28,7 @@ class AddressProvider extends StateNotifier<AddressState> {
     state = state.copyWith(status: AddressStatus.loading);
     try {
       // TODO : Store address to local storage
-      // address = await service.addAddress(address: address);
+      address = await service.addAddress(address: address);
 
       state = state.copyWith(status: AddressStatus.loaded, address: address);
     } catch (e, s) {
@@ -43,11 +43,21 @@ class AddressProvider extends StateNotifier<AddressState> {
   }
 
   Future<void> selectAddress(String id) async {
-    Address? address = state.addresses
-        ?.firstWhere((e) => e.addressId == id);
+    Address? address = state.addresses?.firstWhere((e) => e.addressId == id);
     if (address != null) {
       state = state.copyWith(address: address);
     }
   }
 
+  Future<void> getUserLocation() async {
+    try {
+      Address? address = await service.getUserLocation();
+      if(address!=null)
+        {
+          state = state.copyWith(address: address,status: AddressStatus.loaded);
+        }
+    } on Exception catch(e) {
+      state = state.copyWith(status: AddressStatus.failed,message: e.toString());
+    }
+  }
 }

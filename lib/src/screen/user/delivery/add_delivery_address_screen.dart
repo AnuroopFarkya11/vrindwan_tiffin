@@ -38,10 +38,27 @@ class _DeliveryAddressScreenState extends ConsumerState<AddDeliveryAddressScreen
   late AddressState addressState;
   String? _selectedAddressId;
 
+  TextEditingController pinCodeController = TextEditingController();
+  TextEditingController stateController = TextEditingController();
+  TextEditingController cityController = TextEditingController();
+  TextEditingController houseNoController = TextEditingController();
+
   @override
   Widget build(BuildContext context) {
     addressProviderRef = ref.read(addressProvider.notifier);
     addressState = ref.watch(addressProvider);
+
+    if(addressState.status==AddressStatus.loaded){
+      pinCodeController.text = addressState.address?.postalCode??"";
+      stateController.text = addressState.address?.state??"";
+      cityController.text = addressState.address?.city??"";
+      houseNoController.text = addressState.address?.street??"";
+      address.country = addressState.address?.country??"";
+    }
+
+
+
+
     return SafeArea(
       child: Scaffold(
         appBar: _buildAppBar(),
@@ -140,6 +157,7 @@ class _DeliveryAddressScreenState extends ConsumerState<AddDeliveryAddressScreen
   _buildPinCodeField() {
     return Expanded(
       child: CustomTextFormField(
+        controller: pinCodeController,
         hintText: "Pincode*",
         textInputType: TextInputType.number,
         contentPadding: EdgeInsets.fromLTRB(18.h, 18.h, 18.h, 14.h),
@@ -161,7 +179,7 @@ class _DeliveryAddressScreenState extends ConsumerState<AddDeliveryAddressScreen
         child: CustomElevatedButton(
           height: 60.h,
           text: "Use My Location",
-          onPressed: () {},
+          onPressedAsync: addressProviderRef.getUserLocation,
           leftIcon: Container(
             margin: EdgeInsets.only(right: 6.h),
             child: CustomImageView(
@@ -189,6 +207,7 @@ class _DeliveryAddressScreenState extends ConsumerState<AddDeliveryAddressScreen
   _buildStateField() {
     return Expanded(
       child: CustomTextFormField(
+        controller: stateController,
           hintText: "State*",
           textInputType: TextInputType.text,
           contentPadding: EdgeInsets.fromLTRB(18.h, 18.h, 18.h, 14.h),
@@ -206,6 +225,7 @@ class _DeliveryAddressScreenState extends ConsumerState<AddDeliveryAddressScreen
   _buildCityField() {
     return Expanded(
       child: CustomTextFormField(
+        controller: cityController,
         hintText: "City*",
         textInputType: TextInputType.text,
         contentPadding: EdgeInsets.fromLTRB(18.h, 18.h, 18.h, 14.h),
@@ -225,6 +245,7 @@ class _DeliveryAddressScreenState extends ConsumerState<AddDeliveryAddressScreen
     return Padding(
       padding: EdgeInsets.only(right: 2.h),
       child: CustomTextFormField(
+        controller: houseNoController,
         hintText: "House No. Building Number*",
         textInputType: TextInputType.text,
         contentPadding: EdgeInsets.fromLTRB(14.h, 18.h, 14.h, 12.h),
@@ -268,7 +289,7 @@ class _DeliveryAddressScreenState extends ConsumerState<AddDeliveryAddressScreen
             address.country = "India";
             await addressProviderRef.addAddress(address);
             if (ref.watch(addressProvider).status == AddressStatus.loaded) {
-              context.pushNamed(AppRoutes.orderSummary.name,extra: address);
+              context.pushNamed(AppRoutes.orderSummary.name);
             }
           }
         },
