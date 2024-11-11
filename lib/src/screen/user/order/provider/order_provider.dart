@@ -49,8 +49,8 @@ class OrderProvider extends StateNotifier<OrderState> {
 
         _logger.log(order.toJson().toString());
 
-        await service.placeOrder(order: order);
-        state = state.copyWith(status: OrderStatus.loaded);
+        Order placedOrder = await service.placeOrder(order: order);
+        state = state.copyWith(status: OrderStatus.loaded,order: placedOrder);
       }
     } catch (e, s) {
       _logger.error(Exception("$e$s"));

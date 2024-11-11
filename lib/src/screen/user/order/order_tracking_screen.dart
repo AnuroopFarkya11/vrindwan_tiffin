@@ -1,26 +1,32 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:triton_extensions/triton_extensions.dart';
 import 'package:vrindavantiffin/src/core/models/address_model.dart';
 import 'package:vrindavantiffin/src/core/utils/size_utils.dart';
 import 'package:vrindavantiffin/src/screen/user/delivery/widget/address_card_info.dart';
+import 'package:vrindavantiffin/src/screen/user/order/provider/order_provider.dart';
+import 'package:vrindavantiffin/src/screen/user/order/state/order_state.dart';
 import 'package:vrindavantiffin/src/screen/user/order/widget/order_tracker.dart';
 import 'package:vrindavantiffin/src/shared/theme/custom_text_style.dart';
 import 'package:vrindavantiffin/src/shared/theme/cutom_button_style.dart';
 import 'package:vrindavantiffin/src/widgets/custom_elevated_button.dart';
 
-class OrderTrackingScreen extends StatefulWidget {
+class OrderTrackingScreen extends ConsumerStatefulWidget {
   const OrderTrackingScreen({Key? key}) : super(key: key);
 
   @override
-  State<OrderTrackingScreen> createState() => _OrderTrackingScreenState();
+  ConsumerState<OrderTrackingScreen> createState() => _OrderTrackingScreenState();
 }
 
-class _OrderTrackingScreenState extends State<OrderTrackingScreen> {
+class _OrderTrackingScreenState extends ConsumerState<OrderTrackingScreen> {
   ScrollController scrollController = ScrollController();
+
+  late OrderState orderState;
 
 
   @override
   Widget build(BuildContext context) {
+    orderState = ref.watch(orderProvider);
     return SafeArea(
       child: Scaffold(appBar: _buildAppBar(), body: _buildBody()),
     );
