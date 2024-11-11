@@ -13,7 +13,6 @@ import 'package:vrindavantiffin/src/screen/user/order/state/order_state.dart';
 
 final _logger = Logger("OrderProvider");
 
-
 final orderProvider = StateNotifierProvider<OrderProvider, OrderState>((ref) {
   final cartState = ref.watch(cartProvider);
   final addressState = ref.watch(addressProvider);
@@ -38,10 +37,8 @@ class OrderProvider extends StateNotifier<OrderState> {
         Address address = addressState.address!;
         double total = cartState.total!;
 
-
         _logger.log("Entries : ${entries[0].toJson()}");
         _logger.log("Address : ${address.toJson()}");
-
 
         Order order = Order(
             foodItems: entries,
@@ -52,18 +49,36 @@ class OrderProvider extends StateNotifier<OrderState> {
 
         _logger.log(order.toJson().toString());
 
-
         await service.placeOrder(order: order);
         state = state.copyWith(status: OrderStatus.loaded);
       }
-    } catch (e,s) {
+    } catch (e, s) {
       _logger.error(Exception("$e$s"));
       state = state.copyWith(status: OrderStatus.failed, message: e.toString());
     }
   }
 
-  void changeState(){
-    state = state.copyWith(status: OrderStatus.loaded);
+  Future<void> getListOfOrders() async {
+    state = state.copyWith(status: OrderStatus.loading);
+    try {
+      List<Order> orders = await service.getOrderList();
+      state = state.copyWith(status: OrderStatus.loaded, orders: orders);
+    } on Exception catch (e) {
+      state = state.copyWith(status: OrderStatus.failed, message: e.toString());
+    }
   }
 
+  Future<void> getOrderById({required String id}) async {
+    try {
+      state = state.copyWith(status: OrderStatus.loading);
+      Order order = await service.getOrderById(id: id);
+      state = state.copyWith(status: OrderStatus.loaded, order: order);
+    } on Exception catch (e) {
+      state = state.copyWith(status: OrderStatus.failed, message: e.toString());
+    }
+  }
+
+  void changeState() {
+    state = state.copyWith(status: OrderStatus.loaded);
+  }
 }

@@ -33,7 +33,7 @@ class AppRouter {
     GoRoute(
         path: AppRoutes.auth.path,
         name: AppRoutes.auth.name,
-        builder: (context, state) => const OrderTrackingScreen(),
+        builder: (context, state) => const OrderPlacedScreen(),
         routes: [
           /// Admin console
           GoRoute(
@@ -172,6 +172,13 @@ class AppRouter {
               path: AppRoutes.orderPlaced.path,
               name: AppRoutes.orderPlaced.name,
               builder: (context, state) => OrderPlacedScreen()),
+          /// Order Tracking Screen
+          GoRoute(
+              path: AppRoutes.orderTrack.path,
+              name: AppRoutes.orderTrack.name,
+              builder: (context, state) => OrderTrackingScreen()),
+
+
         ]),
   ]);
 }

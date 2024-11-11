@@ -28,6 +28,8 @@ class _OrderTrackingScreenState extends State<OrderTrackingScreen> {
 
   _buildAppBar() {
     return AppBar(
+      backgroundColor: Colors.transparent,
+      elevation: 0,
       title: Text(
         'Track Order',
         style: CustomTextStyle.headlineMediumPrimaryBold,
@@ -95,6 +97,8 @@ class _OrderTrackingScreenState extends State<OrderTrackingScreen> {
   }
 
   _buildCancelOrderBtn() {
-    return CustomElevatedButton(text: "Cancel Order",buttonStyle: CustomButtonStyles.fillOrangeATL10,);
+    return CustomElevatedButton(text: "Cancel Order",buttonStyle: CustomButtonStyles.fillOrangeATL10,margin: EdgeInsets.only(left: 50.h, right: 56.h),);
   }
 }
+
+
