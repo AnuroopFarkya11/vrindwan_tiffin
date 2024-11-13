@@ -6,20 +6,23 @@ class HomeState {
   HomeStatus status;
   List<FoodItem>? items;
   Map<String, List<FoodItem>>? categoricalItems;
+  Map<String, List<FoodItem>>? taggedItems;
   String? message;
 
   HomeState(
-      {required this.status, this.items, this.categoricalItems, this.message});
+      {required this.status, this.items, this.categoricalItems,this.taggedItems, this.message});
 
   HomeState copyWith(
       {HomeStatus? status,
       List<FoodItem>? items,
       Map<String, List<FoodItem>>? categoricalItems,
+      Map<String, List<FoodItem>>? taggedItems,
       String? message}) {
     return HomeState(
         status: status ?? this.status,
         items: items ?? this.items,
         categoricalItems: categoricalItems ?? this.categoricalItems,
+        taggedItems: taggedItems ?? this.taggedItems,
         message: message ?? this.message);
   }
 }

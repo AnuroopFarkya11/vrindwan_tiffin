@@ -45,7 +45,7 @@ class AddressProvider extends StateNotifier<AddressState> {
   Future<void> selectAddress(String id) async {
     Address? address = state.addresses?.firstWhere((e) => e.addressId == id);
     if (address != null) {
-      state = state.copyWith(address: address);
+      state = state.copyWith(address: address,status: AddressStatus.loaded);
     }
   }
 

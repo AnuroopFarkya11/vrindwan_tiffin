@@ -284,7 +284,9 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
   }
 
   _getPopularDish() {
-    return Padding(
+    List<FoodItem> popularTaggedItems = home.taggedItems?["popular"]??[];
+
+    return popularTaggedItems.isNotEmpty?Padding(
       padding: const EdgeInsets.only(right: 22),
       child: Column(
         children: [
@@ -310,15 +312,15 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
               controller: scrollController,
               shrinkWrap: true,
               itemBuilder: (context, index) {
-                return FoodCardTwo(item: FoodItem(),);
+                return FoodCardTwo(item: popularTaggedItems[index],);
               },
               separatorBuilder: (context, index) {
                 return 20.space;
               },
-              itemCount: 3)
+              itemCount: popularTaggedItems.length)
         ],
       ),
-    );
+    ):SizedBox.shrink();
   }
 
   /// Section Widget

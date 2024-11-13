@@ -30,8 +30,15 @@ class HomeProvider extends StateNotifier<HomeState> {
       List<FoodItem> items = await service.fetchItems();
       _logger.log('Items fetched: ${items.length}');
       var categoricalItems = _getItemWithCategory(items);
+      var taggedItems = _getItemWithTagging(items);
       _logger.log("Categorical items : ${categoricalItems}");
-      state = state.copyWith(status: HomeStatus.loaded, items: items,categoricalItems: categoricalItems);
+      _logger.log("Tagged items : ${taggedItems}");
+      state = state.copyWith(
+          status: HomeStatus.loaded,
+          items: items,
+          categoricalItems: categoricalItems,
+        taggedItems: taggedItems
+      );
     } catch (e) {
       _logger.log("getItems exceptions : $e");
       state = state.copyWith(status: HomeStatus.failed, message: e.toString());
@@ -62,5 +69,30 @@ class HomeProvider extends StateNotifier<HomeState> {
     });
 
     return categoricalItems;
+  }
+
+  Map<String, List<FoodItem>> _getItemWithTagging(List<FoodItem> list) {
+    Map<String, List<FoodItem>> taggedItems = {};
+
+    if (list == null || list.isEmpty) {
+      return taggedItems;
+    }
+
+    list.forEach((item) {
+      List<String> tags = item.tags ?? [];
+      if (tags.isNotEmpty) {
+        tags.forEach((tag) {
+          if (taggedItems.containsKey(tag)) {
+            taggedItems[tag]?.add(item);
+          } else {
+            taggedItems[tag] = [item];
+          }
+        });
+      } else {
+        _logger.log("Item has a null tags: ${item.name}");
+      }
+    });
+
+    return taggedItems;
   }
 }

@@ -185,6 +185,7 @@ class _DeliveryAddressScreenState extends ConsumerState<DeliveryAddressScreen> {
             text: "CONTINUE".toUpperCase(),
             isDisabled: _selectedAddressId==null,
             onPressed: (){
+              addressProviderRef.selectAddress(_selectedAddressId??"");
               context.pushNamed(AppRoutes.orderSummary.name);
             },
             // onPressedAsync: null,

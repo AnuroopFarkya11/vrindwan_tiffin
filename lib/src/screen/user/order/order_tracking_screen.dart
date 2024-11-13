@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:triton_extensions/triton_extensions.dart';
 import 'package:vrindavantiffin/src/core/models/address_model.dart';
+import 'package:vrindavantiffin/src/core/utils/date_time_util.dart';
 import 'package:vrindavantiffin/src/core/utils/size_utils.dart';
 import 'package:vrindavantiffin/src/screen/user/delivery/widget/address_card_info.dart';
 import 'package:vrindavantiffin/src/screen/user/order/provider/order_provider.dart';
@@ -56,7 +57,7 @@ class _OrderTrackingScreenState extends ConsumerState<OrderTrackingScreen> {
               children: [
                 _buildDate(),
                 15.space,
-                _buildIDandAmt(),
+                _buildIDAndAmt(),
               ],
             ),
           ),
@@ -84,13 +85,14 @@ class _OrderTrackingScreenState extends ConsumerState<OrderTrackingScreen> {
   }
 
   _buildDate() {
-    return Text("Wed, 28 Oct",style: CustomTextStyle.titleSmallProximaNovaBlueGray80002,);
+    String time = DateTimeUtils.formatToDayMonth(orderState.order?.ordTime??DateTime.now());
+    return Text(time,style: CustomTextStyle.titleSmallProximaNovaBlueGray80002,);
   }
 
-  _buildIDandAmt() {
+  _buildIDAndAmt() {
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
-      children: [Text('Order ID: 12324',style: CustomTextStyle.titleSmallProximaNovaBlueGray80002,), Text("AMT: Rs. 123",style: CustomTextStyle.titleSmallProximaNovaBlueGray80002,)],
+      children: [Text('Order ID: ${orderState.order?.ordId??"-"}',style: CustomTextStyle.titleSmallProximaNovaBlueGray80002,), Text("AMT: Rs. ${orderState.order?.totalAmount??0}",style: CustomTextStyle.titleSmallProximaNovaBlueGray80002,)],
     );
   }
 
@@ -99,7 +101,7 @@ class _OrderTrackingScreenState extends ConsumerState<OrderTrackingScreen> {
   }
 
   _buildAddressCard() {
-    return AddressCardWithArrow(address: Address());
+    return AddressCardWithArrow(address: orderState.order?.deliveryAddress??Address());
   }
 
   _buildCancelOrderBtn() {
