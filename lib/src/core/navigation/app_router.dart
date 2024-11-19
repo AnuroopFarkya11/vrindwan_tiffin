@@ -20,6 +20,7 @@ import 'package:vrindavantiffin/src/screen/user/delivery/delivery_address.dart';
 import 'package:vrindavantiffin/src/screen/user/dish/dish_list_screen.dart';
 import 'package:vrindavantiffin/src/screen/user/dish/dish_view_screen.dart';
 import 'package:vrindavantiffin/src/screen/user/home/home_screen.dart';
+import 'package:vrindavantiffin/src/screen/user/order/order_history_screen.dart';
 import 'package:vrindavantiffin/src/screen/user/order/order_placed_screen.dart';
 import 'package:vrindavantiffin/src/screen/user/order/order_summary_screen.dart';
 import 'package:vrindavantiffin/src/screen/user/order/order_tracking_screen.dart';
@@ -177,6 +178,11 @@ class AppRouter {
               path: AppRoutes.orderTrack.path,
               name: AppRoutes.orderTrack.name,
               builder: (context, state) => OrderTrackingScreen()),
+          /// Order History Screen
+          GoRoute(
+              path: AppRoutes.orderHistory.path,
+              name: AppRoutes.orderHistory.name,
+              builder: (context, state) => OrderHistoryScreen())
 
 
         ]),

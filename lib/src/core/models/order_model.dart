@@ -2,7 +2,7 @@ import 'package:vrindavantiffin/src/core/models/address_model.dart';
 import 'package:vrindavantiffin/src/core/models/item_model.dart';
 import 'package:vrindavantiffin/src/screen/user/cart/model/cart_entry.dart';
 class Order {
-  String? ordId;
+  int? ordId;
   List<CartEntry>? foodItems;
   double? totalAmount;
   Address? deliveryAddress;

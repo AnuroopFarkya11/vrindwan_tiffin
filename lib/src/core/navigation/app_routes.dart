@@ -13,6 +13,7 @@ enum AppRoutes{
   orderSummary('orderSummary','orderSummary'),
   orderPlaced('orderPlaced','orderPlaced'),
   orderTrack('orderTrack','orderTrack'),
+  orderHistory('orderHistory','orderHistory'),
   dish('dish','dish'),
   dishList('dishList','dishList')
 
