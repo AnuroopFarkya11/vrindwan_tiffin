@@ -1,6 +1,7 @@
 # vrindawantiffinapp
 
 A new Flutter project.
+![DabbaMate](https://github.com/user-attachments/assets/e874ba11-c211-45a4-8aa0-af924b024c33)
 
 ## Getting Started
 
